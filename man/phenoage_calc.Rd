@@ -4,12 +4,16 @@
 \alias{phenoage_calc}
 \title{phenoage_calc}
 \usage{
-phenoage_calc(data, age, biomarkers, fit = NULL)
+phenoage_calc(data, age, time, status, biomarkers, fit = NULL)
 }
 \arguments{
 \item{data}{The dataset for calculating phenoage}
 
 \item{age}{A character vector (length=1) indicating the name of the variable for age}
+
+\item{time}{A character vector (length=1) indicating the name of the variable for survival time}
+
+\item{status}{A character vector (length=1) indicating the name of the variable for death status}
 
 \item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
 

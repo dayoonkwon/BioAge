@@ -33,7 +33,7 @@ bioage_calc = function (data, age, biomarkers, fit = NULL, s_ba2 = NULL) {
   bm = biomarkers
   bm_dat = t(select(dat, bm))
 
-  rm(data); rm(age); rm(biomarkers)
+  rm(age); rm(biomarkers)
 
   if (is.null(fit)) {
 
@@ -100,8 +100,8 @@ bioage_calc = function (data, age, biomarkers, fit = NULL, s_ba2 = NULL) {
   dat$bioage_residual = residuals(lm(bioage ~ age, data = dat, na.action = "na.exclude"))
 
   fit = list(lm_age = lm_age, s_r = s_r, s_ba2 = s_ba2, s2 = s2, nobs = nobs)
-  bioage = list(data = dat, fit = fit)
 
+  bioage = list(data = dat, fit = fit)
   class(bioage) = append(class(bioage), "bioage")
   return(bioage)
 
