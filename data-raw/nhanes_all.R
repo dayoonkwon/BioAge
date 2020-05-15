@@ -880,6 +880,8 @@ nhanes3_male = nhanes3 %>%
 train_fem = bioage_calc(nhanes3_fem, age, biomarkers, fit = NULL, s_ba2 = NULL)
 train_male = bioage_calc(nhanes3_male, age, biomarkers, fit = NULL, s_ba2 = NULL)
 
+train = rbind(train_fem$data, train_male$data)
+
 nhanes = NHANES_ALL %>%
   filter(wave>0 & wave<11 & pregnant==0)
 
@@ -895,44 +897,51 @@ nhanes_male = nhanes %>%
 
 test_fem = bioage_calc(nhanes_fem, age, biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
 test_male = bioage_calc(nhanes_male, age, biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
-kdm = rbind(test_fem$data, test_male$data)
+test = rbind(test_fem$data, test_male$data)
+result = rbind(train,test)
 
-NHANES_ALL <- left_join(NHANES_ALL,kdm[,c("seqn","year","bioage","bioage_advance","bioage_residual")],by=c("seqn","year"))
+NHANES_ALL <- left_join(NHANES_ALL,result[,c("seqn","year","bioage","bioage_advance","bioage_residual")],by=c("seqn","year"))
 
 # Calculate Phenoage ------------------------------------------------------
-biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc")
 nhanes3 = NHANES_ALL %>%
-  filter(wave==0 & age>=20 & age<=84)
+  filter(wave==0 & age>=20 & age<=84 & phpfast>=8) %>%
+  group_by(gender) %>%
+  mutate_at(vars(albumin_gL,creat_umol,glucose_mmol,lncrp,lymph,mcv,rdw,alp,wbc), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+  ungroup()
 
-nhanes3_fem = nhanes3 %>%
-  filter(gender == 2) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
-nhanes3_male = nhanes3 %>%
-  filter(gender == 1) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
-
-train_fem = phenoage_calc(nhanes3_fem, age, biomarkers, fit = NULL)
-train_male = phenoage_calc(nhanes3_male, age, biomarkers, fit = NULL)
+xb = -19.90667+(-0.03359355*nhanes3$albumin_gL)+(0.009506491*nhanes3$creat_umol)+(0.1953192*nhanes3$glucose_mmol)+
+  (0.09536762*nhanes3$lncrp)+(-0.01199984*nhanes3$lymph)+(0.02676401*nhanes3$mcv)+(0.3306156*nhanes3$rdw)+
+  (0.001868778*nhanes3$alp)+(0.05542406*nhanes3$wbc)+(0.08035356*nhanes3$age)
+m = 1-(exp((-1.51714*exp(xb))/0.007692696))
+nhanes3$phenoage = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
 
 nhanes = NHANES_ALL %>%
-  filter(wave>0 & wave<11)
+  filter(wave>0 & wave<11) %>%
+  group_by(gender) %>%
+  mutate_at(vars(albumin_gL,creat_umol,glucose_mmol,lncrp,lymph,mcv,rdw,alp,wbc), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+                                                                                                (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+  ungroup()
 
-nhanes_fem = nhanes %>%
-  filter(gender == 2) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
+xb = -19.90667+(-0.03359355*nhanes$albumin_gL)+(0.009506491*nhanes$creat_umol)+(0.1953192*nhanes$glucose_mmol)+
+  (0.09536762*nhanes$lncrp)+(-0.01199984*nhanes$lymph)+(0.02676401*nhanes$mcv)+(0.3306156*nhanes$rdw)+
+  (0.001868778*nhanes$alp)+(0.05542406*nhanes$wbc)+(0.08035356*nhanes$age)
+m = 1-(exp((-1.51714*exp(xb))/0.007692696))
+nhanes$phenoage = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
 
-nhanes_male = nhanes %>%
-  filter(gender == 1) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. <(mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
+result = rbind(nhanes,nhanes3)
 
-test_fem = phenoage_calc(nhanes_fem, age, biomarkers, fit = train_fem$fit)
-test_male = phenoage_calc(nhanes_male, age, biomarkers, fit = train_male$fit)
-levine = rbind(test_fem$data, test_male$data)
+NHANES_ALL <- left_join(NHANES_ALL,result[,c("seqn","year","phenoage")],by=c("seqn","year"))
+NHANES_ALL$phenoage_advance <- NHANES_ALL$phenoage-NHANES_ALL$age
+NHANES_ALL$phenoage_residual <- residuals(lm(phenoage ~ age, data=NHANES_ALL, na.action = "na.exclude"))
 
-NHANES_ALL <- left_join(NHANES_ALL,levine[,c("seqn","year","phenoage","phenoage_advance","phenoage_residual")],by=c("seqn","year"))
+NHANES_ALL <- NHANES_ALL%>%rename_at(vars(bioage:phenoage_residual),function(x) paste0(x,"0"))
+
+#graph
+ggplot2::ggplot(NHANES_ALL, ggplot2::aes(x=age,y=bioage0,group=as.factor(year),colour=as.factor(gender)))+
+  ggplot2::geom_point(shape=1)+
+  ggplot2::geom_smooth(method=lm,color="white",linetype = "dashed",size=1)+
+  ggplot2::facet_wrap(~as.factor(wave),scales="free")+
+  ggplot2::scale_color_manual(values=c("#7294D4","#E6A0C4"),name="Gender",labels=c("Men","Women"))
 
 usethis::use_data(NHANES_ALL, overwrite = TRUE, internal=TRUE)
