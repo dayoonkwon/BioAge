@@ -1,5 +1,6 @@
 ## code to prepare `DATASET` dataset goes here
 library(RNHANES)
+library(plyr)
 library(dplyr)
 
 # NHANES 1999-2018 --------------------------------------------------------
@@ -680,8 +681,6 @@ NHANES_MORT <- lapply(NHANES_MORT,function(x){
 NHANES_MORT <- bind_rows(NHANES_MORT)
 
 # Combine all datasets ----------------------------------------------------
-library(plyr)
-
 NHANES_COMPLETE <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
   full_join(.,BMI_ALL,by="seqn") %>%
   full_join(.,BIX_ALL,by="seqn") %>%
@@ -945,3 +944,4 @@ ggplot2::ggplot(NHANES_ALL, ggplot2::aes(x=age,y=bioage0,group=as.factor(year),c
   ggplot2::scale_color_manual(values=c("#7294D4","#E6A0C4"),name="Gender",labels=c("Men","Women"))
 
 usethis::use_data(NHANES_ALL, overwrite = TRUE, internal=TRUE)
+
