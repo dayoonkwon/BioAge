@@ -37,7 +37,7 @@ hd_calc = function(data, reference, biomarkers){
   dat = na.omit(dat)
   ref = na.omit(ref)
 
-  if(nrow(ref)==1){
+  if(nrow(ref) == 1){
     warning("The reference matrix must have more than one row")
   }
 
@@ -48,7 +48,7 @@ hd_calc = function(data, reference, biomarkers){
 
   }
 
-  if(nrow(dat)==1){
+  if(nrow(dat) == 1){
     warning("The function does not work with single-row data")
   }
 
@@ -72,8 +72,8 @@ hd_calc = function(data, reference, biomarkers){
   nobs = sum(!is.na(dat$hd))
 
   dat = left_join(data, dat[,c("seqn","year","hd","hd_log")], by = c("seqn","year"))
-  fit = list(mcov=means, cov_mat = cv_mat, nobs=nobs)
-  hd = list(data=dat,fit=fit)
+  fit = list(mcov = means, cov_mat = cv_mat, nobs = nobs)
+  hd = list(data = dat,fit = fit)
 
   class(hd) = append(class(hd),'hd')
   return(hd)
