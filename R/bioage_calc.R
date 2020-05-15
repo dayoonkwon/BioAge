@@ -29,7 +29,7 @@
 bioage_calc = function (data, age, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   dat = data
-  dat$age = dat[, age]
+  dat$age = unlist(dat[, age])
   bm = biomarkers
   bm_dat = t(select(dat, bm))
 

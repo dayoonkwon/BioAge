@@ -32,12 +32,13 @@ form = function(x, y, z){
 #'
 #'
 #' @export
+#' @importFrom flexsurv flexsurvreg
 
 
 phenoage_calc = function (data, age, time, status, biomarkers, fit = NULL) {
 
   dat = data
-  dat$age = dat[, age]
+  dat$age = unlist(dat[, age])
 
   bm = c(biomarkers, age)
   bm_dat = t(select(dat, bm))
@@ -48,7 +49,7 @@ phenoage_calc = function (data, age, time, status, biomarkers, fit = NULL) {
   #calculate  modified Levine's method
   if (is.null(fit)) {
 
-    gom = flexsurv::flexsurvreg(form(time, status, bm_name), data = dat, dist = "gompertz")
+    gom = flexsurvreg(form(time, status, bm_name), data = dat, dist = "gompertz")
     coef = as.data.frame(gom$coefficients)
     colnames(coef) = "coef"
     rm(gom)
@@ -68,7 +69,7 @@ phenoage_calc = function (data, age, time, status, biomarkers, fit = NULL) {
     m_d = coef[1,]
     m = 1 - exp((m_n * exp(xb)) / m_d)
 
-    gom_age = flexsurv::flexsurvreg(form(time, status, age), data = dat, dist="gompertz")
+    gom_age = flexsurvreg(form(time, status, age), data = dat, dist="gompertz")
     coef_age = as.data.frame(gom_age$coefficients)
     colnames(coef_age) = "coef"
     rm(gom_age)

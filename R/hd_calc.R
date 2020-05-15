@@ -16,6 +16,7 @@
 #'
 #'
 #' @export
+#' @import dplyr
 
 hd_calc = function(data, reference, biomarkers){
 
@@ -63,7 +64,7 @@ hd_calc = function(data, reference, biomarkers){
   }
 
   dat = data %>%
-    dplyr::select(seqn,year,biomarkers) %>%
+    select(seqn,year,biomarkers) %>%
     na.omit()
 
   dat$hd <- hd/sd(hd)
