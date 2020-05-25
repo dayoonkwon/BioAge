@@ -13,10 +13,10 @@ bioage_nhanes(biomarkers)
 An object of class "bioage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Klemera-Doubal Method (KDM) Biological Age Using NHANES Dataset
+Calculate Klemera-Doubal Method (KDM) biological age using NHANES dataset
 }
 \details{
-Calculate Klemera-Doubal Method Biological Age Using NHANES Dataset
+Calculate KDM biological age using NHANES dataset
 }
 \examples{
 #Calculate KDM bioage

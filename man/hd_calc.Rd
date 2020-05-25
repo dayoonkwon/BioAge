@@ -17,10 +17,10 @@ hd_calc(data, reference, biomarkers)
 An object of class "hd". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Homeostatic Dysregulation (HD)
+Calculate homeostatic dysregulation (HD)
 }
 \details{
-Calculate Homeostatic Dysregulation
+Calculate HD
 }
 \examples{
 #Calculate HD

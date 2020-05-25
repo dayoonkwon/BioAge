@@ -7,13 +7,13 @@
 bioage_calc(data, age, biomarkers, fit = NULL, s_ba2 = NULL)
 }
 \arguments{
-\item{data}{The dataset for calculating bioage}
+\item{data}{The dataset for calculating KDM bioage}
 
-\item{age}{A character vector (length=1) indicating the name of the variable for age}
+\item{age}{A character vector (length=1) indicating the name of the variable for chronological age}
 
-\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating bioage}
+\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating KDM bioage}
 
-\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training bioage are calculated}
+\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM bioage are calculated}
 
 \item{s_ba2}{A particular fit parameter. Advanced users can modify this parameter to control the variance of bioage}
 }
@@ -21,21 +21,21 @@ bioage_calc(data, age, biomarkers, fit = NULL, s_ba2 = NULL)
 An object of class "bioage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Klemera-Doubal Method Biological Age
+Calculate Klemera-Doubal Method (KDM) biological age
 }
 \details{
-Calculate Klemera-Doubal Method Biological Age
+Calculate KDM biological age
 }
 \examples{
 #Train KDM bioage parameters
 train = bioage_calc(nhanes3,age="age",
-                 biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
+                    biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 
 #Use training data to calculate KDM bioage
 bioage = bioage_calc(nhanes,age="age",
-                       biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
-                       fit=train$fit,
-                       s_ba2=train$fit$s_ba2)
+                     biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
+                     fit=train$fit,
+                     s_ba2=train$fit$s_ba2)
 
 #Extract bioage dataset
 data = bioage$data

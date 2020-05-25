@@ -4,22 +4,25 @@
 \alias{plot_ba}
 \title{plot_ba}
 \usage{
-plot_ba(data, variables)
+plot_ba(data, agevar)
 }
 \arguments{
 \item{data}{The dataset for plotting correlations}
 
-\item{variables}{A character vector indicating the names of the biological aging measures}
+\item{agevar}{A character vector indicating the names of the biological aging measures}
 }
 \description{
-Plot Correlations Between Biological Aging Measures and Chronological Age
+Plot correlations between biological aging measures and chronological age
 }
 \details{
-Plot Correlations Between Biological Aging Measures and Chronological Age
+Plot correlations between biological aging measures and chronological age
+}
+\note{
+Chronological age and gender variables need to be named "age" and "gender"
 }
 \examples{
 #Calculate phenoage
-f1 = plot_ba(data = data, variables = c("bioage", "phenoage", "hd"))
+f1 = plot_ba(data = data, agevar = c("bioage", "phenoage", "hd"))
 
 f1
 

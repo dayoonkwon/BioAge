@@ -13,10 +13,10 @@ hd_nhanes(biomarkers)
 An object of class "hd". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Homeostatic Dysregulation (HD) Using NHANES Dataset
+Calculate homeostatic dysregulation (HD) using NHANES dataset
 }
 \details{
-Calculate Homeostatic Dysregulation Using NHANES Dataset
+Calculate HD using NHANES dataset
 }
 \examples{
 #Calculate HD

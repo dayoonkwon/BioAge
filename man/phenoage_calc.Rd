@@ -9,11 +9,11 @@ phenoage_calc(data, age, time, status, biomarkers, fit = NULL)
 \arguments{
 \item{data}{The dataset for calculating phenoage}
 
-\item{age}{A character vector (length=1) indicating the name of the variable for age}
+\item{age}{A character vector (length=1) indicating the name of the variable for chronological age}
 
 \item{time}{A character vector (length=1) indicating the name of the variable for survival time}
 
-\item{status}{A character vector (length=1) indicating the name of the variable for death status}
+\item{status}{A character vector (length=1) indicating the name of the variable for survival status}
 
 \item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
 
@@ -23,19 +23,21 @@ phenoage_calc(data, age, time, status, biomarkers, fit = NULL)
 An object of class "phenoage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Levine's Phenotypic Age
+Calculate Levine's phenotypic age
 }
 \details{
-Calculate Levine's Phenotypic Age
+Calculate phenotypic age
 }
 \examples{
 #Train phenoage parameters
 train = phenoage_calc(nhanes3,age="age",
-                      biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"))
+                      biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+                      "rdw","creat_umol","lncrp","alp","wbc"))
 
 #Use training data to calculate phenoage
 phenoage = phenoage_calc(nhanes,age="age",
-                         biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"),
+                         biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+                         "rdw","creat_umol","lncrp","alp","wbc"),
                          fit=train$fit)
 
 #Extract phenoage dataset
