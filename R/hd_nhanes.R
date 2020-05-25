@@ -1,7 +1,33 @@
-#' Calculate Homeostatic Dysregulation Using NHANES Dataset
+#develop training fit for homeostatic dysregulation (hd)
+#theoretically the distance between observations
+#hypothetically healthy and young cohort
+
+#train seperately for men and women who are between thes of 20 and 30
+#biomarker data within clinically acceptable distributions
+
+#|Variable | Description | Female Healthy Range| Male Healthy Range|
+#|:------- | :---------- | :------------------ | :-----------------|
+#|seqn | Unique individual identifier||
+#|gender | gender (1=male; 2=female)||
+#|**Biomarkers**||
+#|albumin | Albumin (g/dL) | 3.5-5 | 3.5-5|
+#|alp | Alkaline Phosphate (U/L) | 37-98 | 45-115|
+#|bun  |Blood Urea Nitrogen (mg/dL) | 6-21 | 8-24|
+#|creat | Creatinine (mg/dL) | 0.6-1.1 | 0.8-1.3|
+#|lncreat | Creatinine (log) | log(0.6)-log(1.1) |log(0.8)-log(1.3)|
+#|crp | CRP (mg/dL) | < 2 | < 2|
+#|lncrp | CRP (log) | < log(2) | < log(2)|
+#|hba1c | Glycalated Hemoglobin (%) | 4-5.6 | 4-5.6|
+#|lymph |Lymphocite Percent (%) | 20-40 | 20-40|
+#|wbc | White Blood Cell Count (1000 cells/uL)| 4.5-11 | 4.5-11|
+#|uap | Uric Acid (mg/dL)| 2.7-6.3 | 3.7-8.0|
+#|sbp | Systolic Blood Pressure | < 120 | < 120|
+#|totchol | Total Cholesterol (mg/dL) | <200 | <200|
+
+#' Calculate HD using NHANES dataset
 #'
 #' @title hd_nhanes
-#' @description Calculate Homeostatic Dysregulation (HD) Using NHANES Dataset
+#' @description Calculate homeostatic dysregulation (HD) using NHANES dataset
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating HD
 #' @return An object of class "hd". This object is a list with two elements (data and fit)
 #' @examples

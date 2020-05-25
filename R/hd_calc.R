@@ -1,7 +1,7 @@
-#' Calculate Homeostatic Dysregulation
+#' Calculate HD
 #'
 #' @title hd_calc
-#' @description Calculate Homeostatic Dysregulation (HD)
+#' @description Calculate homeostatic dysregulation (HD)
 #' @param data The dataset for calculating HD
 #' @param reference The reference dataset for calculating HD
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating HD

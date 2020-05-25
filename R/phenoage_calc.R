@@ -1,30 +1,32 @@
 #builds a formula
-form = function(x, y, z){
+surv_form = function(x, y, z){
 
-  return(as.formula(paste0("survival::Surv(", x, ",", y, ")~", z)))
+  return(as.formula(paste0("Surv(", x, ",", y, ")~", z)))
 
 }
 
 
-#' Calculate Levine's Phenotypic Age
+#' Calculate phenotypic age
 #'
 #' @title phenoage_calc
-#' @description Calculate Levine's Phenotypic Age
+#' @description Calculate Levine's phenotypic age
 #' @param data The dataset for calculating phenoage
-#' @param age A character vector (length=1) indicating the name of the variable for age
+#' @param age A character vector (length=1) indicating the name of the variable for chronological age
 #' @param time A character vector (length=1) indicating the name of the variable for survival time
-#' @param status A character vector (length=1) indicating the name of the variable for death status
+#' @param status A character vector (length=1) indicating the name of the variable for survival status
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
 #' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training phenoage are calculated
 #' @return An object of class "phenoage". This object is a list with two elements (data and fit)
 #' @examples
 #' #Train phenoage parameters
 #' train = phenoage_calc(nhanes3,age="age",
-#'                       biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"))
+#'                       biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+#'                       "rdw","creat_umol","lncrp","alp","wbc"))
 #'
 #' #Use training data to calculate phenoage
 #' phenoage = phenoage_calc(nhanes,age="age",
-#'                          biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"),
+#'                          biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+#'                          "rdw","creat_umol","lncrp","alp","wbc"),
 #'                          fit=train$fit)
 #'
 #' #Extract phenoage dataset
@@ -49,7 +51,7 @@ phenoage_calc = function (data, age, time, status, biomarkers, fit = NULL) {
   #calculate  modified Levine's method
   if (is.null(fit)) {
 
-    gom = flexsurvreg(form(time, status, bm_name), data = dat, dist = "gompertz")
+    gom = flexsurvreg(surv_form(time, status, bm_name), data = dat, dist = "gompertz")
     coef = as.data.frame(gom$coefficients)
     colnames(coef) = "coef"
     rm(gom)
@@ -69,7 +71,7 @@ phenoage_calc = function (data, age, time, status, biomarkers, fit = NULL) {
     m_d = coef[1,]
     m = 1 - exp((m_n * exp(xb)) / m_d)
 
-    gom_age = flexsurvreg(form(time, status, age), data = dat, dist="gompertz")
+    gom_age = flexsurvreg(surv_form(time, status, age), data = dat, dist="gompertz")
     coef_age = as.data.frame(gom_age$coefficients)
     colnames(coef_age) = "coef"
     rm(gom_age)
