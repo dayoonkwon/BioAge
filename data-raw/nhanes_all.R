@@ -115,9 +115,14 @@ Demo_2015 <- mutate(Demo_2015,WAVE=9,YEAR=2015)
 Demo_2017 <- select(DEMO$DEMO_J,SEQN,RIAGENDR,RIDAGEYR,RIDRETH1,DMDEDUC2,INDFMPIR,RIDEXPRG,INDFMIN2)
 Demo_2017 <- mutate(Demo_2017,WAVE=10,YEAR=2017)
 
+colnames(Demo_1999) <- colnames(Demo_2007)
+colnames(Demo_2001) <- colnames(Demo_2007)
+colnames(Demo_2003) <- colnames(Demo_2007)
+colnames(Demo_2005) <- colnames(Demo_2007)
+
 #Combining demographics into one dataframe for all waves
 Demographics_ALL <- bind_rows(Demo_1999,Demo_2001,Demo_2003,Demo_2005,Demo_2007,Demo_2009,Demo_2011,Demo_2013,Demo_2015,Demo_2017)
-Demographics_ALL <- transmute(Demographics_ALL,seqn=SEQN,year=YEAR,wave=WAVE,gender=RIAGENDR,age=RIDAGEYR,annual_income=INDFMINC,education=DMDEDUC2,RIDRETH1=RIDRETH1,poverty_ratio=INDFMPIR,pregnant=RIDEXPRG)
+Demographics_ALL <- transmute(Demographics_ALL,seqn=SEQN,year=YEAR,wave=WAVE,gender=RIAGENDR,age=RIDAGEYR,annual_income=INDFMIN2,education=DMDEDUC2,RIDRETH1=RIDRETH1,poverty_ratio=INDFMPIR,pregnant=RIDEXPRG)
 
 head(Demographics_ALL)
 summary(Demographics_ALL)
@@ -151,9 +156,8 @@ Demographics_ALL$ethnicity[Demographics_ALL$RIDRETH1==4] <-2 #non-hispanic black
 Demographics_ALL$ethnicity[Demographics_ALL$RIDRETH1==1|Demographics_ALL$RIDRETH1==2] <-3 #mexian american
 Demographics_ALL$ethnicity[Demographics_ALL$RIDRETH1==5] <-4 #other
 
-Demographics_ALL$race[Demographics_ALL$ethnicity==1] <-1 #white
-Demographics_ALL$race[Demographics_ALL$ethnicity==2] <-2 #black
-Demographics_ALL$race[Demographics_ALL$ethnicity==3|Demographics_ALL$RIDRETH1==4] <-3 #hispanic and other
+Demographics_ALL$race = Demographics_ALL$ethnicity
+Demographics_ALL$race[Demographics_ALL$race==3|Demographics_ALL$race==4] <-3 #hispanic and other
 
 #Select variables
 Demographics_ALL <- select(Demographics_ALL,seqn,year,wave,gender,age,annual_income,income_recode,education,edu,ethnicity,race,poverty_ratio,pregnant)
@@ -758,7 +762,7 @@ Demo_III$edu[Demo_III$education==4]<-3
 Demo_III$edu[Demo_III$education==5]<-4
 
 Demo_III$race=Demo_III$ethnicity
-Demo_III$race[Demo_III$ethnicity==3|Demo_III$ethnicity==4]<-3
+Demo_III$race[Demo_III$race==3|Demo_III$race==4]<-3
 
 Demo_III$poverty_ratio[Demo_III$poverty_ratio==888888] <- NA
 Demo_III$health[Demo_III$health>=8] <- NA
@@ -876,8 +880,8 @@ nhanes3_male = nhanes3 %>%
   mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                                             (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
-train_fem = bioage_calc(nhanes3_fem, age, biomarkers, fit = NULL, s_ba2 = NULL)
-train_male = bioage_calc(nhanes3_male, age, biomarkers, fit = NULL, s_ba2 = NULL)
+train_fem = BioAge::bioage_calc(nhanes3_fem, age, biomarkers, fit = NULL, s_ba2 = NULL)
+train_male = BioAge::bioage_calc(nhanes3_male, age, biomarkers, fit = NULL, s_ba2 = NULL)
 
 train = rbind(train_fem$data, train_male$data)
 
@@ -894,8 +898,8 @@ nhanes_male = nhanes %>%
   mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                                             (. <(mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
-test_fem = bioage_calc(nhanes_fem, age, biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
-test_male = bioage_calc(nhanes_male, age, biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
+test_fem = BioAge::bioage_calc(nhanes_fem, age, biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
+test_male = BioAge::bioage_calc(nhanes_male, age, biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
 test = rbind(test_fem$data, test_male$data)
 result = rbind(train,test)
 
@@ -935,13 +939,6 @@ NHANES_ALL$phenoage_advance <- NHANES_ALL$phenoage-NHANES_ALL$age
 NHANES_ALL$phenoage_residual <- residuals(lm(phenoage ~ age, data=NHANES_ALL, na.action = "na.exclude"))
 
 NHANES_ALL <- NHANES_ALL%>%rename_at(vars(bioage:phenoage_residual),function(x) paste0(x,"0"))
-
-#graph
-ggplot2::ggplot(NHANES_ALL, ggplot2::aes(x=age,y=bioage0,group=as.factor(year),colour=as.factor(gender)))+
-  ggplot2::geom_point(shape=1)+
-  ggplot2::geom_smooth(method=lm,color="white",linetype = "dashed",size=1)+
-  ggplot2::facet_wrap(~as.factor(wave),scales="free")+
-  ggplot2::scale_color_manual(values=c("#7294D4","#E6A0C4"),name="Gender",labels=c("Men","Women"))
 
 usethis::use_data(NHANES_ALL, overwrite = TRUE, internal=TRUE)
 
