@@ -10,7 +10,7 @@ biomarkers = c("albumin","alp","lymph","mcv","lncreat","lncrp","hba1c","wbc","rd
 
 
 # Step 1: train in NHANES 3 and test in NHANES 4 --------------------------
-# homeostatic disregulation
+# Homeostatic disregulation
 hd = hd_nhanes(biomarkers)
 hd_data = hd$data
 
@@ -18,21 +18,36 @@ hd_data = hd$data
 bioage = bioage_nhanes(biomarkers)
 bioage_data = bioage$data
 
-# phenoage
+# Phenoage
 phenoage = phenoage_nhanes(biomarkers)
 phenoage_data = phenoage$data
 
 
 
 # Step 2: compare NHANES 4 to the original KDM bioage and phenoage --------
-# F1: correlation between bioage and age
-all <- merge(hd_data,bioage_data) %>% merge(.,phenoage_data)
-nhanes <- all %>%
-  filter(wave>0 & wave<11)
-agevar = c("bioage0","phenoage0","bioage","phenoage","hd","hd_log")
-plot_ba(nhanes,agevar)
+# Figure 1: correlation between bioage and age
+# Merge all biological age measures together
+all = merge(hd_data, bioage_data) %>% merge(., phenoage_data)
 
-# F2: correlation between BAA and age -------------------------------------
+# Subset NHANES 4 dataset
+nhanes = all %>% filter(wave>0 & wave<11)
+
+# Select biological age names
+agevar = c("bioage0","phenoage0","bioage","phenoage","hd","hd_log")
+
+# Prepare labels
+label = c("KDM Biological Age",
+          "Levine Phenotypic Age",
+          "Modified-KDM Biological Age",
+          "Modified-Levine Phenotypic Age",
+          "Mahalanobis Distance",
+          "Log Mahalanobis Distance")
+
+# Plot biological age vs chronological age
+plot_ba(nhanes, agevar, label)
+
+# Figure 2: correlation between BAA and age
+# Select biological age advancement (BAA) names
 agevar = c("bioage_advance0","phenoage_advance0","bioage_advance","phenoage_advance","hd","hd_log")
 
 # Prepare lables
@@ -55,15 +70,16 @@ axis_type = c(
   "hd"="flot",
   "hd_log"="float")
 
+# Plot BAA vs chronological age
 plot_baa(nhanes,agevar,label,axis_type)
 
-# Table 1: survival analysis ----------------------------------------------
+# Table 1: survival analysis
 table_surv(nhanes, agevar, time = "permth_exm", status = "mortstat")
 
-# Table 2: association with current health status outcomes  ---------------
+# Table 2: association with current health status outcomes
 table_health(nhanes,agevar,outcome = c("health","adl","lnwalk","grip_scaled"))
 
-# Table 3: association with socioeconomic variables -----------------------
+# Table 3: association with socioeconomic variables
 table_ses(nhanes,agevar,exposure = c("edu","annual_income","poverty_ratio"))
 
 
