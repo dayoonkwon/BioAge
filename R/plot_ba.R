@@ -4,6 +4,7 @@
 #' @description Plot correlations between biological aging measures and chronological age
 #' @param data The dataset for plotting correlations
 #' @param agevar A character vector indicating the names of the biological aging measures
+#' @param label A character vector indicating the labels of the biological age measures
 #' @note Chronological age and gender variables need to be named "age" and "gender"
 #' @examples
 #' #Calculate phenoage
@@ -17,14 +18,16 @@
 #' @importFrom tidyr gather
 
 
-plot_ba = function(data, agevar) {
+plot_ba = function(data, agevar, label) {
 
   cor_label = data %>%
-    gather(., method, measure, agevar) %>%
+    gather(., method, measure, all_of(agevar)) %>%
     group_by(as.factor(method)) %>%
     summarise(cor(measure, age ,use="complete.obs"))
 
   colnames(cor_label) = c("method","r")
+  levels(cor_label$method) <- agevar
+  levels(cor_label$method) <- label
   cor_label$r = round(cor_label$r, 3)
   cor_label$r = paste0("r = ", cor_label$r)
 

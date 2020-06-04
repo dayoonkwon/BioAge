@@ -4,12 +4,14 @@
 \alias{plot_ba}
 \title{plot_ba}
 \usage{
-plot_ba(data, agevar)
+plot_ba(data, agevar, label)
 }
 \arguments{
 \item{data}{The dataset for plotting correlations}
 
 \item{agevar}{A character vector indicating the names of the biological aging measures}
+
+\item{label}{A character vector indicating the labels of the biological age measures}
 }
 \description{
 Plot correlations between biological aging measures and chronological age
