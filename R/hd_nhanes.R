@@ -44,24 +44,55 @@
 
 hd_nhanes = function(biomarkers) {
 
-  load("./R/sysdata.rda")
-
   #develop training dataset for HD
   train = NHANES_ALL %>%
     filter(wave == 0 & age >= 20 & age <= 30 & pregnant == 0) %>%
     mutate(albumin = ifelse(albumin >= 3.5 & albumin <= 5, albumin, NA),
+           albumin_gL = ifelse(!is.na(albumin), albumin*10, NA),
            alp = ifelse(gender == 2, ifelse(alp >= 37 & alp <= 98, alp, NA), ifelse(alp >= 45 & alp <= 115, alp, NA)),
+           bap = ifelse(gender == 2, ifelse(bap <= 14, bap, NA), ifelse(bap <= 20, bap, NA)),
            bun = ifelse(gender == 2, ifelse(bun >= 6 & bun <= 21, bun, NA), ifelse(bun >= 8 & bun <= 24, bun, NA)),
            creat = ifelse(gender == 2, ifelse(creat >= 0.6 & creat <= 1.1, creat, NA), ifelse(creat >= 0.8 & creat <= 1.3, creat, NA)),
-           lncreat = ifelse(gender == 2,ifelse(lncreat >= log(0.6) & lncreat <= log(1.1), lncreat, NA), ifelse(lncreat >= log(0.8) & lncreat <= log(1.3), lncreat, NA)),
+           creat_umol = ifelse(!is.na(creat), creat*88.4017, NA),
+           lncreat = ifelse(!is.na(creat), log(creat), NA),
+           lncreat_umol = ifelse(!is.na(creat_umol), log(creat_umol), NA),
+           glucose = ifelse(glucose >= 60 & glucose <= 100, glucose, NA),
+           glucose_mmol = ifelse(glucose_mmol >= 3.3 & glucose_mmol <= 5.6, glucose_mmol, NA),
+           glucose_fasting = ifelse(glucose_fasting >= 65 & glucose_fasting <= 110, glucose_fasting, NA),
+           ttbl = ifelse(ttbl >= 0.1 & ttbl <= 1.4, ttbl, NA),
+           uap = ifelse(gender == 2, ifelse(uap >= 2 & uap <= 7, uap, NA), ifelse(uap >= 2.1 & uap <= 8.5, uap, NA)),
+           basopa = ifelse(basopa >= 0 & basopa <= 2, basopa, NA),
+           eosnpa = ifelse(eosnpa >=1 & eosnpa <= 7, eosnpa, NA),
+           mcv = ifelse(gender == 2, ifelse(mcv >= 78 & mcv <= 101, mcv, NA), ifelse(mcv >= 82 & mcv <= 102, mcv, NA)),
+           monopa = ifelse(monopa >= 3 & monopa <= 10, monopa, NA),
+           neut = ifelse(neut >= 45 & neut <= 74, neut, NA),
+           rbc = ifelse(gender == 2, ifelse(rbc >= 3.5 & rbc <= 5.5, rbc, NA), ifelse(rbc >= 4.2 & rbc <= 6.9, rbc, NA)),
+           rdw = ifelse(rdw >= 11.5 & rdw <= 14.5, rdw, NA),
+           cadmium = ifelse(cadmium >= 2.7 & cadmium <= 10.7, cadmium, NA),
            crp = ifelse(crp < 2, crp, NA),
-           lncrp = ifelse(lncrp < log(2), lncrp, NA),
+           crp_cat = ifelse(!is.na(crp), crp_cat, NA),
+           lncrp = ifelse(!is.na(crp), lncrp, NA),
+           cyst = ifelse(cyst >= 0.51 & cyst <= 0.98, cyst, NA),
+           ggt = ifelse(gender == 2, ifelse(ggt <= 37.79, ggt, NA), ifelse(ggt <= 55.19, ggt, NA)),
+           insulin = ifelse(insulin >= 2.52 & insulin <= 24.1, insulin, NA),
            hba1c = ifelse(hba1c >= 4 & hba1c <= 5.6, hba1c, NA),
+           hdl = ifelse(gender == 2, ifelse(hdl >= 40 & hdl <= 86, hdl, NA), ifelse(hdl >= 35 & hdl <= 80, hdl, NA)),
+           ldl = ifelse(ldl >= 80 & ldl <= 130, ldl, NA),
+           trig = ifelse(trig >= 54 & trig <= 110, trig, NA),
            lymph = ifelse(lymph >= 20 & lymph <= 40, lymph, NA),
            wbc = ifelse(wbc >= 4.5 & wbc <= 11, wbc, NA),
            uap = ifelse(gender == 2, ifelse(uap >= 2.7 & uap <= 6.3, uap, NA), ifelse(uap >= 3.7 & uap <= 8, uap, NA)),
            sbp = ifelse(sbp < 120, sbp, NA),
-           totchol = ifelse(totchol < 200, totchol, NA))
+           dbp = ifelse(dbp < 80, dbp, NA),
+           meanbp = ifelse(meanbp < 93.33, meanbp, NA),
+           pulse = ifelse(pulse >= 60 & pulse <= 100, pulse, NA),
+           totchol = ifelse(totchol < 200, totchol, NA),
+           fev = ifelse(fev >= mean(fev, na.rm = TRUE) * 0.8, fev, NA),
+           fev_new = ifelse(!is.na(fev), fev_new, NA),
+           vitaminA = ifelse(vitaminA >= 1.05 & vitaminA <= 2.27, vitaminA, NA),
+           vitaminE = ifelse(vitaminE <= 28, vitaminE, NA),
+           vitaminB12 = ifelse(vitaminB12 >= 0.0001 & vitaminB12 <= 0.0007, vitaminB12, NA),
+           vitaminC = ifelse(vitaminC >= 23 & vitaminC <= 85, vitaminC, NA))
 
   #develop training dataset for HD
   #femlae

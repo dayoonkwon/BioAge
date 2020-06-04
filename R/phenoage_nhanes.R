@@ -19,8 +19,6 @@
 
 phenoage_nhanes = function(biomarkers) {
 
-  load("./R/sysdata.rda")
-
   #develop training dataset for Levine's phenoage method
   nhanes3 = NHANES_ALL %>%
     filter(wave == 0 & age >= 20 & age <= 84) %>%

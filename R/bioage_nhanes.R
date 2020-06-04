@@ -18,8 +18,6 @@
 
 bioage_nhanes = function (biomarkers) {
 
-  load("./R/sysdata.rda")
-
   #develop training dataset for modified KDM
   nhanes3 = NHANES_ALL %>%
     filter(wave==0 & age >= 30 & age <= 75 & pregnant == 0)
