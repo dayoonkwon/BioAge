@@ -1,7 +1,7 @@
-#' Calculate Levine's phenotypic age using NHANES dataset
+#' Calculate Levine's Phenotypic Age using NHANES dataset
 #'
 #' @title phenoage_nhanes
-#' @description Calculate Levine's phenotypic age using NHANES dataset
+#' @description Calculate Levine's Phenotypic Age using NHANES dataset
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
 #' @return An object of class "phenoage". This object is a list with two elements (data and fit)
 #' @examples

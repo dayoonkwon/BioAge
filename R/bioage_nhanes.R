@@ -1,7 +1,7 @@
-#' Calculate KDM biological age using NHANES dataset
+#' Calculate KDM Biological Age using NHANES dataset
 #'
 #' @title bioage_nhanes
-#' @description Calculate Klemera-Doubal Method (KDM) biological age using NHANES dataset
+#' @description Calculate Klemera-Doubal Method (KDM) Biological Age using NHANES dataset
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating bioage
 #' @return An object of class "bioage". This object is a list with two elements (data and fit)
 #' @examples

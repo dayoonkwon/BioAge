@@ -6,10 +6,10 @@ surv_form = function(x, y, z){
 }
 
 
-#' Calculate phenotypic age
+#' Calculate Phenotypic Age
 #'
 #' @title phenoage_calc
-#' @description Calculate Levine's phenotypic age
+#' @description Calculate Levine's Phenotypic Age
 #' @param data The dataset for calculating phenoage
 #' @param age A character vector (length=1) indicating the name of the variable for chronological age
 #' @param time A character vector (length=1) indicating the name of the variable for survival time

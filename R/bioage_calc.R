@@ -1,7 +1,7 @@
-#' Calculate KDM biological age
+#' Calculate KDM Biological Age
 #'
 #' @title bioage_calc
-#' @description Calculate Klemera-Doubal Method (KDM) biological age
+#' @description Calculate Klemera-Doubal Method (KDM) Biological Age
 #' @param data The dataset for calculating KDM bioage
 #' @param age A character vector (length=1) indicating the name of the variable for chronological age
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating KDM bioage
