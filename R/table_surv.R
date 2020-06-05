@@ -61,7 +61,7 @@ table_surv = function (data, agevar, time, status, label) {
 
   dat = nhanes %>%
     group_by(gender) %>%
-    mutate_at(vars(all_of(agevar)), funs(scale(.))) %>%
+    mutate_at(vars(all_of(agevar)), list(~scale(.))) %>%
     ungroup() %>%
     mutate(gender = as.factor(gender),
            age_cat = ifelse(age<=65, "yes", "no"))

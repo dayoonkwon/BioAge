@@ -21,13 +21,13 @@
 #' @export
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom tidyr gather
+#' @importFrom tidyr pivot_longer
 
 
 plot_ba = function(data, agevar, label) {
 
   cor_label = data %>%
-    gather(., method, measure, all_of(agevar)) %>%
+    pivot_longer(all_of(agevar), names_to = "method", values_to = "measure") %>%
     mutate(method = factor(method, levels = agevar, labels = label)) %>%
     group_by(method) %>%
     summarise(cor(measure, age ,use="complete.obs"))
@@ -37,7 +37,7 @@ plot_ba = function(data, agevar, label) {
   cor_label$r = paste0("r = ", cor_label$r)
 
   data %>%
-    gather(., method, measure, all_of(agevar)) %>%
+    pivot_longer(all_of(agevar), names_to = "method", values_to = "measure") %>%
     mutate(method = factor(method, levels = agevar, labels = label)) %>%
     ggplot(., aes(x = age,y = measure, group = method, colour = as.factor(gender))) +
     geom_point(shape = 1) +

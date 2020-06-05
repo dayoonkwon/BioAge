@@ -4,12 +4,12 @@ ses_res = function (dat, agevar, exposure, covar, label) {
 
   out_dat = dat %>%
     select(all_of(agevar)) %>%
-    tidyr::gather(., y, yvalue) %>%
+    tidyr::pivot_longer(all_of(agevar), names_to = "y", values_to = "yvalue") %>%
     mutate(y = factor(y, levels = agevar, labels = label))
 
   exp_dat = dat %>%
     select(age,gender,all_of(exposure)) %>%
-    tidyr::gather(., x, xvalue, all_of(exposure))
+    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue")
 
   res = out_dat %>%
     group_by(y) %>%
@@ -27,7 +27,7 @@ ses_res = function (dat, agevar, exposure, covar, label) {
 
   table=res[match,] %>%
     mutate(x = exposure) %>%
-    mutate_at(vars(label), funs(replace(., is.na(.), "-")))
+    mutate_at(vars(all_of(label)), list(~replace(., is.na(.), "-")))
 
   return(table)
 
@@ -37,12 +37,12 @@ ses_n = function (dat, agevar, exposure, covar, label) {
 
   out_dat = dat %>%
     select(all_of(agevar)) %>%
-    tidyr::gather(., y, yvalue) %>%
+    tidyr::pivot_longer(all_of(agevar), names_to = "y", values_to = "yvalue") %>%
     mutate(y = factor(y, levels = agevar, labels = label))
 
   exp_dat = dat %>%
     select(age,gender,all_of(exposure)) %>%
-    tidyr::gather(., x, xvalue, all_of(exposure))
+    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue")
 
   n = out_dat %>%
     group_by(y) %>%
@@ -50,14 +50,14 @@ ses_n = function (dat, agevar, exposure, covar, label) {
     na.omit() %>%
     group_by(y,x)%>%
     summarise(n = length(which(!is.na(yvalue)))) %>%
-    spread(x,n) %>%
+    tidyr::spread(y,n) %>%
     ungroup()
 
-  match = match(exposure, res$y)
+  match = match(exposure, n$x)
 
   n = n[match,] %>%
-    mutate(y = exposure) %>%
-    mutate_at(vars(all_of(label)), funs(replace(., is.na(.), "-")))
+    mutate(x = exposure) %>%
+    mutate_at(vars(all_of(label)), list(~replace(., is.na(.), "-")))
 
   return(n)
 
@@ -91,16 +91,17 @@ ses_n = function (dat, agevar, exposure, covar, label) {
 #'
 #' @export
 #' @import dplyr
-#' @importFrom tidyr gather
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr spread
 #' @importForm broom tidy
 #' @importFrom htmlTable htmlTable
 
 table_ses = function (data, agevar, exposure, label) {
 
   dat = data %>%
-    mutate_at(vars(all_of(exposure)), funs(scale(.))) %>%
+    mutate_at(vars(all_of(exposure)), list(~scale(.))) %>%
     group_by(gender) %>%
-    mutate_at(vars(all_of(agevar)), funs(scale(.))) %>%
+    mutate_at(vars(all_of(agevar)), list(~scale(.))) %>%
     ungroup() %>%
     mutate(gender = as.factor(gender),
            age_cat = ifelse(age>=20&age<40,1,

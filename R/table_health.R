@@ -4,11 +4,11 @@ health_res = function (dat, agevar, outcome, covar, label) {
 
   out_dat = dat %>%
     select(all_of(outcome)) %>%
-    tidyr::gather(., y, yvalue)
+    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue")
 
   exp_dat = dat %>%
     select(all_of(covar),all_of(agevar)) %>%
-    tidyr::gather(., x, xvalue, all_of(agevar)) %>%
+    tidyr::pivot_longer(all_of(agevar), names_to = "x", values_to = "xvalue") %>%
     mutate(x = factor(x, levels = agevar, labels = label))
 
   res = out_dat %>%
@@ -27,7 +27,7 @@ health_res = function (dat, agevar, outcome, covar, label) {
 
   table = res[match,] %>%
     mutate(y = outcome) %>%
-    mutate_at(vars(all_of(label)), funs(replace(., is.na(.), "-")))
+    mutate_at(vars(all_of(label)), list(~replace(., is.na(.), "-")))
 
   return(table)
 
@@ -37,11 +37,11 @@ health_n = function (dat, agevar, outcome, covar, label) {
 
   out_dat = dat %>%
     select(all_of(outcome)) %>%
-    tidyr::gather(., y, yvalue)
+    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue")
 
   exp_dat = dat %>%
     select(all_of(covar),all_of(agevar)) %>%
-    tidyr::gather(., x, xvalue, all_of(agevar)) %>%
+    tidyr::pivot_longer(all_of(agevar), names_to = "x", values_to = "xvalue") %>%
     mutate(x = factor(x, levels = agevar, labels = label))
 
   n = out_dat %>%
@@ -50,14 +50,14 @@ health_n = function (dat, agevar, outcome, covar, label) {
     na.omit() %>%
     group_by(y,x)%>%
     summarise(n = length(which(!is.na(yvalue)))) %>%
-    spread(x,n) %>%
+    tidyr::spread(x,n) %>%
     ungroup()
 
-  match = match(outcome, res$y)
+  match = match(outcome, n$y)
 
   n = n[match,] %>%
     mutate(y = outcome) %>%
-    mutate_at(vars(all_of(label)), funs(replace(., is.na(.), "-")))
+    mutate_at(vars(all_of(label)), list(~replace(., is.na(.), "-")))
 
   return(n)
 
@@ -91,16 +91,17 @@ health_n = function (dat, agevar, outcome, covar, label) {
 #'
 #' @export
 #' @import dplyr
-#' @importFrom tidyr gather
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr spread
 #' @importForm broom tidy
 #' @importFrom htmlTable htmlTable
 
 table_health = function (data, agevar, outcome, label) {
 
   dat = data %>%
-    mutate_at(vars(all_of(outcome)), funs(scale(.))) %>%
+    mutate_at(vars(all_of(outcome)), list(~scale(.))) %>%
     group_by(gender) %>%
-    mutate_at(vars(all_of(agevar)), funs(scale(.))) %>%
+    mutate_at(vars(all_of(agevar)), list(~scale(.))) %>%
     ungroup() %>%
     mutate(gender = as.factor(gender),
            age_cat = ifelse(age>=20&age<40,1,
