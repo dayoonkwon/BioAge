@@ -1,4 +1,6 @@
 # Load packages -----------------------------------------------------------
+devtools::install_github("dayoonkwon/BioAge")
+
 library(BioAge)
 library(dplyr)
 
@@ -81,11 +83,13 @@ table_surv(nhanes, agevar, time = "permth_exm", status = "mortstat", label)
 # Table 2: association with current health status outcomes
 table2 = table_health(nhanes,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
 table2$table
+table2$n
 
 
 # Table 3: association with socioeconomic variables
 table3 = table_ses(nhanes,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
 table3$table
+table3$n
 
 
 # Step 3: Score new data --------------------------------------------------
