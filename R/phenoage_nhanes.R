@@ -27,7 +27,7 @@ phenoage_nhanes = function(biomarkers) {
            creat = creat_umol,
            lncreat = lncreat_umol) %>%
     group_by(gender) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(. ,na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(. ,na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
     ungroup()
 
@@ -41,7 +41,7 @@ phenoage_nhanes = function(biomarkers) {
            creat = creat_umol,
            lncreat = lncreat_umol) %>%
     group_by(gender) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
     ungroup()
 

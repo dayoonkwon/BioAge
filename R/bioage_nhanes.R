@@ -25,13 +25,13 @@ bioage_nhanes = function (biomarkers) {
   #femlae
   nhanes3_fem = nhanes3 %>%
     filter(gender == 2) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #male
   nhanes3_male = nhanes3 %>%
     filter(gender == 1) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #calculate training KDM
@@ -44,12 +44,12 @@ bioage_nhanes = function (biomarkers) {
 
   nhanes_fem = nhanes %>%
     filter(gender == 2) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   nhanes_male = nhanes %>%
     filter(gender == 1) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. <(mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #calculate test modified KDM

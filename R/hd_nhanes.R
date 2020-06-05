@@ -98,13 +98,13 @@ hd_nhanes = function(biomarkers) {
   #femlae
   train_fem = train %>%
     filter(gender == 2) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #male
   train_male = train %>%
     filter(gender == 1) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #develop test dataset for HD
@@ -113,12 +113,12 @@ hd_nhanes = function(biomarkers) {
 
   test_fem = test %>%
     filter(gender == 2) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   test_male = test %>%
     filter(gender == 1) %>%
-    mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
+    mutate_at(vars(biomarkers), list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #calculate hd
