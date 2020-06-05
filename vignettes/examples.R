@@ -36,15 +36,16 @@ nhanes = all %>% filter(wave>0 & wave<11)
 agevar = c("bioage0","phenoage0","bioage","phenoage","hd","hd_log")
 
 # Prepare labels
-label = c("KDM Biological Age",
-          "Levine Phenotypic Age",
-          "Modified-KDM Biological Age",
-          "Modified-Levine Phenotypic Age",
-          "Mahalanobis Distance",
-          "Log Mahalanobis Distance")
+label = c("KDM\nBiological\nAge",
+          "Levine\nPhenotypic\nAge",
+          "Modified-KDM\nBiological\nAge",
+          "Modified-Levine\nPhenotypic\nAge",
+          "Mahalanobis\nDistance",
+          "Log\nMahalanobis\nDistance")
 
 # Plot biological age vs chronological age
 plot_ba(nhanes, agevar, label)
+
 
 # Figure 2: correlation between BAA and age
 # Select biological age advancement (BAA) names
@@ -73,15 +74,18 @@ axis_type = c(
 # Plot BAA vs chronological age
 plot_baa(nhanes,agevar,label,axis_type)
 
+
 # Table 1: survival analysis
-table_surv(nhanes, agevar, time = "permth_exm", status = "mortstat")
+table_surv(nhanes, agevar, time = "permth_exm", status = "mortstat", label)
 
 # Table 2: association with current health status outcomes
-table_health(nhanes,agevar,outcome = c("health","adl","lnwalk","grip_scaled"))
+table2 = table_health(nhanes,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
+table2$table
+
 
 # Table 3: association with socioeconomic variables
-table_ses(nhanes,agevar,exposure = c("edu","annual_income","poverty_ratio"))
-
+table3 = table_ses(nhanes,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
+table3$table
 
 
 # Step 3: Score new data --------------------------------------------------
