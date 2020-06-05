@@ -4,11 +4,17 @@
 #' @description Plot correlations between biological aging measures and chronological age
 #' @param data The dataset for plotting correlations
 #' @param agevar A character vector indicating the names of the biological aging measures
-#' @param label A character vector indicating the labels of the biological age measures
+#' @param label A character vector indicating the labels of the biological aging measures
 #' @note Chronological age and gender variables need to be named "age" and "gender"
 #' @examples
 #' #Calculate phenoage
-#' f1 = plot_ba(data = data, agevar = c("bioage", "phenoage", "hd"))
+#' f1 = plot_ba(data = data, agevar = c("bioage", "phenoage", "hd"),
+#'              label = c("KDM\nBiological\nAge",
+#'                        "Levine\nPhenotypic\nAge",
+#'                        "Modified-KDM\nBiological\nAge",
+#'                        "Modified-Levine\nPhenotypic\nAge",
+#'                        "Mahalanobis\nDistance",
+#'                        "Log\nMahalanobis\nDistance"))
 #'
 #' f1
 #'
@@ -22,17 +28,17 @@ plot_ba = function(data, agevar, label) {
 
   cor_label = data %>%
     gather(., method, measure, all_of(agevar)) %>%
-    group_by(as.factor(method)) %>%
+    mutate(method = factor(method, levels = agevar, labels = label)) %>%
+    group_by(method) %>%
     summarise(cor(measure, age ,use="complete.obs"))
 
   colnames(cor_label) = c("method","r")
-  levels(cor_label$method) <- agevar
-  levels(cor_label$method) <- label
   cor_label$r = round(cor_label$r, 3)
   cor_label$r = paste0("r = ", cor_label$r)
 
   data %>%
-    gather(., method, measure, agevar) %>%
+    gather(., method, measure, all_of(agevar)) %>%
+    mutate(method = factor(method, levels = agevar, labels = label)) %>%
     ggplot(., aes(x = age,y = measure, group = method, colour = as.factor(gender))) +
     geom_point(shape = 1) +
     geom_smooth(method = lm, color = "white", linetype = "dashed", size = 1) +

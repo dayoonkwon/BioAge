@@ -215,8 +215,8 @@ plot_label = function (lab) {
 #' @title plot_baa
 #' @description Plot correlations between biological age advancement (BAA) and chronological age
 #' @param data The dataset for plotting corplot
-#' @param agevar A character vector indicating the names of the interested biological age measures
-#' @param label A character vector indicating the labels of the biological age measures
+#' @param agevar A character vector indicating the names of the interested biological aging measures
+#' @param label A character vector indicating the labels of the biological aging measures
 #'               Values should be formatted for displaying along diagonal of the plot
 #'               Names should be used to match variables and order is preserved
 #' @param axis_type A character vector indicating the axis type (int or float)
