@@ -13,8 +13,8 @@ surv_res = function (dat, time, status, agevar, covar) {
 
   res = lapply(cox,summary)
 
-  table = as.data.frame(lapply(res, function(x)paste(round(x$conf.int[,1],3), " (",round(x$conf.int[,3],3),", ",round(x$conf.int[,4],3),")",sep="")))
-  table$sample = c("bioage",covar)
+  table = as.data.frame(lapply(res, function(x)paste(round(x$conf.int[1,1],3), " (",round(x$conf.int[1,3],3),", ",round(x$conf.int[1,4],3),")",sep="")))
+  table$sample = "BioAge"
 
   n = as.data.frame(lapply(res,function(x)x$n))
   n$sample = "n"
@@ -28,11 +28,12 @@ surv_res = function (dat, time, status, agevar, covar) {
 #' Mortality validation for biological age measures, adjusting for chronological age and gender and stratified by gender, race, and age
 #'
 #' @title table_surv
-#' @description Mortality validation for biological age measures
-#' @param data The dataset for plotting corplot
-#' @param agevar A character vector indicating the names of the interested biological age measures
+#' @description Mortality validation for biological aging measures
+#' @param data The dataset for mortality table
+#' @param agevar A character vector indicating the names of the interested biological aging measures
 #' @param time A character vector (length=1) indicating the name of the variable for survival time
 #' @param status A character vector (length=1) indicating the name of the variable for survival status
+#' @param label A character vector indicating the labels of the biological aging measures
 #' @note Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race"
 #' @examples
 #' table1 = table_surv(nhanes,
@@ -40,7 +41,13 @@ surv_res = function (dat, time, status, agevar, covar) {
 #'                                "bioage_advance","phenoage_advance",
 #'                                "hd","hd_log"),
 #'                     time = "permth_exm",
-#'                     status = "mortstat")
+#'                     status = "mortstat",
+#'                     label = c("KDM\nBiological\nAge",
+#'                               "Levine\nPhenotypic\nAge",
+#'                               "Modified-KDM\nBiological\nAge",
+#'                               "Modified-Levine\nPhenotypic\nAge",
+#'                               "Mahalanobis\nDistance",
+#'                               "Log\nMahalanobis\nDistance"))
 #'
 #' table1
 #'
@@ -50,9 +57,9 @@ surv_res = function (dat, time, status, agevar, covar) {
 #' @importForm survival coxph
 #' @importFrom htmlTable htmlTable
 
-table_surv = function (data, agevar, time, status) {
+table_surv = function (data, agevar, time, status, label) {
 
-  dat = data %>%
+  dat = nhanes %>%
     group_by(gender) %>%
     mutate_at(vars(all_of(agevar)), funs(scale(.))) %>%
     ungroup() %>%
@@ -80,31 +87,26 @@ table_surv = function (data, agevar, time, status) {
   table = rbind(table1,table2,table3,table4) %>%
     select(sample, everything())
 
+  colnames(table) = c("sample",label)
+
   #make final table
-  label = data.frame("rgroup" = c("Full Sample",
-                          paste("Gender", sort(unique(dat$gender))),
-                          paste("Race", sort(unique(dat$race))),
-                          "Aged 65 and Younger"))
-
-  label$n.rgroup = ifelse(substr(label$rgroup, 1, 1) == "F", 4,
-                          ifelse(substr(label$rgroup, 1, 1) == "G", 3,
-                                 ifelse(substr(label$rgroup, 1, 1) == "R", 4,
-                                        ifelse(substr(label$rgroup, 1, 1) == "A", 4, "NA"))))
-
-
   htmlTable::htmlTable(table[,-1],
                        rnames = table$sample,
-                       rgroup = label$rgroup,
-                       n.rgroup = as.numeric(label$n.rgroup),
+                       align = "llllll",
+                       rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Aged 65 and Younger"),
+                       n.rgroup = c(2,2,2,2,2,2,2),
                        tspanner = c("Hazard Ratio (95% CI)",
                                     "Stratified by Gender",
                                     "Stratified by Race",
                                     "People Aged 65 and Younger"),
-                       n.tspanner = c(nrow(table1),
-                                      nrow(table2),
-                                      nrow(table3),
-                                      nrow(table4)),
+                       n.tspanner = c(2,4,6,2),
+                       cnames = colnames(table),
                        css.tspanner = "font-weight: 900; text-align: center;",
-                       caption = "Mortality models with all biological age measures. All biological age measures were standardized to have mean = 0, SD = 1 by gender.")
+                       css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
+                                    "width: 250px", "width: 250px", "width: 250px"),
+                       caption = "Table 1: Mortality models with all biological aging measures.
+                       After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
+                       Original KDM Biological Age was computed in the NHANES 2007-2010.
+                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
 
 }

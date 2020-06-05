@@ -1,8 +1,11 @@
-ses_res = function (dat, agevar, exposure) {
+ses_res = function (dat, agevar, exposure, covar, label) {
+
+  covars = paste(covar, collapse = "+")
 
   out_dat = dat %>%
     select(all_of(agevar)) %>%
-    tidyr::gather(., y, yvalue)
+    tidyr::gather(., y, yvalue) %>%
+    mutate(y = factor(y, levels = agevar, labels = label))
 
   exp_dat = dat %>%
     select(age,gender,all_of(exposure)) %>%
@@ -13,7 +16,7 @@ ses_res = function (dat, agevar, exposure) {
     do(data.frame(., exp_dat)) %>%
     group_by(y, x) %>%
     na.omit() %>%
-    do(broom::tidy(lm(yvalue ~ xvalue + age + gender, data =.))) %>%
+    do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
     filter(term == "xvalue") %>%
     mutate(estimate = paste(round(estimate, 3), " (", round(estimate - 1.96 * std.error, 3), ", ", round(estimate + 1.96 * std.error, 3), ")", sep = "")) %>%
     select(y, x, estimate) %>%
@@ -21,20 +24,53 @@ ses_res = function (dat, agevar, exposure) {
     ungroup()
 
   match=match(exposure, res$x)
+
   table=res[match,] %>%
     mutate(x = exposure) %>%
-    mutate_at(vars(agevar), funs(replace(., is.na(.), "-")))
+    mutate_at(vars(label), funs(replace(., is.na(.), "-")))
 
   return(table)
 
 }
 
-#' Association with socioeconomic variables, adjusting for chronological age and gender and stratified by age
+ses_n = function (dat, agevar, exposure, covar, label) {
+
+  out_dat = dat %>%
+    select(all_of(agevar)) %>%
+    tidyr::gather(., y, yvalue) %>%
+    mutate(y = factor(y, levels = agevar, labels = label))
+
+  exp_dat = dat %>%
+    select(age,gender,all_of(exposure)) %>%
+    tidyr::gather(., x, xvalue, all_of(exposure))
+
+  n = out_dat %>%
+    group_by(y) %>%
+    do(data.frame(.,exp_dat)) %>%
+    na.omit() %>%
+    group_by(y,x)%>%
+    summarise(n = length(which(!is.na(yvalue)))) %>%
+    spread(x,n) %>%
+    ungroup()
+
+  match = match(exposure, res$y)
+
+  n = n[match,] %>%
+    mutate(y = exposure) %>%
+    mutate_at(vars(all_of(label)), funs(replace(., is.na(.), "-")))
+
+  return(n)
+
+}
+
+
+
+#' Association with socioeconomic variables, adjusting for chronological age and gender and stratified by gender, race, and age
 #'
 #' @title table_ses
 #' @description Association with socioeconomic variables
-#' @param data The dataset for plotting corplot
-#' @param agevar A character vector indicating the names of the interested biological age measures
+#' @param data The dataset for linear regression table
+#' @param agevar A character vector indicating the names of the interested biological aging measures
 #' @param exposure A character vector indicating the name of the interested socioeconomic variables
 #' @note Chronological age and gender variables need to be named "age" and "gender"
 #' @examples
@@ -42,9 +78,16 @@ ses_res = function (dat, agevar, exposure) {
 #'                    agevar = c("bioage_advance0","phenoage_advance0",
 #'                                "bioage_advance","phenoage_advance",
 #'                                "hd","hd_log"),
-#'                    exposure = c("edu","annual_income","poverty_ratio"))
+#'                    exposure = c("edu","annual_income","poverty_ratio"),
+#'                    label = c("KDM\nBiological\nAge",
+#'                              "Levine\nPhenotypic\nAge",
+#'                              "Modified-KDM\nBiological\nAge",
+#'                              "Modified-Levine\nPhenotypic\nAge",
+#'                              "Mahalanobis\nDistance",
+#'                              "Log\nMahalanobis\nDistance")))
 #'
-#' table3
+#' table3$table
+#' table3$n
 #'
 #' @export
 #' @import dplyr
@@ -52,7 +95,7 @@ ses_res = function (dat, agevar, exposure) {
 #' @importForm broom tidy
 #' @importFrom htmlTable htmlTable
 
-table_ses = function (data, agevar, exposure) {
+table_ses = function (data, agevar, exposure, label) {
 
   dat = data %>%
     mutate_at(vars(all_of(exposure)), funs(scale(.))) %>%
@@ -65,33 +108,77 @@ table_ses = function (data, agevar, exposure) {
                                    ifelse(age>=60&age<=80,3,"NA"))))
 
   #full sample
-  table1 = ses_res(dat, agevar, exposure)
+  table1 = ses_res(dat, agevar, exposure, covar = c("age", "gender"), label)
+  n1 = ses_n(dat, agevar, exposure, covar = c("age", "gender"), label)
 
   #gender stratification
-  dat_age = split(dat, dat$age_cat)
-  dat_age$'NA' = NULL
-
-  table2 = lapply(dat_age, function(x) ses_res(x, agevar, exposure))
+  dat_gender = split(dat, dat$gender)
+  table2 = lapply(dat_gender, function(x) ses_res(x, agevar, exposure, covar = "age", label))
   table2 = do.call("rbind", table2)
 
+  n2 = lapply(dat_gender, function(x) ses_n(x, agevar, exposure, covar = "age", label))
+  n2 = do.call("rbind", n2)
+
+  #race stratification
+  dat_race = split(dat, dat$race)
+  table3 = lapply(dat_race, function(x) ses_res(x, agevar, exposure, covar = c("age","gender"), label))
+  table3 = do.call("rbind", table3)
+
+  n3 = lapply(dat_race, function(x) ses_n(x, agevar, exposure, covar = c("age","gender"), label))
+  n3 = do.call("rbind", n3)
+
+  #age stratification
+  dat_age = split(dat, dat$age_cat)
+  dat_age$'NA' = NULL
+  table4 = lapply(dat_age, function(x) ses_res(x, agevar, exposure, covar = c("age","gender"), label))
+  table4 = do.call("rbind", table4)
+
+  n4 = lapply(dat_age, function(x) ses_n(x, agevar, exposure, covar = c("age","gender"), label))
+  n4 = do.call("rbind", n4)
+
   #combine tables
-  table = rbind(table1,table2)
+  table = rbind(table1, table2, table3, table4)
+  n = rbind(n1, n2, n3, n4)
 
   #make final table
-  label = data.frame("rgroup" = c("Full Sample", "Age 20-40", "Age 40-60", "Age 60-80"))
+  table = htmlTable::htmlTable(table[,-1],
+                               rnames = table$x,
+                               align = "llllll",
+                               rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
+                               n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                               tspanner = c("b (95% CI)",
+                                            "Stratified by Gender",
+                                            "Stratified by Race",
+                                            "Stratified by Age"),
+                               n.tspanner = c(4,8,12,12),
+                               css.tspanner = "font-weight: 900; text-align: center;",
+                               css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
+                                            "width: 250px", "width: 250px", "width: 250px"),
+                               caption = "Table 3: Linear regression models of all biological aging measures with socioeconomic variables.
+                       After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
+                       Original KDM Biological Age was computed in the NHANES 2007-2010.
+                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
 
-  label$n.rgroup = nrow(table1)
+  n = htmlTable::htmlTable(n[,-1],
+                           rnames = n$x,
+                           align = "llllll",
+                           rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
+                           n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                           tspanner = c("n",
+                                        "Stratified by Gender",
+                                        "Stratified by Race",
+                                        "Stratified by Age"),
+                           n.tspanner = c(4,8,12,12),
+                           css.tspanner = "font-weight: 900; text-align: center;",
+                           css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
+                                        "width: 250px", "width: 250px", "width: 250px"),
+                           caption = "Table 3.1: Sample size for linear regression models of all biological aging measures with socioeconomic variables.
+                       Original KDM Biological Age was computed in the NHANES 2007-2010.
+                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
 
+  result = list(table = table, n = n)
 
-  htmlTable::htmlTable(table[,-1],
-                       rnames = table$x,
-                       rgroup = label$rgroup,
-                       n.rgroup = as.numeric(label$n.rgroup),
-                       tspanner = c("b (95% CI)",
-                                    "Stratified by Age"),
-                       n.tspanner = c(nrow(table1),
-                                      nrow(table2)),
-                       css.tspanner = "font-weight: 900; text-align: center;",
-                       caption = "Linear regression models of all biological age measures with socioeconomic variables. All biological age measures were standardized to have mean = 0, SD = 1 by gender.")
+  return(result)
+
 
 }
