@@ -4,19 +4,21 @@
 \alias{table_surv}
 \title{table_surv}
 \usage{
-table_surv(data, agevar, time, status)
+table_surv(data, agevar, time, status, label)
 }
 \arguments{
-\item{data}{The dataset for plotting corplot}
+\item{data}{The dataset for mortality table}
 
-\item{agevar}{A character vector indicating the names of the interested biological age measures}
+\item{agevar}{A character vector indicating the names of the interested biological aging measures}
 
 \item{time}{A character vector (length=1) indicating the name of the variable for survival time}
 
 \item{status}{A character vector (length=1) indicating the name of the variable for survival status}
+
+\item{label}{A character vector indicating the labels of the biological aging measures}
 }
 \description{
-Mortality validation for biological age measures
+Mortality validation for biological aging measures
 }
 \details{
 Mortality validation for biological age measures, adjusting for chronological age and gender and stratified by gender, race, and age
@@ -30,7 +32,13 @@ table1 = table_surv(nhanes,
                                "bioage_advance","phenoage_advance",
                                "hd","hd_log"),
                     time = "permth_exm",
-                    status = "mortstat")
+                    status = "mortstat",
+                    label = c("KDM\nBiological\nAge",
+                              "Levine\nPhenotypic\nAge",
+                              "Modified-KDM\nBiological\nAge",
+                              "Modified-Levine\nPhenotypic\nAge",
+                              "Mahalanobis\nDistance",
+                              "Log\nMahalanobis\nDistance"))
 
 table1
 

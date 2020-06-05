@@ -13,10 +13,10 @@ phenoage_nhanes(biomarkers)
 An object of class "phenoage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Levine's phenotypic age using NHANES dataset
+Calculate Levine's Phenotypic Age using NHANES dataset
 }
 \details{
-Calculate Levine's phenotypic age using NHANES dataset
+Calculate Levine's Phenotypic Age using NHANES dataset
 }
 \examples{
 #Calculate phenoage

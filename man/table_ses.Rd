@@ -4,12 +4,12 @@
 \alias{table_ses}
 \title{table_ses}
 \usage{
-table_ses(data, agevar, exposure)
+table_ses(data, agevar, exposure, label)
 }
 \arguments{
-\item{data}{The dataset for plotting corplot}
+\item{data}{The dataset for linear regression table}
 
-\item{agevar}{A character vector indicating the names of the interested biological age measures}
+\item{agevar}{A character vector indicating the names of the interested biological aging measures}
 
 \item{exposure}{A character vector indicating the name of the interested socioeconomic variables}
 }
@@ -17,7 +17,7 @@ table_ses(data, agevar, exposure)
 Association with socioeconomic variables
 }
 \details{
-Association with socioeconomic variables, adjusting for chronological age and gender and stratified by age
+Association with socioeconomic variables, adjusting for chronological age and gender and stratified by gender, race, and age
 }
 \note{
 Chronological age and gender variables need to be named "age" and "gender"
@@ -27,8 +27,15 @@ table3 = table_ses(nhanes,
                    agevar = c("bioage_advance0","phenoage_advance0",
                                "bioage_advance","phenoage_advance",
                                "hd","hd_log"),
-                   exposure = c("edu","annual_income","poverty_ratio"))
+                   exposure = c("edu","annual_income","poverty_ratio"),
+                   label = c("KDM\nBiological\nAge",
+                             "Levine\nPhenotypic\nAge",
+                             "Modified-KDM\nBiological\nAge",
+                             "Modified-Levine\nPhenotypic\nAge",
+                             "Mahalanobis\nDistance",
+                             "Log\nMahalanobis\nDistance")))
 
-table3
+table3$table
+table3$n
 
 }

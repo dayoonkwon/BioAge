@@ -21,10 +21,10 @@ bioage_calc(data, age, biomarkers, fit = NULL, s_ba2 = NULL)
 An object of class "bioage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Klemera-Doubal Method (KDM) biological age
+Calculate Klemera-Doubal Method (KDM) Biological Age
 }
 \details{
-Calculate KDM biological age
+Calculate KDM Biological Age
 }
 \examples{
 #Train KDM bioage parameters

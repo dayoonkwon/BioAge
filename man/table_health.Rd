@@ -4,20 +4,22 @@
 \alias{table_health}
 \title{table_health}
 \usage{
-table_health(data, agevar, outcome)
+table_health(data, agevar, outcome, label)
 }
 \arguments{
-\item{data}{The dataset for plotting corplot}
+\item{data}{The dataset for linear regression table}
 
-\item{agevar}{A character vector indicating the names of the interested biological age measures}
+\item{agevar}{A character vector indicating the names of the interested biological aging measures}
 
 \item{outcome}{A character vector indicating the name of the interested current health status outcomes}
+
+\item{label}{A character vector indicating the labels of the biological aging measures}
 }
 \description{
 Association with current health status outcomes
 }
 \details{
-Association with current health status outcomes, adjusting for chronological age and gender and stratified by age
+Association with current health status outcomes, adjusting for chronological age and gender and stratified by gender, race, and age
 }
 \note{
 Chronological age and gender variables need to be named "age" and "gender"
@@ -27,8 +29,15 @@ table2 = table_health(nhanes,
                       agevar = c("bioage_advance0","phenoage_advance0",
                                "bioage_advance","phenoage_advance",
                                "hd","hd_log"),
-                      outcome = c("health","adl","lnwalk","grip_scaled"))
+                      outcome = c("health","adl","lnwalk","grip_scaled"),
+                      label = c("KDM\nBiological\nAge",
+                                "Levine\nPhenotypic\nAge",
+                                "Modified-KDM\nBiological\nAge",
+                                "Modified-Levine\nPhenotypic\nAge",
+                                "Mahalanobis\nDistance",
+                                "Log\nMahalanobis\nDistance"))
 
-table2
+table2$table
+table2$n
 
 }

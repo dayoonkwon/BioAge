@@ -23,10 +23,10 @@ phenoage_calc(data, age, time, status, biomarkers, fit = NULL)
 An object of class "phenoage". This object is a list with two elements (data and fit)
 }
 \description{
-Calculate Levine's phenotypic age
+Calculate Levine's Phenotypic Age
 }
 \details{
-Calculate phenotypic age
+Calculate Phenotypic Age
 }
 \examples{
 #Train phenoage parameters
