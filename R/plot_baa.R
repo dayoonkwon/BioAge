@@ -155,8 +155,8 @@ cor_colors = function(vals, fix = 0, zlim = cor_zlim,
 plot_scatter = function(dat, scatter_cols, lm_col, axis_type,
                         xlim, ylim, x_axis = TRUE, y_axis = TRUE, plot_lm = TRUE) {
   get_labels = function(x) {
-    labels = seq(x[1], x[2], length.out = 100)
-    ret = quantile(labels, seq(0, 1, .2))[c(-1, -6)]
+    plot_labels = seq(x[1], x[2], length.out = 100)
+    ret = quantile(plot_labels, seq(0, 1, .2))[c(-1, -6)]
     return(round(ret, 1))
   }
 
@@ -179,7 +179,7 @@ plot_scatter = function(dat, scatter_cols, lm_col, axis_type,
   if (y_axis == TRUE) {
     round_d = ifelse(axis_type['y'] == 'int', 0, 1)
     y_at = round(get_labels(par()$usr[3:4]), round_d)
-    axis(side = 2, at = y_at, labels = y_at, yaxt = 's', cex.axis = axis_cex, labs = 2)
+    axis(side = 2, at = y_at, labels = y_at, yaxt = 's', cex.axis = axis_cex, las=2)
   }
 
   if (plot_lm == TRUE) {
@@ -276,6 +276,7 @@ plot_baa = function(data, agevar, label, axis_type) {
   make_plot(axis_type, comp_df, dat, label,
             scatter_cols, cor_zlim,
             white_borders=FALSE)
+
 
 }
 

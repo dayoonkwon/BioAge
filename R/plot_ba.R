@@ -36,7 +36,7 @@ plot_ba = function(data, agevar, label) {
   cor_label$r = round(cor_label$r, 3)
   cor_label$r = paste0("r = ", cor_label$r)
 
-  data %>%
+  plot = data %>%
     pivot_longer(all_of(agevar), names_to = "method", values_to = "measure") %>%
     mutate(method = factor(method, levels = agevar, labels = label)) %>%
     ggplot(., aes(x = age,y = measure, group = method, colour = as.factor(gender))) +
@@ -57,6 +57,8 @@ plot_ba = function(data, agevar, label) {
           strip.background = element_rect(fill = "white"), strip.text = element_text(size=14,face = "bold"),
           panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.border = element_blank(),
           panel.background = element_blank())
+
+  return(plot)
 
 
 }
