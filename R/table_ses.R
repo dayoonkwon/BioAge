@@ -2,18 +2,11 @@ ses_res = function (dat, agevar, exposure, covar, label) {
 
   covars = paste(covar, collapse = "+")
 
-  out_dat = dat %>%
-    select(all_of(agevar)) %>%
+  res = dat %>%
+    select(all_of(agevar), all_of(exposure), all_of(covar)) %>%
     tidyr::pivot_longer(all_of(agevar), names_to = "y", values_to = "yvalue") %>%
-    mutate(y = factor(y, levels = agevar, labels = label))
-
-  exp_dat = dat %>%
-    select(age,gender,all_of(exposure)) %>%
-    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue")
-
-  res = out_dat %>%
-    group_by(y) %>%
-    do(data.frame(., exp_dat)) %>%
+    mutate(y = factor(y, levels = agevar, labels = label)) %>%
+    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue") %>%
     group_by(y, x) %>%
     na.omit() %>%
     do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
@@ -35,20 +28,13 @@ ses_res = function (dat, agevar, exposure, covar, label) {
 
 ses_n = function (dat, agevar, exposure, covar, label) {
 
-  out_dat = dat %>%
-    select(all_of(agevar)) %>%
+  n = dat %>%
+    select(all_of(agevar), all_of(exposure), all_of(covar)) %>%
     tidyr::pivot_longer(all_of(agevar), names_to = "y", values_to = "yvalue") %>%
-    mutate(y = factor(y, levels = agevar, labels = label))
-
-  exp_dat = dat %>%
-    select(age,gender,all_of(exposure)) %>%
-    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue")
-
-  n = out_dat %>%
-    group_by(y) %>%
-    do(data.frame(.,exp_dat)) %>%
+    mutate(y = factor(y, levels = agevar, labels = label)) %>%
+    tidyr::pivot_longer(all_of(exposure), names_to = "x", values_to = "xvalue") %>%
+    group_by(y, x) %>%
     na.omit() %>%
-    group_by(y,x)%>%
     summarise(n = length(which(!is.na(yvalue)))) %>%
     tidyr::spread(y,n) %>%
     ungroup()
@@ -146,12 +132,12 @@ table_ses = function (data, agevar, exposure, label) {
                                rnames = table$x,
                                align = "llllll",
                                rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
-                               n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                               n.rgroup = rep(length(exposure),9),
                                tspanner = c("b (95% CI)",
                                             "Stratified by Gender",
                                             "Stratified by Race",
                                             "Stratified by Age"),
-                               n.tspanner = c(4,8,12,12),
+                               n.tspanner = c(3,6,9,9),
                                css.tspanner = "font-weight: 900; text-align: center;",
                                css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
                                             "width: 250px", "width: 250px", "width: 250px"),
@@ -164,12 +150,12 @@ table_ses = function (data, agevar, exposure, label) {
                            rnames = n$x,
                            align = "llllll",
                            rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
-                           n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                           n.rgroup = rep(length(exposure),9),
                            tspanner = c("n",
                                         "Stratified by Gender",
                                         "Stratified by Race",
                                         "Stratified by Age"),
-                           n.tspanner = c(4,8,12,12),
+                           n.tspanner = c(3,6,9,9),
                            css.tspanner = "font-weight: 900; text-align: center;",
                            css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
                                         "width: 250px", "width: 250px", "width: 250px"),

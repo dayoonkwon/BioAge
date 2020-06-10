@@ -2,18 +2,11 @@ health_res = function (dat, agevar, outcome, covar, label) {
 
   covars = paste(covar, collapse = "+")
 
-  out_dat = dat %>%
-    select(all_of(outcome)) %>%
-    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue")
-
-  exp_dat = dat %>%
-    select(all_of(covar),all_of(agevar)) %>%
+  res = dat %>%
+    select(all_of(agevar), all_of(outcome), all_of(covar))%>%
+    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue") %>%
     tidyr::pivot_longer(all_of(agevar), names_to = "x", values_to = "xvalue") %>%
-    mutate(x = factor(x, levels = agevar, labels = label))
-
-  res = out_dat %>%
-    group_by(y) %>%
-    do(data.frame(., exp_dat)) %>%
+    mutate(x = factor(x, levels = agevar, labels = label)) %>%
     group_by(y, x) %>%
     na.omit() %>%
     do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
@@ -35,20 +28,13 @@ health_res = function (dat, agevar, outcome, covar, label) {
 
 health_n = function (dat, agevar, outcome, covar, label) {
 
-  out_dat = dat %>%
-    select(all_of(outcome)) %>%
-    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue")
-
-  exp_dat = dat %>%
-    select(all_of(covar),all_of(agevar)) %>%
+  n = dat %>%
+    select(all_of(agevar), all_of(outcome), all_of(covar))%>%
+    tidyr::pivot_longer(all_of(outcome), names_to = "y", values_to = "yvalue") %>%
     tidyr::pivot_longer(all_of(agevar), names_to = "x", values_to = "xvalue") %>%
-    mutate(x = factor(x, levels = agevar, labels = label))
-
-  n = out_dat %>%
-    group_by(y) %>%
-    do(data.frame(.,exp_dat)) %>%
+    mutate(x = factor(x, levels = agevar, labels = label)) %>%
+    group_by(y, x) %>%
     na.omit() %>%
-    group_by(y,x)%>%
     summarise(n = length(which(!is.na(yvalue)))) %>%
     tidyr::spread(x,n) %>%
     ungroup()
@@ -146,7 +132,7 @@ table_health = function (data, agevar, outcome, label) {
                        rnames = table$y,
                        align = "llllll",
                        rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
-                       n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                       n.rgroup = rep(length(outcome),9),
                        tspanner = c("b (95% CI)",
                                     "Stratified by Gender",
                                     "Stratified by Race",
@@ -166,7 +152,7 @@ table_health = function (data, agevar, outcome, label) {
                            rnames = n$y,
                            align = "llllll",
                            rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
-                           n.rgroup = c(4,4,4,4,4,4,4,4,4),
+                           n.rgroup = rep(length(outcome),9),
                            tspanner = c("n",
                                         "Stratified by Gender",
                                         "Stratified by Race",
