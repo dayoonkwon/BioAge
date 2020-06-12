@@ -712,7 +712,9 @@ NHANES_COMPLETE <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
   full_join(.,VITAC_ALL,by="seqn") %>%
   full_join(.,NHANES_MORT,by="seqn") %>%
   unique() %>%
-  filter(!is.na(year)&age>=20)
+  filter(!is.na(year)&age>=20) %>%
+  dplyr::rename(sampleID = seqn) %>%
+  mutate(sampleID = paste0(year,"_",sampleID))
 
 dim(NHANES_COMPLETE)
 head(NHANES_COMPLETE)
@@ -851,15 +853,19 @@ NHANESIII_COMPLETE <- full_join(Demo_III,BMI_III,by="seqn") %>%
   full_join(.,Bio_III,by="seqn") %>%
   full_join(.,NHANESIII_MORT,by="seqn") %>%
   unique() %>%
-  filter(!is.na(year)&age>=20)
+  filter(!is.na(year)&age>=20) %>%
+  dplyr::rename(sampleID = seqn) %>%
+  mutate(sampleID = paste0(year,"_",sampleID))
 
 head(NHANESIII_COMPLETE)
 summary(NHANESIII_COMPLETE)
 dim(NHANESIII_COMPLETE)
 
 # Merge NHANES and NHANESIII ----------------------------------------------
-NHANES_ALL <- rbind.fill(NHANES_COMPLETE,NHANESIII_COMPLETE) %>%
-  unique()
+NHANES_ALL = rbind.fill(NHANES_COMPLETE,NHANESIII_COMPLETE) %>%
+  unique() %>%
+  dplyr::rename(time = permth_exm,
+                status = mortstat)
 
 head(NHANES_ALL)
 summary(NHANES_ALL)
