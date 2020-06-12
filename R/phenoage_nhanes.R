@@ -51,7 +51,7 @@ phenoage_nhanes = function(biomarkers) {
   all = rbind(train$data,test$data)
   dat = left_join(NHANES_ALL, all[,c("sampleID", "phenoage", "phenoage_advance", "phenoage_residual")], by = "sampleID")
 
-  phenoage = list(data = dat, fit = test$fit)
+  phenoage = list(data = dat, fit = train$fit)
   class(phenoage) = append(class(phenoage), "phenoage")
   return(phenoage)
 

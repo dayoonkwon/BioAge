@@ -63,7 +63,7 @@ bioage_nhanes = function (biomarkers) {
 
   #combine data
   dat = left_join(NHANES_ALL, all[,c("sampleID", "bioage", "bioage_advance", "bioage_residual")], by = "sampleID")
-  fit = list(female = test_fem$fit, male = test_male$fit, nobs = test_fem$fit$nobs + test_male$fit$nobs)
+  fit = list(female = train_fem$fit, male = train_male$fit, nobs = test_fem$fit$nobs + test_male$fit$nobs)
 
   bioage = list(data = dat, fit = fit)
   class(bioage) = append(class(bioage), "bioage")
