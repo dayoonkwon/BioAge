@@ -93,5 +93,5 @@ table3$n
 
 
 # Step 3: Score new data --------------------------------------------------
-
+hrs <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/hrs/HRS/HRS_DWB_forBA.dta")
 

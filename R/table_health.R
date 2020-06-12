@@ -79,7 +79,7 @@ health_n = function (dat, agevar, outcome, covar, label) {
 #' @import dplyr
 #' @importFrom tidyr pivot_longer
 #' @importFrom tidyr spread
-#' @importForm broom tidy
+#' @importFrom broom tidy
 #' @importFrom htmlTable htmlTable
 
 table_health = function (data, agevar, outcome, label) {
