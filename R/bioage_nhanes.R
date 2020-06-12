@@ -35,8 +35,8 @@ bioage_nhanes = function (biomarkers) {
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #calculate training KDM
-  train_fem = bioage_calc(nhanes3_fem, age = "age", biomarkers, fit = NULL, s_ba2 = NULL)
-  train_male = bioage_calc(nhanes3_male, age = "age", biomarkers, fit = NULL, s_ba2 = NULL)
+  train_fem = bioage_calc(nhanes3_fem, biomarkers, fit = NULL, s_ba2 = NULL)
+  train_male = bioage_calc(nhanes3_male, biomarkers, fit = NULL, s_ba2 = NULL)
 
   #develop test dataset for KDM
   nhanes = NHANES_ALL %>%
@@ -53,8 +53,8 @@ bioage_nhanes = function (biomarkers) {
                                               (. <(mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
 
   #calculate test modified KDM
-  test_fem = bioage_calc(nhanes_fem, age = "age", biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
-  test_male = bioage_calc(nhanes_male, age = "age", biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
+  test_fem = bioage_calc(nhanes_fem, biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
+  test_male = bioage_calc(nhanes_male, biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
 
   #comebine calculated bioage
   train = rbind(train_fem$data, train_male$data)
@@ -62,7 +62,7 @@ bioage_nhanes = function (biomarkers) {
   all = rbind(train,test)
 
   #combine data
-  dat = left_join(NHANES_ALL, all[,c("seqn", "year", "bioage", "bioage_advance", "bioage_residual")], by = c("seqn", "year"))
+  dat = left_join(NHANES_ALL, all[,c("sampleID", "bioage", "bioage_advance", "bioage_residual")], by = "sampleID")
   fit = list(female = test_fem$fit, male = test_male$fit, nobs = test_fem$fit$nobs + test_male$fit$nobs)
 
   bioage = list(data = dat, fit = fit)

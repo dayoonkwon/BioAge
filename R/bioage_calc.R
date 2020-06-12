@@ -3,18 +3,17 @@
 #' @title bioage_calc
 #' @description Calculate Klemera-Doubal Method (KDM) Biological Age
 #' @param data The dataset for calculating KDM bioage
-#' @param age A character vector (length=1) indicating the name of the variable for chronological age
 #' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating KDM bioage
 #' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM bioage are calculated
 #' @param s_ba2 A particular fit parameter. Advanced users can modify this parameter to control the variance of bioage
 #' @return An object of class "bioage". This object is a list with two elements (data and fit)
 #' @examples
 #' #Train KDM bioage parameters
-#' train = bioage_calc(nhanes3,age="age",
+#' train = bioage_calc(nhanes3,
 #'                     biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 #'
 #' #Use training data to calculate KDM bioage
-#' bioage = bioage_calc(nhanes,age="age",
+#' bioage = bioage_calc(nhanes,
 #'                      biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
 #'                      fit=train$fit,
 #'                      s_ba2=train$fit$s_ba2)
@@ -26,14 +25,13 @@
 #' @export
 
 
-bioage_calc = function (data, age, biomarkers, fit = NULL, s_ba2 = NULL) {
+bioage_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   dat = data
-  dat$age = unlist(dat[, age])
   bm = biomarkers
   bm_dat = t(select(dat, bm))
 
-  rm(age); rm(biomarkers)
+  rm(biomarkers)
 
   if (is.null(fit)) {
 

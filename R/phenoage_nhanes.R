@@ -31,7 +31,7 @@ phenoage_nhanes = function(biomarkers) {
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
     ungroup()
 
-  train = phenoage_calc(nhanes3, age = "age", time = "permth_exm", status = "mortstat", biomarkers,fit=NULL)
+  train = phenoage_calc(nhanes3, biomarkers,fit=NULL)
 
   #develop test dataset for Levine's phenoage method
   nhanes = NHANES_ALL %>%
@@ -45,11 +45,11 @@ phenoage_nhanes = function(biomarkers) {
                                               (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
     ungroup()
 
-  test = phenoage_calc(nhanes, age = "age", time = "permth_exm", status = "mortstat", biomarkers, fit=train$fit)
+  test = phenoage_calc(nhanes, biomarkers, fit=train$fit)
 
   #comebine calculated phenoage
   all = rbind(train$data,test$data)
-  dat = left_join(NHANES_ALL, all[,c("seqn", "year", "phenoage", "phenoage_advance", "phenoage_residual")], by = c("seqn", "year"))
+  dat = left_join(NHANES_ALL, all[,c("sampleID", "phenoage", "phenoage_advance", "phenoage_residual")], by = "sampleID")
 
   phenoage = list(data = dat, fit = test$fit)
   class(phenoage) = append(class(phenoage), "phenoage")

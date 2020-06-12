@@ -7,7 +7,7 @@
 
 #|Variable | Description | Female Healthy Range| Male Healthy Range|
 #|:------- | :---------- | :------------------ | :-----------------|
-#|seqn | Unique individual identifier||
+#|sampleID | Unique individual identifier||
 #|gender | gender (1=male; 2=female)||
 #|**Biomarkers**||
 #|albumin | Albumin (g/dL) | 3.5-5 | 3.5-5|
@@ -126,7 +126,7 @@ hd_nhanes = function(biomarkers) {
   hd_male = hd_calc(test_male, train_male, biomarkers)
   all = rbind(hd_fem$data,hd_male$data)
 
-  dat = left_join(NHANES_ALL,all[,c("seqn","year","hd","hd_log")],by=c("seqn","year"))
+  dat = left_join(NHANES_ALL,all[,c("sampleID","hd","hd_log")], by= "sampleID")
   fit = list(female = hd_fem$fit, male = hd_male$fit, nobs = hd_fem$fit$nobs + hd_male$fit$nobs)
 
   hd = list(data = dat, fit = fit)

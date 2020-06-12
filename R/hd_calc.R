@@ -64,14 +64,14 @@ hd_calc = function(data, reference, biomarkers){
   }
 
   dat = data %>%
-    select(seqn,year,biomarkers) %>%
+    select(sampleID,biomarkers) %>%
     na.omit()
 
-  dat$hd <- hd/sd(hd)
-  dat$hd_log <- log(hd)/sd(log(hd))
+  dat$hd = hd/sd(hd)
+  dat$hd_log = log(hd)/sd(log(hd))
   nobs = sum(!is.na(dat$hd))
 
-  dat = left_join(data, dat[,c("seqn","year","hd","hd_log")], by = c("seqn","year"))
+  dat = left_join(data, dat[,c("sampleID","hd","hd_log")], by = "sampleID")
   fit = list(mcov = means, cov_mat = cv_mat, nobs = nobs)
   hd = list(data = dat,fit = fit)
 
