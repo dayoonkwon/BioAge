@@ -19,6 +19,7 @@ Suggests:
     flexsurv,
     htmlTable,
     survival,
+    testthat,
     tidyr,
     knitr,
     rmarkdown
