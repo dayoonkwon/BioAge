@@ -181,8 +181,8 @@ colnames(PFQ_2001) <- colnames(PFQ_2003)
 
 PFQ_ALL <- bind_rows(PFQ_1999,PFQ_2001,PFQ_2003,PFQ_2005,PFQ_2007,PFQ_2009,PFQ_2011,PFQ_2013,PFQ_2015,PFQ_2017)
 PFQ_ALL <- PFQ_ALL %>%
-  mutate_at(vars(PFQ061A,PFQ061B,PFQ061C,PFQ061D,PFQ061E,PFQ061F,PFQ061G,PFQ061H,PFQ061I,PFQ061J,PFQ061K,PFQ061L,PFQ061M,PFQ061N,PFQ061O,PFQ061P,PFQ061Q,PFQ061R,PFQ061S),funs(ifelse(.>=7,NA,.))) %>%
-  mutate_at(vars(PFQ061A,PFQ061B,PFQ061C,PFQ061D,PFQ061E,PFQ061F,PFQ061G,PFQ061H,PFQ061I,PFQ061J,PFQ061K,PFQ061L,PFQ061M,PFQ061N,PFQ061O,PFQ061P,PFQ061Q,PFQ061R,PFQ061S),funs(ifelse(.==1,0,1))) %>%
+  mutate_at(vars(PFQ061A,PFQ061B,PFQ061C,PFQ061D,PFQ061E,PFQ061F,PFQ061G,PFQ061H,PFQ061I,PFQ061J,PFQ061K,PFQ061L,PFQ061M,PFQ061N,PFQ061O,PFQ061P,PFQ061Q,PFQ061R,PFQ061S),list(~ifelse(.>=7,NA,.))) %>%
+  mutate_at(vars(PFQ061A,PFQ061B,PFQ061C,PFQ061D,PFQ061E,PFQ061F,PFQ061G,PFQ061H,PFQ061I,PFQ061J,PFQ061K,PFQ061L,PFQ061M,PFQ061N,PFQ061O,PFQ061P,PFQ061Q,PFQ061R,PFQ061S),list(~ifelse(.==1,0,1))) %>%
   mutate(seqn=SEQN,adl=rowSums(.[2:20])) %>%
   select(seqn,adl)
 
@@ -225,9 +225,9 @@ SPX_2011 <- select(SPX$SPX_G,SEQN,SPXNFEV1,SPXBFEV1)
 
 SPX_ALL <- bind_rows(SPX_2007,SPX_2009,SPX_2011) %>%
   mutate(fev=ifelse(!is.na(SPXBFEV1),(SPXNFEV1+SPXBFEV1)/2,SPXNFEV1),
-         fev_new=fev/1000,
+         fev_1000=fev/1000,
          seqn=SEQN) %>%
-  select(seqn,fev,fev_new)
+  select(seqn,fev,fev_1000)
 
 head(SPX_ALL)
 summary(SPX_ALL)
@@ -685,7 +685,7 @@ NHANES_MORT <- lapply(NHANES_MORT,function(x){
 NHANES_MORT <- bind_rows(NHANES_MORT)
 
 # Combine all datasets ----------------------------------------------------
-NHANES_COMPLETE <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
+NHANES4 <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
   full_join(.,BMI_ALL,by="seqn") %>%
   full_join(.,BIX_ALL,by="seqn") %>%
   full_join(.,SPX_ALL,by="seqn") %>%
@@ -711,14 +711,11 @@ NHANES_COMPLETE <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
   full_join(.,VITAB_ALL,by="seqn") %>%
   full_join(.,VITAC_ALL,by="seqn") %>%
   full_join(.,NHANES_MORT,by="seqn") %>%
-  unique() %>%
-  filter(!is.na(year)&age>=20) %>%
-  dplyr::rename(sampleID = seqn) %>%
-  mutate(sampleID = paste0(year,"_",sampleID))
+  unique()
 
-dim(NHANES_COMPLETE)
-head(NHANES_COMPLETE)
-summary(NHANES_COMPLETE)
+dim(NHANES4)
+head(NHANES4)
+summary(NHANES4)
 
 # NHANESIII ---------------------------------------------------------------
 adult <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/adult.dta")
@@ -735,7 +732,9 @@ colnames(lab) <-toupper(colnames(lab))
 # Demographic -------------------------------------------------------------
 Demo_III <- select(adult,SEQN,HSSEX,HSAGEIR,DMARETHN,HFA8R,DMPPIR,HAB1,HFF19R)
 #Adding a wave variable and informative variable names to match those in the continuous NHANES panels data file
-Demo_III <- transmute(Demo_III,seqn=SEQN,year=1991,wave=0,gender=HSSEX,age=HSAGEIR,income_recode=HFF19R,education=HFA8R,ethnicity=DMARETHN,poverty_ratio=DMPPIR,health=HAB1)
+Demo_III <- transmute(Demo_III,seqn=SEQN,year=1991,wave=0,gender=HSSEX,age=HSAGEIR,
+                      income_recode=HFF19R,education=HFA8R,ethnicity=DMARETHN,poverty_ratio=DMPPIR,
+                      health=HAB1)
 
 #Recoding variables
 Demo_III$income_recode[Demo_III$income_recode==88]<-NA
@@ -774,7 +773,8 @@ summary(Demo_III)
 
 # Pregnant ----------------------------------------------------------------
 BMI_III <- select(exam,SEQN,MAPF12R,BMPBMI,BMPHT,BMPWAIST,BMPWT,PEPMNK1R,PEPMNK5R,SPPFEV1)
-BMI_III <- transmute(BMI_III,seqn=SEQN,pregnant=MAPF12R,bmi=BMPBMI,height=BMPHT,waist=BMPWAIST,weight=BMPWT,sbp=PEPMNK1R,dbp=PEPMNK5R,fev=SPPFEV1)
+BMI_III <- transmute(BMI_III,seqn=SEQN,pregnant=MAPF12R,bmi=BMPBMI,height=BMPHT,waist=BMPWAIST,
+                     weight=BMPWT,sbp=PEPMNK1R,dbp=PEPMNK5R,fev=SPPFEV1)
 
 #Recoding pregnancy variable to be nonpregnant for all men and for individuals of uncertain pregnancy status
 BMI_III$pregnant[BMI_III$pregnant==8] <- 2
@@ -794,14 +794,19 @@ BMI_III$fev[BMI_III$fev>=8880] <- NA
 #Create variables
 BMI_III$meanbp <- (BMI_III$sbp + (2*BMI_III$dbp))/3
 BMI_III$pulse <- BMI_III$sbp - BMI_III$dbp
-BMI_III$fev_new <- BMI_III$fev/1000
+BMI_III$fev_1000 <- BMI_III$fev/1000
 
 head(BMI_III)
 summary(BMI_III)
 
 # Biomarkers --------------------------------------------------------------
-Bio_III <- select(lab,SEQN,GHP,TCP,HDP,LCP,TGP,CRP,CEP,SGP,I1P,URP,PHPFAST,AMP,APPSI,BUP,UAP,LMPPCNT,WCPSI,MVPSI,RWP,MOPPCNT,RCPSI,TBP,GGPSI)
-Bio_III <- transmute(Bio_III,seqn=SEQN,hba1c=GHP,totchol=TCP,hdl=HDP,ldl=LCP,trig=TGP,crp=CRP,creat=CEP,glucose=SGP,phpfast=PHPFAST,albumin=AMP,alp=APPSI,bun=BUP,uap=UAP,lymph=LMPPCNT,wbc=WCPSI,mcv=MVPSI,rdw=RWP,monopa=MOPPCNT,rbc=RCPSI,ttbl=TBP,ggt=GGPSI)
+Bio_III <- select(lab,SEQN,GHP,TCP,HDP,LCP,TGP,CRP,CEP,SGP,I1P,URP,PHPFAST,AMP,APPSI,BUP,UAP,
+                  LMPPCNT,WCPSI,MVPSI,RWP,MOPPCNT,RCPSI,TBP,GGPSI,UDPSI,I1P,VBPSI,VCP,VAPSI,VEPSI)
+Bio_III <- transmute(Bio_III,seqn=SEQN,hba1c=GHP,totchol=TCP,hdl=HDP,ldl=LCP,trig=TGP,crp=CRP,
+                     creat=CEP,glucose=SGP,phpfast=PHPFAST,albumin=AMP,alp=APPSI,bun=BUP,uap=UAP,
+                     lymph=LMPPCNT,wbc=WCPSI,mcv=MVPSI,rdw=RWP,monopa=MOPPCNT,rbc=RCPSI,ttbl=TBP,
+                     ggt=GGPSI,cadmium=UDPSI,insulin=I1P,vitaminB12=VBPSI,vitaminC=VCP,vitaminA=VAPSI,
+                     vitaminE=VEPSI)
 
 #Recoding NHANES III blank indicators to missing
 Bio_III$hba1c[Bio_III$hba1c==8888] <- NA
@@ -825,6 +830,12 @@ Bio_III$rdw[Bio_III$rdw==88888] <- NA
 Bio_III$rbc[Bio_III$rbc==8888] <- NA
 Bio_III$ttbl[Bio_III$ttbl==8888] <- NA
 Bio_III$ggt[Bio_III$ggt==8888] <- NA
+Bio_III$cadmium[Bio_III$cadmium==888888] <- NA
+Bio_III$insulin[Bio_III$insulin==888888] <- NA
+Bio_III$vitaminB12[Bio_III$vitaminB12==88888888] <- NA
+Bio_III$vitaminC[Bio_III$vitaminC==8888] <- NA
+Bio_III$vitaminA[Bio_III$vitaminA==8888] <- NA
+Bio_III$vitaminE[Bio_III$vitaminE==888888] <- NA
 
 #Adjusting serum creatinine according to published equation
 Bio_III$creat <- Bio_III$creat*0.960-0.184
@@ -835,6 +846,7 @@ Bio_III$creat_umol <- Bio_III$creat*88.4017
 Bio_III$lncreat_umol <- log(Bio_III$creat_umol)
 Bio_III$glucose_mmol <- Bio_III$glucose*0.0555
 Bio_III$albumin_gL <- Bio_III$albumin*10
+Bio_III$vitaminC <- Bio_III$vitaminC*56.82
 
 head(Bio_III)
 summary(Bio_III)
@@ -849,102 +861,116 @@ NHANESIII_MORT$mortstat[NHANESIII_MORT$mortstat==1 & NHANESIII_MORT$permth_exm >
 NHANESIII_MORT$permth_exm[NHANESIII_MORT$permth_exm>240]<-240
 
 # Combine all datasets ----------------------------------------------------
-NHANESIII_COMPLETE <- full_join(Demo_III,BMI_III,by="seqn") %>%
+NHANES3 <- full_join(Demo_III,BMI_III,by="seqn") %>%
   full_join(.,Bio_III,by="seqn") %>%
   full_join(.,NHANESIII_MORT,by="seqn") %>%
-  unique() %>%
-  filter(!is.na(year)&age>=20) %>%
-  dplyr::rename(sampleID = seqn) %>%
-  mutate(sampleID = paste0(year,"_",sampleID))
+  unique()
 
-head(NHANESIII_COMPLETE)
-summary(NHANESIII_COMPLETE)
-dim(NHANESIII_COMPLETE)
+head(NHANES3)
+summary(NHANES3)
+dim(NHANES3)
 
 # Merge NHANES and NHANESIII ----------------------------------------------
-NHANES_ALL = rbind.fill(NHANES_COMPLETE,NHANESIII_COMPLETE) %>%
+NHANES_ALL = rbind.fill(NHANES4,NHANES3) %>%
   unique() %>%
-  dplyr::rename(time = permth_exm,
-                status = mortstat)
+  filter(!is.na(year)&age>=20) %>%
+  dplyr::rename(sampleID = seqn,
+                time = permth_exm,
+                status = mortstat) %>%
+  mutate(sampleID = paste0(year,"_",sampleID))
 
 head(NHANES_ALL)
 summary(NHANES_ALL)
 dim(NHANES_ALL)
 
+# Final two seperate data -------------------------------------------------
+NHANES3 = subset(NHANES_ALL, wave==0) %>%
+  group_by(gender) %>%
+  mutate_at(vars(fev,albumin,alp:creat,glucose,ttbl:crp,cyst:insulin,hba1c:vitaminC),
+            list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
+                          (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+  mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
+         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
+         creat_umol = ifelse(is.na(creat), NA, creat_umol),
+         lncreat = ifelse(is.na(creat), NA, lncreat),
+         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
+         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
+         crp_cat = ifelse(is.na(crp), NA, crp_cat),
+         lncrp = ifelse(is.na(crp), NA, lncrp)) %>%
+  ungroup()
+
+NHANES4 = subset(NHANES_ALL, wave>0) %>%
+  group_by(gender) %>%
+  mutate_at(vars(fev,albumin,alp:creat,glucose,ttbl:crp,cyst:insulin,hba1c:vitaminC),
+            list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
+                          (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+  mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
+         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
+         creat_umol = ifelse(is.na(creat), NA, creat_umol),
+         lncreat = ifelse(is.na(creat), NA, lncreat),
+         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
+         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
+         crp_cat = ifelse(is.na(crp), NA, crp_cat),
+         lncrp = ifelse(is.na(crp), NA, lncrp)) %>%
+  ungroup()
+
 # Calculate KDM Bioage ----------------------------------------------------
-age="age"
 biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun")
-nhanes3 = NHANES_ALL %>%
-  filter(wave==0 & age>=30 & age<=75 & pregnant==0)
 
-nhanes3_fem = nhanes3 %>%
-  filter(gender == 2) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
-nhanes3_male = nhanes3 %>%
-  filter(gender == 1) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
+train_fem = BioAge::kdm_calc(data = NHANES3 %>%
+                               filter(gender==2 & age>=30 & age<=75 & pregnant==0),
+                             biomarkers, fit = NULL, s_ba2 = NULL)
+train_male = BioAge::kdm_calc(data = NHANES3 %>%
+                                filter(gender==1 & age>=30 & age<=75 & pregnant==0),
+                              biomarkers, fit = NULL, s_ba2 = NULL)
 
-train_fem = BioAge::bioage_calc(nhanes3_fem, age, biomarkers, fit = NULL, s_ba2 = NULL)
-train_male = BioAge::bioage_calc(nhanes3_male, age, biomarkers, fit = NULL, s_ba2 = NULL)
+test_fem = BioAge::kdm_calc(data = NHANES4 %>%
+                              filter(gender==2),
+                            biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
 
-train = rbind(train_fem$data, train_male$data)
+test_male = BioAge::kdm_calc(data = NHANES4 %>%
+                               filter(gender==1),
+                             biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
 
-nhanes = NHANES_ALL %>%
-  filter(wave>0 & wave<11 & pregnant==0)
+train = rbind(train_fem$data, train_male$data) %>%
+  dplyr::rename(kdm0 = kdm,
+                kdm_advance0 = kdm_advance,
+                kdm_residual0 = kdm_residual)
 
-nhanes_fem = nhanes %>%
-  filter(gender == 2) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
+test = rbind(test_fem$data, test_male$data) %>%
+  dplyr::rename(kdm0 = kdm,
+                kdm_advance0 = kdm_advance,
+                kdm_residual0 = kdm_residual)
 
-nhanes_male = nhanes %>%
-  filter(gender == 1) %>%
-  mutate_at(vars(biomarkers), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                                            (. <(mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .)))
-
-test_fem = BioAge::bioage_calc(nhanes_fem, age, biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2)
-test_male = BioAge::bioage_calc(nhanes_male, age, biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
-test = rbind(test_fem$data, test_male$data)
-result = rbind(train,test)
-
-NHANES_ALL <- left_join(NHANES_ALL,result[,c("seqn","year","bioage","bioage_advance","bioage_residual")],by=c("seqn","year"))
+NHANES3 <- left_join(NHANES3,
+                                train[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,
+                             test[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
 
 # Calculate Phenoage ------------------------------------------------------
-nhanes3 = NHANES_ALL %>%
-  filter(wave==0 & age>=20 & age<=84 & phpfast>=8) %>%
-  group_by(gender) %>%
-  mutate_at(vars(albumin_gL,creat_umol,glucose_mmol,lncrp,lymph,mcv,rdw,alp,wbc), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
-                                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
-  ungroup()
+train = NHANES3 %>%
+  filter(age>=20 & age<=84 & phpfast>=8)
 
-xb = -19.90667+(-0.03359355*nhanes3$albumin_gL)+(0.009506491*nhanes3$creat_umol)+(0.1953192*nhanes3$glucose_mmol)+
-  (0.09536762*nhanes3$lncrp)+(-0.01199984*nhanes3$lymph)+(0.02676401*nhanes3$mcv)+(0.3306156*nhanes3$rdw)+
-  (0.001868778*nhanes3$alp)+(0.05542406*nhanes3$wbc)+(0.08035356*nhanes3$age)
+xb = -19.90667+(-0.03359355*train$albumin_gL)+(0.009506491*train$creat_umol)+(0.1953192*train$glucose_mmol)+
+  (0.09536762*train$lncrp)+(-0.01199984*train$lymph)+(0.02676401*train$mcv)+(0.3306156*train$rdw)+
+  (0.001868778*train$alp)+(0.05542406*train$wbc)+(0.08035356*train$age)
 m = 1-(exp((-1.51714*exp(xb))/0.007692696))
-nhanes3$phenoage = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+train$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+train$phenoage_advance0 <- train$phenoage0-train$age
+train$phenoage_residual0 <- residuals(lm(phenoage0 ~ age, data=train, na.action = "na.exclude"))
 
-nhanes = NHANES_ALL %>%
-  filter(wave>0 & wave<11) %>%
-  group_by(gender) %>%
-  mutate_at(vars(albumin_gL,creat_umol,glucose_mmol,lncrp,lymph,mcv,rdw,alp,wbc), funs(ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE))) |
-                                                                                                (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
-  ungroup()
-
-xb = -19.90667+(-0.03359355*nhanes$albumin_gL)+(0.009506491*nhanes$creat_umol)+(0.1953192*nhanes$glucose_mmol)+
-  (0.09536762*nhanes$lncrp)+(-0.01199984*nhanes$lymph)+(0.02676401*nhanes$mcv)+(0.3306156*nhanes$rdw)+
-  (0.001868778*nhanes$alp)+(0.05542406*nhanes$wbc)+(0.08035356*nhanes$age)
+test = NHANES4
+xb = -19.90667+(-0.03359355*test$albumin_gL)+(0.009506491*test$creat_umol)+(0.1953192*test$glucose_mmol)+
+  (0.09536762*test$lncrp)+(-0.01199984*test$lymph)+(0.02676401*test$mcv)+(0.3306156*test$rdw)+
+  (0.001868778*test$alp)+(0.05542406*test$wbc)+(0.08035356*test$age)
 m = 1-(exp((-1.51714*exp(xb))/0.007692696))
-nhanes$phenoage = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+test$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+test$phenoage_advance0 <- test$phenoage0-test$age
+test$phenoage_residual0 <- residuals(lm(phenoage0 ~ age, data=test, na.action = "na.exclude"))
 
-result = rbind(nhanes,nhanes3)
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0","phenoage_residual0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0","phenoage_residual0")],by="sampleID")
 
-NHANES_ALL <- left_join(NHANES_ALL,result[,c("seqn","year","phenoage")],by=c("seqn","year"))
-NHANES_ALL$phenoage_advance <- NHANES_ALL$phenoage-NHANES_ALL$age
-NHANES_ALL$phenoage_residual <- residuals(lm(phenoage ~ age, data=NHANES_ALL, na.action = "na.exclude"))
 
-NHANES_ALL <- NHANES_ALL%>%rename_at(vars(bioage:phenoage_residual),function(x) paste0(x,"0"))
-
-usethis::use_data(NHANES_ALL, overwrite = TRUE, internal=TRUE)
-
+usethis::use_data(NHANES3)
+usethis::use_data(NHANES4)
