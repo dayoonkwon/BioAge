@@ -4,16 +4,12 @@
 \alias{table_surv}
 \title{table_surv}
 \usage{
-table_surv(data, agevar, time, status, label)
+table_surv(data, agevar, label)
 }
 \arguments{
 \item{data}{The dataset for mortality table}
 
 \item{agevar}{A character vector indicating the names of the interested biological aging measures}
-
-\item{time}{A character vector (length=1) indicating the name of the variable for survival time}
-
-\item{status}{A character vector (length=1) indicating the name of the variable for survival status}
 
 \item{label}{A character vector indicating the labels of the biological aging measures}
 }
@@ -28,11 +24,9 @@ Chronological age, gender, and race/ethnicity variables need to be named "age", 
 }
 \examples{
 table1 = table_surv(nhanes,
-                    agevar = c("bioage_advance0","phenoage_advance0",
-                               "bioage_advance","phenoage_advance",
+                    agevar = c("kdm_advance0","phenoage_advance0",
+                               "kdm_advance","phenoage_advance",
                                "hd","hd_log"),
-                    time = "permth_exm",
-                    status = "mortstat",
                     label = c("KDM\nBiological\nAge",
                               "Levine\nPhenotypic\nAge",
                               "Modified-KDM\nBiological\nAge",
