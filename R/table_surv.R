@@ -1,4 +1,4 @@
-surv_res = function (dat, time, status, agevar, covar) {
+surv_res = function (dat, agevar, covar) {
 
   covars = paste(covar, collapse = "+")
 
@@ -6,7 +6,7 @@ surv_res = function (dat, time, status, agevar, covar) {
 
   for (i in agevar) {
 
-    form = formula(paste("survival::Surv(", time, ",", status, ")~", i, "+", covars, sep = ""))
+    form = formula(paste("survival::Surv(time,status)~", i, "+", covars, sep = ""))
     cox[[i]] = survival::coxph(form, data = dat)
 
   }; rm(i)
@@ -31,17 +31,13 @@ surv_res = function (dat, time, status, agevar, covar) {
 #' @description Mortality validation for biological aging measures
 #' @param data The dataset for mortality table
 #' @param agevar A character vector indicating the names of the interested biological aging measures
-#' @param time A character vector (length=1) indicating the name of the variable for survival time
-#' @param status A character vector (length=1) indicating the name of the variable for survival status
 #' @param label A character vector indicating the labels of the biological aging measures
 #' @note Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race"
 #' @examples
 #' table1 = table_surv(nhanes,
-#'                     agevar = c("bioage_advance0","phenoage_advance0",
-#'                                "bioage_advance","phenoage_advance",
+#'                     agevar = c("kdm_advance0","phenoage_advance0",
+#'                                "kdm_advance","phenoage_advance",
 #'                                "hd","hd_log"),
-#'                     time = "permth_exm",
-#'                     status = "mortstat",
 #'                     label = c("KDM\nBiological\nAge",
 #'                               "Levine\nPhenotypic\nAge",
 #'                               "Modified-KDM\nBiological\nAge",
@@ -57,9 +53,9 @@ surv_res = function (dat, time, status, agevar, covar) {
 #' @importForm survival coxph
 #' @importFrom htmlTable htmlTable
 
-table_surv = function (data, agevar, time, status, label) {
+table_surv = function (data, agevar, label) {
 
-  dat = nhanes %>%
+  dat = data %>%
     group_by(gender) %>%
     mutate_at(vars(all_of(agevar)), list(~scale(.))) %>%
     ungroup() %>%
@@ -67,21 +63,21 @@ table_surv = function (data, agevar, time, status, label) {
            age_cat = ifelse(age<=65, "yes", "no"))
 
   #full sample
-  table1 = surv_res(dat, time, status, agevar, covar = c("age", "gender"))
+  table1 = surv_res(dat, agevar, covar = c("age", "gender"))
 
   #gender stratification
   dat_gender = split(dat, dat$gender)
-  table2 = lapply(dat_gender, function(x) surv_res(x, time, status, agevar, covar = "age"))
+  table2 = lapply(dat_gender, function(x) surv_res(x, agevar, covar = "age"))
   table2 = do.call("rbind", table2)
 
   #race stratification
   dat_race = split(dat, dat$race)
-  table3 = lapply(dat_race, function(x) surv_res(x, time, status, agevar, covar = c("age","gender")))
+  table3 = lapply(dat_race, function(x) surv_res(x, agevar, covar = c("age","gender")))
   table3 = do.call("rbind", table3)
 
   #age stratification
   dat_age = split(dat, dat$age_cat)
-  table4 = surv_res(dat_age$yes, time, status, agevar, covar = c("age", "gender"))
+  table4 = surv_res(dat_age$yes, agevar, covar = c("age", "gender"))
 
   #combine tables
   table = rbind(table1,table2,table3,table4) %>%
