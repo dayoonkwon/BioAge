@@ -4,16 +4,10 @@
 \alias{phenoage_calc}
 \title{phenoage_calc}
 \usage{
-phenoage_calc(data, age, time, status, biomarkers, fit = NULL)
+phenoage_calc(data, biomarkers, fit = NULL)
 }
 \arguments{
 \item{data}{The dataset for calculating phenoage}
-
-\item{age}{A character vector (length=1) indicating the name of the variable for chronological age}
-
-\item{time}{A character vector (length=1) indicating the name of the variable for survival time}
-
-\item{status}{A character vector (length=1) indicating the name of the variable for survival status}
 
 \item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
 
@@ -30,12 +24,12 @@ Calculate Phenotypic Age
 }
 \examples{
 #Train phenoage parameters
-train = phenoage_calc(nhanes3,age="age",
+train = phenoage_calc(nhanes3,
                       biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
                       "rdw","creat_umol","lncrp","alp","wbc"))
 
 #Use training data to calculate phenoage
-phenoage = phenoage_calc(nhanes,age="age",
+phenoage = phenoage_calc(nhanes,
                          biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
                          "rdw","creat_umol","lncrp","alp","wbc"),
                          fit=train$fit)
