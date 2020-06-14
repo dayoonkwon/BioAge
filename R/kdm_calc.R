@@ -1,31 +1,31 @@
 #' Calculate KDM Biological Age
 #'
-#' @title bioage_calc
+#' @title kdm_calc
 #' @description Calculate Klemera-Doubal Method (KDM) Biological Age
-#' @param data The dataset for calculating KDM bioage
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating KDM bioage
-#' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM bioage are calculated
-#' @param s_ba2 A particular fit parameter. Advanced users can modify this parameter to control the variance of bioage
-#' @return An object of class "bioage". This object is a list with two elements (data and fit)
+#' @param data The dataset for calculating KDM Biological Age
+#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating KDM Biological Age
+#' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM Biological Age are calculated
+#' @param s_ba2 A particular fit parameter. Advanced users can modify this parameter to control the variance of kdm
+#' @return An object of class "kdm". This object is a list with two elements (data and fit)
 #' @examples
-#' #Train KDM bioage parameters
-#' train = bioage_calc(nhanes3,
+#' #Train KDM kdm parameters
+#' train = kdm_calc(nhanes3,
 #'                     biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 #'
-#' #Use training data to calculate KDM bioage
-#' bioage = bioage_calc(nhanes,
+#' #Use training data to calculate KDM Biological Age
+#' kdm = kdm_calc(nhanes,
 #'                      biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
 #'                      fit=train$fit,
 #'                      s_ba2=train$fit$s_ba2)
 #'
-#' #Extract bioage dataset
-#' data = bioage$data
+#' #Extract kdm dataset
+#' data = kdm$data
 #'
 #'
 #' @export
 
 
-bioage_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
+kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   dat = data
   bm = biomarkers
@@ -93,15 +93,15 @@ bioage_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   }
 
-  dat$bioage = ((BAe_n) + (dat$age / (s_ba2))) / ((BAe_d) + (1 / (s_ba2)))
-  dat$bioage_advance = dat$bioage - dat$age
-  dat$bioage_residual = residuals(lm(bioage ~ age, data = dat, na.action = "na.exclude"))
+  dat$kdm = ((BAe_n) + (dat$age / (s_ba2))) / ((BAe_d) + (1 / (s_ba2)))
+  dat$kdm_advance = dat$kdm - dat$age
+  dat$kdm_residual = residuals(lm(kdm ~ age, data = dat, na.action = "na.exclude"))
 
   fit = list(lm_age = lm_age, s_r = s_r, s_ba2 = s_ba2, s2 = s2, nobs = nobs)
 
-  bioage = list(data = dat, fit = fit)
-  class(bioage) = append(class(bioage), "bioage")
-  return(bioage)
+  kdm = list(data = dat, fit = fit)
+  class(kdm) = append(class(kdm), "kdm")
+  return(kdm)
 
 }
 
