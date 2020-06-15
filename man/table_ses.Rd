@@ -23,9 +23,9 @@ Association with socioeconomic variables, adjusting for chronological age and ge
 Chronological age and gender variables need to be named "age" and "gender"
 }
 \examples{
-table3 = table_ses(nhanes,
-                   agevar = c("bioage_advance0","phenoage_advance0",
-                               "bioage_advance","phenoage_advance",
+table3 = table_ses(data,
+                   agevar = c("kdm_advance0","phenoage_advance0",
+                               "kdm_advance","phenoage_advance",
                                "hd","hd_log"),
                    exposure = c("edu","annual_income","poverty_ratio"),
                    label = c("KDM\nBiological\nAge",

@@ -24,7 +24,7 @@ Calculate HD
 }
 \examples{
 #Calculate HD
-hd = hd_calc(nhanes,nhanes3,
+hd = hd_calc(NHANES4, NHANES3,
              biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"))
 
 #Extract bioage dataset

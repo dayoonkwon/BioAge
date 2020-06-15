@@ -8,13 +8,10 @@
 #' @note Chronological age and gender variables need to be named "age" and "gender"
 #' @examples
 #' #Calculate phenoage
-#' f1 = plot_ba(data = data, agevar = c("bioage", "phenoage", "hd"),
-#'              label = c("KDM\nBiological\nAge",
-#'                        "Levine\nPhenotypic\nAge",
-#'                        "Modified-KDM\nBiological\nAge",
+#' f1 = plot_ba(data = data, agevar = c("kdm", "phenoage", "hd"),
+#'              label = c("Modified-KDM\nBiological\nAge",
 #'                        "Modified-Levine\nPhenotypic\nAge",
-#'                        "Mahalanobis\nDistance",
-#'                        "Log\nMahalanobis\nDistance"))
+#'                        "Mahalanobis\nDistance"))
 #'
 #' f1
 #'

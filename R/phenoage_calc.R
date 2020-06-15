@@ -16,12 +16,12 @@ surv_form = function(x){
 #' @return An object of class "phenoage". This object is a list with two elements (data and fit)
 #' @examples
 #' #Train phenoage parameters
-#' train = phenoage_calc(nhanes3,
+#' train = phenoage_calc(NHANES3,
 #'                       biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
 #'                       "rdw","creat_umol","lncrp","alp","wbc"))
 #'
 #' #Use training data to calculate phenoage
-#' phenoage = phenoage_calc(nhanes,
+#' phenoage = phenoage_calc(NHANES4,
 #'                          biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
 #'                          "rdw","creat_umol","lncrp","alp","wbc"),
 #'                          fit=train$fit)

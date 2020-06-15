@@ -60,9 +60,9 @@ health_n = function (dat, agevar, outcome, covar, label) {
 #' @param label A character vector indicating the labels of the biological aging measures
 #' @note Chronological age and gender variables need to be named "age" and "gender"
 #' @examples
-#' table2 = table_health(nhanes,
-#'                       agevar = c("bioage_advance0","phenoage_advance0",
-#'                                "bioage_advance","phenoage_advance",
+#' table2 = table_health(data,
+#'                       agevar = c("kdm_advance0","phenoage_advance0",
+#'                                "kdm_advance","phenoage_advance",
 #'                                "hd","hd_log"),
 #'                       outcome = c("health","adl","lnwalk","grip_scaled"),
 #'                       label = c("KDM\nBiological\nAge",

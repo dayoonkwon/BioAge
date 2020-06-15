@@ -23,7 +23,7 @@ Mortality validation for biological age measures, adjusting for chronological ag
 Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race"
 }
 \examples{
-table1 = table_surv(nhanes,
+table1 = table_surv(data,
                     agevar = c("kdm_advance0","phenoage_advance0",
                                "kdm_advance","phenoage_advance",
                                "hd","hd_log"),

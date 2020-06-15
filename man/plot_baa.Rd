@@ -26,23 +26,23 @@ Plot correlations between BAA and chronological age
 }
 \examples{
 #Create corplot of BAA with chronologicl age
-agevar = c("bioage_advance0",
+agevar = c("kdm_advance0",
            "phenoage_advance0",
-           "bioage_advance",
+           "kdm_advance",
            "phenoage_advance",
            "hd",
            "hd_log")
 
-label = c("bioage_advance0"="KDM\nBiological\nAge",
+label = c("kdm_advance0"="KDM\nBiological\nAge",
            "phenoage_advance0"="Levine\nPhenotypic\nAge",
-           "bioage_advance"="Modified-KDM\nBiological\nAge",
+           "kdm_advance"="Modified-KDM\nBiological\nAge",
            "phenoage_advance"="Modified-Levine\nPhenotypic\nAge",
            "hd" = "Mahalanobis\nDistance",
            "hd_log" = "Log\nMahalanobis\nDistance")
 
-axis_type = c("bioage_advance0"="float",
+axis_type = c("kdm_advance0"="float",
               "phenoage_advance0"="float",
-              "bioage_advance"="float",
+              "kdm_advance"="float",
               "phenoage_advance"="flot",
               "hd"="flot",
               "hd_log"="float")

@@ -26,11 +26,11 @@ Calculate KDM Biological Age
 }
 \examples{
 #Train KDM kdm parameters
-train = kdm_calc(nhanes3,
+train = kdm_calc(NHANES3,
                     biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 
 #Use training data to calculate KDM Biological Age
-kdm = kdm_calc(nhanes,
+kdm = kdm_calc(NHANES4,
                      biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
                      fit=train$fit,
                      s_ba2=train$fit$s_ba2)
