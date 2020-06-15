@@ -23,7 +23,7 @@ devtools::install_github("dayoonkwon/BioAge")
 
 This serves as an example of training biologial aging measures using the
 NHANES 3 (1991) and NHANES 4 (1999 - 2018) dataset. It also provides
-documentation for fit parameters contained in the BioAge package. The
+documentation for fit parameters contained in the `BioAge` package. The
 cleaned NHANES dataset is loaded as the dataset `NHANES3` and `NHANES4`.
 The original KDM bioage and phenoage values are saved as `kdm0` and
 `phenoage0` as part of NHANES dataset.
@@ -37,7 +37,7 @@ library(dplyr)
 
 I train in the NHANES 3 and project biological aging measures into the
 NHANES 4 by using the `hd_nhanes`, `kdm_nhanes`, and `phenoage_nhanes`
-function of the BioAge package.
+function of the `BioAge` package.
 
 ``` r
 #particular biomarkers
