@@ -160,7 +160,7 @@ plot_scatter = function(dat, scatter_cols, lm_col, axis_type,
     return(round(ret, 1))
   }
 
-  axis_cex = 2.2
+  axis_cex = 1.2
   dat$col = densCols(dat, y = NULL, nbin = 256, colramp = colorRampPalette(scatter_cols))
   dat = dat[rev(order(dat$col)), ]
 
@@ -205,7 +205,7 @@ plot_cor = function (cor, col) {
 
 plot_label = function (lab) {
   plot(0, 0, type = 'n', main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n')
-  text(0, 0, lab, cex = 2, col = "black")
+  text(0, 0, lab, cex = 1.5, col = "black")
   box()
 
 }
