@@ -16,24 +16,91 @@ devtools::install_github("dayoonkwon/BioAge")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This serves as an example of training biologial aging measures using the NHANES 3 (1991) and NHANES 4 (1999 - 2018) dataset.
+It also provides documentation for fit parameters contained in the BioAge package.
+The cleaned NHANES dataset is loaded as the dataset ```NHANES3``` and ```NHANES4```.
+The original KDM bioage and phenoage values are saved as ```kdm0``` and ```phenoage0``` as part of NHANES dataset. 
 
-``` r
-library(BioAge)
 
+```{r setup}
+library(dplyr)
+library(BioAge) #topic of vignette
+```
+
+## Step 1: train in NHANES 3 and project in NHANES 4
+
+I train in the NHANES 3 and project biological aging measures into the NHANES 4 by using the ```hd_nhanes```, ```kdm_nhanes```, and ```phenoage_nhanes``` function of the BioAge package.
+
+```{r}
+#particular biomarkers
 biomarkers = c("albumin","alp","lymph","mcv","lncreat","lncrp","hba1c","wbc","rdw")
 
-# homeostatic disregulation -----------------------------------------------
+#projecting HD using NHANES (seperate training for gender)
 hd = hd_nhanes(biomarkers)
-hd_data = hd$data
 
-# KDM bioage --------------------------------------------------------------
-bioage = bioage_nhanes(biomarkers)
-bioage_data = bioage$data
+#projecting KDM bioage using NHANES (seperate training for gender)
+kdm = kdm_nhanes(biomarkers)
 
-# Phenoage ----------------------------------------------------------------
+#projecting phenoage uinsg NHANES
 phenoage = phenoage_nhanes(biomarkers)
-phenoage_data = phenoage$data
+```
 
+## Step 2: compare NHANES 4 to the original KDM bioage and phenoage
+
+The projected data and estimated model above are saved as part of the list structure.
+These can be drawn by typing ```data``` and ```fit```, respectively.
+
+```{r}
+#pull the full dataset
+data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
+```
+
+### Figure1: Chronological age vs biological aging measures
+
+```{r, fig.width = 8, fig.height = 7}
+#select biological age variables
+agevar = c("kdm0","phenoage0","kdm","phenoage","hd","hd_log")
+
+#prepare labels
+label = c("KDM\nBiological Age",
+          "Levine\nPhenotypic Age",
+          "Modified-KDM\nBiological Age",
+          "Modified-Levine\nPhenotypic Age",
+          "Mahalanobis\nDistance",
+          "Log\nMahalanobis\nDistance")
+
+#plot age vs bioage
+plot_ba(data, agevar, label)
+
+```
+
+### Figure2: Corplot for biological aging measures
+
+```{r, fig.width = 8, fig.height = 8}
+#select biological age advancement (BAA) variables
+agevar = c("kdm_advance0","phenoage_advance0","kdm_advance","phenoage_advance","hd","hd_log")
+
+#prepare lables
+#values should be formatted for displaying along diagonal of the plot
+#names should be used to match variables and order is preserved
+label = c(
+  "kdm_advance0"="KDM\nBiological\nAge",
+  "phenoage_advance0"="Levine\nPhenotypic\nAge",
+  "kdm_advance"="Modified\nKDM\nBiological\nAge",
+  "phenoage_advance"="Modified\nLevine\nPhenotypic\nAge",
+  "hd" = "Mahalanobis\nDistance",
+  "hd_log" = "Log\nMahalanobis\nDistance")
+
+#use variable name to define the axis type ("int" or "float")
+axis_type = c(
+  "kdm_advance0"="float",
+  "phenoage_advance0"="float",
+  "kdm_advance"="float",
+  "phenoage_advance"="flot",
+  "hd"="flot",
+  "hd_log"="float")
+
+#plot BAA corplot
+plot_baa(data,agevar,label,axis_type)
 ```
 
