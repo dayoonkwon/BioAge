@@ -11,7 +11,7 @@ health_res = function (dat, agevar, outcome, covar, label) {
     na.omit() %>%
     do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
     filter(term == "xvalue") %>%
-    mutate(estimate = paste(round(estimate, 3), " (", round(estimate - 1.96 * std.error, 3), ", ", round(estimate + 1.96 * std.error, 3), ")", sep = "")) %>%
+    mutate(estimate = paste(round(estimate, 2), " (", round(estimate - 1.96 * std.error, 2), ", ", round(estimate + 1.96 * std.error, 2), ")", sep = "")) %>%
     select(y, x, estimate) %>%
     tidyr::spread(x,estimate) %>%
     ungroup()
@@ -138,9 +138,10 @@ table_health = function (data, agevar, outcome, label) {
                                     "Stratified by Race",
                                     "Stratified by Age"),
                        n.tspanner = c(4,8,12,12),
-                       css.tspanner = "font-weight: 900; text-align: center;",
-                       css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
-                                    "width: 250px", "width: 250px", "width: 250px"),
+                       css.rgroup = "font-weight: 900; text-align: left; font-size: 0.77em;",
+                       css.tspanner = "font-weight: 900; text-align: center; font-size: 0.77em;",
+                       css.cell = rbind(rep("width: 600px; font-size: 0.77em;", times=ncol(table)),
+                                        matrix("width: 600px; font-size: 0.77em;", ncol=ncol(table), nrow=nrow(table))),
                        caption = "Table 2: Linear regression models of all biological aging measures with current health status outcomes.
                        After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
                        Original KDM Biological Age was computed in the NHANES 2007-2010.
@@ -158,9 +159,10 @@ table_health = function (data, agevar, outcome, label) {
                                         "Stratified by Race",
                                         "Stratified by Age"),
                            n.tspanner = c(4,8,12,12),
-                           css.tspanner = "font-weight: 900; text-align: center;",
-                           css.cell = c("width: 200px", "width: 250px", "width: 250px", "width: 250px",
-                                        "width: 250px", "width: 250px", "width: 250px"),
+                           css.rgroup = "font-weight: 900; text-align: left; font-size: 0.8em;",
+                           css.tspanner = "font-weight: 900; text-align: center; font-size: 0.8em;",
+                           css.cell = rbind(rep("width: 600px; font-size: 0.8em;", times=ncol(n)),
+                                            matrix("width: 600px; font-size: 0.8em;", ncol=ncol(n), nrow=nrow(n))),
                            caption = "Table 2.1: Sample size for linear regression models of all biological aging measures with current health status outcomes.
                        Original KDM Biological Age was computed in the NHANES 2007-2010.
                        Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.

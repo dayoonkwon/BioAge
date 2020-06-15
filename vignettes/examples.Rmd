@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ## Overview
 
 This vignette serves as an example of training biologial aging measures using the NHANES 3 (1991) and NHANES 4 (1999 - 2018) dataset.
-It also provides documentation for fit parameters contained in the BioAge package.
+It also provides documentation for fit parameters contained in the ```BioAge``` package.
 The cleaned NHANES dataset is loaded as the dataset ```NHANES3``` and ```NHANES4```.
 The original KDM bioage and phenoage values are saved as ```kdm0``` and ```phenoage0``` as part of NHANES dataset. 
 
@@ -36,7 +36,7 @@ library(BioAge) #topic of vignette
 
 ## Step 1: train in NHANES 3 and project in NHANES 4
 
-I train in the NHANES 3 and project biological aging measures into the NHANES 4 by using the ```hd_nhanes```, ```kdm_nhanes```, and ```phenoage_nhanes``` function of the BioAge package.
+I train in the NHANES 3 and project biological aging measures into the NHANES 4 by using the ```hd_nhanes```, ```kdm_nhanes```, and ```phenoage_nhanes``` function of the ```BioAge``` package.
 
 ```{r}
 #particular biomarkers
@@ -69,10 +69,10 @@ data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
 agevar = c("kdm0","phenoage0","kdm","phenoage","hd","hd_log")
 
 #prepare labels
-label = c("KDM\nBiological\nAge",
-          "Levine\nPhenotypic\nAge",
-          "Modified-KDM\nBiological\nAge",
-          "Modified-Levine\nPhenotypic\nAge",
+label = c("KDM\nBiological Age",
+          "Levine\nPhenotypic Age",
+          "Modified-KDM\nBiological Age",
+          "Modified-Levine\nPhenotypic Age",
           "Mahalanobis\nDistance",
           "Log\nMahalanobis\nDistance")
 
@@ -114,15 +114,20 @@ plot_baa(data,agevar,label,axis_type)
 ### Table 1: Mortality models with all biological aging measures
 
 ```{r}
-#creat table for mortality models
 table_surv(data, agevar, label)
 ```
 
 ### Table 2: Linear regression models with current health status outcomes
 
+The linear regression models and number of observations in "Table 2" and "Table 3" below are saved as part of the list structure.
+These can be drawn by typing ```table``` and ```n```, respectively.
+
 ```{r}
 table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
+
+#pull table
 table2$table
+#pull number of observations
 table2$n
 ```
 
@@ -130,13 +135,16 @@ table2$n
 
 ```{r}
 table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
+
+#pull table
 table3$table
+#pull number of observations
 table3$n
 ```
 
 ## Step 3: Score new data
 The projection dataset is the Health and Retirement Study (HRS), which has identical biomarkers, and was previously cleanded.
-I train in the NHANES 3 and project biological aging measures into the HRS by using the ```hd_calc```, ```kdm_calc```, and ```phenoage_calc``` function of the BioAge package.
+I train in the NHANES 3 and project biological aging measures into the HRS by using the ```hd_calc```, ```kdm_calc```, and ```phenoage_calc``` function of the ```BioAge``` package.
 
 ```{r, echo=FALSE}
 #The HRS dataset is loaded from my local drive that has previously been downloaded and cleaned
@@ -213,7 +221,7 @@ hd_male = hd_calc(data = newdata %>%
 hd_data = rbind(hd_fem$data, hd_male$data)
 ```
 
-Having estimated biological aging models using NHANES 3 in Step 1, I can project KDM bioage and phenoage into the HRS data by running ```kdm_calc``` and ```phenoage_calc``` and supplying a ```fit``` argument.
+Having estimated biological aging models using NHANES 3 in "Step 1", I can project KDM bioage and phenoage into the HRS data by running ```kdm_calc``` and ```phenoage_calc``` and supplying a ```fit``` argument.
 
 ```{r}
 #projecting KDM bioage into the HRS using NHANES 3 (seperate training for gender)

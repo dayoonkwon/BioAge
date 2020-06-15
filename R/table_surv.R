@@ -97,10 +97,10 @@ table_surv = function (data, agevar, label) {
                                     "People Aged 65 and Younger"),
                        n.tspanner = c(2,4,6,2),
                        cnames = colnames(table),
-                       css.rgroup = "font-weight: 900; text-align: left; font-size: 1em;",
-                       css.tspanner = "font-weight: 900; text-align: center; font-size: 1em;",
-                       css.cell = rbind(rep("width: 300px; font-size: 1em;", times=ncol(table)),
-                                        matrix("width: 300px; font-size: 1em;", ncol=ncol(table), nrow=nrow(table))),
+                       css.rgroup = "font-weight: 900; text-align: left; font-size: .83em;",
+                       css.tspanner = "font-weight: 900; text-align: center; font-size: .83em;",
+                       css.cell = rbind(rep("width: 300px; font-size: .83em;", times=ncol(table)),
+                                        matrix("width: 300px; font-size: .83em;", ncol=ncol(table), nrow=nrow(table))),
                        caption = "Table 1: Mortality models with all biological aging measures.
                        After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
                        Original KDM Biological Age was computed in the NHANES 2007-2010.
