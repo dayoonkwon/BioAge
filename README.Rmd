@@ -115,3 +115,10 @@ axis_type = c(
 #plot BAA corplot
 plot_baa(data,agevar,label,axis_type)
 ```
+
+### Table 1: Mortality models with all biological aging measures
+
+```{r}
+table_surv(data, agevar, label)
+```
+
