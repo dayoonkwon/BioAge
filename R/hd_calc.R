@@ -23,8 +23,6 @@ hd_calc = function(data, reference, biomarkers){
   ref = as.matrix(reference[, biomarkers])
   dat = as.matrix(data[, biomarkers])
 
-  rm(reference); rm(biomarkers)
-
   #standardize variables by mean and sd of reference population
   for (j in 1:ncol(dat)){
     dat[,j] <- (dat[,j] - mean(ref[,j], na.rm = TRUE)) / sd(ref[,j], na.rm = TRUE)
@@ -64,7 +62,7 @@ hd_calc = function(data, reference, biomarkers){
   }
 
   dat = data %>%
-    select(sampleID,biomarkers) %>%
+    select(sampleID,all_of(biomarkers)) %>%
     na.omit()
 
   dat$hd = hd/sd(hd)
