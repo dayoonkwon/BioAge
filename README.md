@@ -22,49 +22,55 @@ devtools::install_github("dayoonkwon/BioAge")
 ## Example
 
 This serves as an example of training biologial aging measures using the
-NHANES 3 (1991) and NHANES 4 (1999 - 2018) dataset. It also provides
-documentation for fit parameters contained in the `BioAge` package. The
-cleaned NHANES dataset is loaded as the dataset `NHANES3` and `NHANES4`.
-The original KDM bioage and phenoage values are saved as `kdm0` and
-`phenoage0` as part of NHANES dataset.
+NHANES III (1988 - 1994) and testing in NHANES IV (1999 - 2018) dataset.
+It also provides documentation for fit parameters contained in the
+`BioAge` package. The cleaned NHANES dataset is loaded as the dataset
+`NHANES3` and `NHANES4`. The original KDM bioage and phenoage values are
+saved as `kdm0` and `phenoage0` as part of NHANES dataset.
 
 ``` r
 library(BioAge) #topic of example
 library(dplyr)
 ```
 
-## Step 1: train in NHANES 3 and project in NHANES 4
+## Step 1: train algorithms in NHANES III and project biological aging measures in NHANES IV
 
-I train in the NHANES 3 and project biological aging measures into the
-NHANES 4 by using the `hd_nhanes`, `kdm_nhanes`, and `phenoage_nhanes`
+I train in the NHANES III and project biological aging measures into the
+NHANES IV by using the `hd_nhanes`, `kdm_nhanes`, and `phenoage_nhanes`
 function of the `BioAge` package.
 
 ``` r
-#particular biomarkers
+#specify bioamarkers included in the algorithms 
 biomarkers = c("albumin","alp","lymph","mcv","lncreat","lncrp","hba1c","wbc","rdw")
 
-#projecting HD using NHANES (seperate training for gender)
+#HD using NHANES (separate training for men and women)
 hd = hd_nhanes(biomarkers)
 
-#projecting KDM bioage using NHANES (seperate training for gender)
+#KDM bioage using NHANES (separate training for men and women)
 kdm = kdm_nhanes(biomarkers)
 
-#projecting phenoage uinsg NHANES
+#phenoage uinsg NHANES
 phenoage = phenoage_nhanes(biomarkers)
 ```
 
-## Step 2: compare NHANES 4 to the original KDM bioage and phenoage
+## Step 2: compare original KDM bioage and phenoage algorithms with algorithms composed with new biomarker set
 
-The projected data and estimated model above are saved as part of the
-list structure. These can be drawn by typing `data` and `fit`,
-respectively.
+The projected data and estimated models are saved as part of the list
+structure. The data set be drawn by typing `data`. The model can be
+drawn by typing `fit`.
 
 ``` r
-#pull the full dataset
+#assemble NHANES IV dataset with projected biological aging measures for analysis
 data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
 ```
 
-### Figure1: Chronological age vs biological aging measures
+### Figure1. Association of biological aging measures with chronological age in NAHNES IV dataset
+
+In the figure below, the graphs titled “KDM Biological Age” and “Levine
+Phenotypic Age” show measures based on the original biomarker sets
+published in Levine 2013 J Geron A and Levine et al. 2018 AGING. The
+remaining graphs shows the new measures computed with the biomarker set
+specified within this code.
 
 ``` r
 #select biological age variables
@@ -75,8 +81,8 @@ label = c("KDM\nBiological Age",
           "Levine\nPhenotypic Age",
           "Modified-KDM\nBiological Age",
           "Modified-Levine\nPhenotypic Age",
-          "Mahalanobis\nDistance",
-          "Log\nMahalanobis\nDistance")
+          "Homeostatic\nDysregulation",
+          "Log\nHomeostatic\nDysregulation")
 
 #plot age vs bioage
 plot_ba(data, agevar, label)
@@ -84,22 +90,30 @@ plot_ba(data, agevar, label)
 
 <img src="vignettes/figure1.png" width="100%" />
 
-### Figure2: Corplot for biological aging measures
+### Figure2. Correlations among biological aging measures
+
+The figure plots associations among the different biological aging
+measures. Cells below the diagonal show scatter plots of the measures
+listed above the cell (x-axis) and to the right (y-axis). Cells above
+the diagonal show the Pearson correlations for the measures listed below
+the cell and to the left. For this analysis, KDM Biological Age and
+Levine Phenotypic Age measures are differenced from chronological age
+(i.e. plotted values = BA-CA).
 
 ``` r
-#select biological age advancement (BAA) variables
+#select biological age variables
 agevar = c("kdm_advance0","phenoage_advance0","kdm_advance","phenoage_advance","hd","hd_log")
 
 #prepare lables
 #values should be formatted for displaying along diagonal of the plot
 #names should be used to match variables and order is preserved
 label = c(
-  "kdm_advance0"="KDM\nBiological\nAge",
-  "phenoage_advance0"="Levine\nPhenotypic\nAge",
-  "kdm_advance"="Modified-KDM\nBiological Age",
-  "phenoage_advance"="Modified-Levine\nPhenotypic Age",
-  "hd" = "Mahalanobis\nDistance",
-  "hd_log" = "Log\nMahalanobis\nDistance")
+  "kdm_advance0"="KDM\nBiological Age\nAdvancement",
+  "phenoage_advance0"="Levine\nPhenotypic Age\nAdvancement",
+  "kdm_advance"="Modified-KDM\nBiological Age\nAdvancement",
+  "phenoage_advance"="Modified-Levine\nPhenotypic Age\nAdvancement",
+  "hd" = "Homeostatic\nDysregulation",
+  "hd_log" = "Log\nHomeostatic\nDysregulation")
 
 #use variable name to define the axis type ("int" or "float")
 axis_type = c(
@@ -116,7 +130,7 @@ plot_baa(data,agevar,label,axis_type)
 
 <img src="vignettes/figure2.png" width="100%" />
 
-### Table 1: Mortality models with all biological aging measures
+### Table 1. Associations of biological aging measures with mortality
 
 ``` r
 table_surv(data, agevar, label)
@@ -124,11 +138,11 @@ table_surv(data, agevar, label)
 
 <img src="vignettes/table1.png" width="100%" />
 
-### Table 2: Linear regression models with current health status outcomes
+### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
-The linear regression models and number of observations in “Table 2” and
-“Table 3” below are saved as part of the list structure. These can be
-drawn by typing `table` and `n`, respectively.
+The linear regression models and sample sizes in “Table 2” and “Table 3”
+below are saved as part of the list structure. Regression model can be
+drawn by typing `table`. Sample size can be drawn by typing `n`.
 
 ``` r
 table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
@@ -146,7 +160,7 @@ table2$n
 
 <img src="vignettes/table2.1.png" width="100%" />
 
-### Table 3: Linear regresion models with socioeconomic variables
+### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
 ``` r
 table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
@@ -164,29 +178,25 @@ table3$n
 
 <img src="vignettes/table3.1.png" width="100%" />
 
-## Step 3: Score new data
+## Step 3: Project biological aging measures onto new data
 
-The projection dataset is the Health and Retirement Study (HRS), which
-has identical biomarkers, and was previously cleanded. I train in the
-NHANES 3 and project biological aging measures into the HRS by using the
-`hd_calc`, `kdm_calc`, and `phenoage_calc` function of the `BioAge`
-package.
+In this example, the projection dataset is the 2016 Venous Blood Study
+dataset from the US Health and Retirement Study (data are not included
+in the package but are available from the HRS). For this analysis, HRS
+data were previously cleaned and units of measure and variable names
+were harmonized to match the NHANES data included with the package. All
+algorithms were trained using the NHANES III data and projected into the
+HRS using the `hd_calc`, `kdm_calc`, and `phenoage_calc` functions of
+the `BioAge` package.
 
 ``` r
 #The HRS dataset is loaded from my local drive that has previously been downloaded and cleaned
-#The original data is not available
 newdata = HRS %>%
-  select(hhidpn, sex, age, raracem, adls, grip, srh, lnwalk,
-         albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw, 
-         glucose, breathing, sbp, totchol, bun) %>%
+  select(hhidpn, sex, age, raracem, albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw, glucose) %>%
   rename(sampleID = hhidpn,
          gender = sex,
          race = raracem,
-         adl = adls,
-         grip_scaled = grip,
-         health = srh,
-         lymph = lymphpct,
-         fev = breathing) %>%
+         lymph = lymphpct) %>%
   mutate(gender = ifelse(gender == "Women", 2,
                          ifelse(gender == "Men", 1, NA)),
          albumin_gL = albumin * 10,
@@ -196,7 +206,7 @@ newdata = HRS %>%
          lncrp = log(crp),
          glucose_mmol = glucose*0.0555) %>%
   group_by(gender) %>%
-  mutate_at(vars(albumin:creat,crp,hba1c:bun),
+  mutate_at(vars(albumin:creat,crp,hba1c:glucose),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   ungroup() %>%
@@ -208,7 +218,7 @@ newdata = HRS %>%
          glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol))
 ```
 
-### Projecting HD into the HRS using NHANES 3
+### Projecting HD into the HRS using NHANES III
 
 For HD, the constructed varialbe is based on a malhanobis distance
 statistic, which is theoretically the distance between observations and
@@ -218,7 +228,7 @@ not pregnant, and have observe biomarker data within clinically
 accpetable distributions.
 
 ``` r
-#projecting HD into the HRS using NHANES 3 (seperate training for gender)
+#projecting HD into the HRS using NHANES III (seperate training for gender)
 hd_fem = hd_calc(data = newdata %>%
                    filter(gender == 2),
                  reference = NHANES3 %>%
@@ -257,14 +267,14 @@ hd_male = hd_calc(data = newdata %>%
 hd_data = rbind(hd_fem$data, hd_male$data)
 ```
 
-### Projecting KDM bioage into the HRS using NHANES 3
+### Projecting KDM bioage into the HRS using NHANES III
 
-Having estimated biological aging models using NHANES 3 in “Step 1”, I
+Having estimated biological aging models using NHANES III in “Step 1”, I
 can project KDM bioage and phenoage into the HRS data by running
 `kdm_calc` and `phenoage_calc` and supplying a `fit` argument.
 
 ``` r
-#projecting KDM bioage into the HRS using NHANES 3 (seperate training for gender)
+#projecting KDM bioage into the HRS using NHANES III (seperate training for gender)
 kdm_fem = kdm_calc(data = newdata %>%
                      filter (gender ==2),
                    biomarkers,
@@ -281,7 +291,7 @@ kdm_male = kdm_calc(data = newdata %>%
 kdm_data = rbind(kdm_fem$data, kdm_male$data)
 ```
 
-### Projecting phenoage into the HRS using NHANES 3
+### Projecting phenoage into the HRS using NHANES III
 
 ``` r
 phenoage_hrs = phenoage_calc(data = newdata %>%
@@ -289,26 +299,35 @@ phenoage_hrs = phenoage_calc(data = newdata %>%
                                   lncreat = lncreat_umol),
                          biomarkers,
                          fit = phenoage$fit,
-                         orig = TRUE)
+                         orig = TRUE) #this calculate original phenoage 
 
 phenoage_data = phenoage_hrs$data
 
 #pull the full dataset
 newdata = left_join(newdata, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
-  left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance", "kdm_residual")], by = "sampleID") %>%
-  left_join(., phenoage_data[, c("sampleID","phenoage","phenoage_advance", "phenoage_residual")], by = "sampleID") 
+  left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance")], by = "sampleID") %>%
+  left_join(., phenoage_data[, c("sampleID","phenoage0","phenoage_advance0",
+                                 "phenoage","phenoage_advance")], by = "sampleID") 
 ```
 
 ### Summary statistics of calculated biological aging measures for the HRS
 
 ``` r
-summary(newdata %>% select(hd, hd_log, kdm, phenoage))
-#>        hd            hd_log           kdm            phenoage     
-#>  Min.   : 2.68   Min.   :10.59   Min.   : 22.19   Min.   : 13.54  
-#>  1st Qu.: 5.06   1st Qu.:14.36   1st Qu.: 65.04   1st Qu.: 57.25  
-#>  Median : 5.62   Median :15.63   Median : 74.83   Median : 65.67  
-#>  Mean   : 5.72   Mean   :15.48   Mean   : 75.10   Mean   : 66.83  
-#>  3rd Qu.: 6.22   3rd Qu.:16.53   3rd Qu.: 84.76   3rd Qu.: 75.72  
-#>  Max.   :12.07   Max.   :21.05   Max.   :172.49   Max.   :112.85  
-#>  NA's   :33308   NA's   :33308   NA's   :33308    NA's   :33308
+summary(newdata %>% select(phenoage0, kdm, phenoage, hd, hd_log))
+#>    phenoage0           kdm            phenoage            hd       
+#>  Min.   : 12.69   Min.   : 22.19   Min.   : 13.54   Min.   : 2.68  
+#>  1st Qu.: 56.33   1st Qu.: 65.04   1st Qu.: 57.25   1st Qu.: 5.06  
+#>  Median : 65.34   Median : 74.83   Median : 65.67   Median : 5.62  
+#>  Mean   : 66.62   Mean   : 75.10   Mean   : 66.83   Mean   : 5.72  
+#>  3rd Qu.: 75.93   3rd Qu.: 84.76   3rd Qu.: 75.72   3rd Qu.: 6.22  
+#>  Max.   :123.40   Max.   :172.49   Max.   :112.85   Max.   :12.07  
+#>  NA's   :33308    NA's   :33308    NA's   :33308    NA's   :33308  
+#>      hd_log     
+#>  Min.   :10.59  
+#>  1st Qu.:14.36  
+#>  Median :15.63  
+#>  Mean   :15.48  
+#>  3rd Qu.:16.53  
+#>  Max.   :21.05  
+#>  NA's   :33308
 ```
