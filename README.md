@@ -22,11 +22,11 @@ devtools::install_github("dayoonkwon/BioAge")
 ## Example
 
 This serves as an example of training biologial aging measures using the
-NHANES III (1988 - 1994) and testing in NHANES IV (1999 - 2018) dataset.
-It also provides documentation for fit parameters contained in the
-`BioAge` package. The cleaned NHANES dataset is loaded as the dataset
-`NHANES3` and `NHANES4`. The original KDM bioage and phenoage values are
-saved as `kdm0` and `phenoage0` as part of NHANES dataset.
+NHANES III (1988 - 1994) and projecting into NHANES IV (1999 - 2018)
+dataset. It also provides documentation for fit parameters contained in
+the `BioAge` package. The cleaned NHANES dataset is loaded as the
+dataset `NHANES3` and `NHANES4`. The original KDM bioage and phenoage
+values are saved as `kdm0` and `phenoage0` as part of NHANES dataset.
 
 ``` r
 library(BioAge) #topic of example
@@ -222,7 +222,7 @@ newdata = HRS %>%
 
 ### Projecting HD into the HRS using NHANES III
 
-For HD, the constructed varialbe is based on a malhanobis distance
+For HD, the constructed variable is based on a malhanobis distance
 statistic, which is theoretically the distance between observations and
 a hypothetically healthy, young cohort. In this example, I train
 separately for men and women who are between the ages of 20 and 30 and
