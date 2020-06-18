@@ -71,7 +71,7 @@ hd_calc = function(data, reference, biomarkers){
 
   dat = left_join(data, dat[,c("sampleID","hd","hd_log")], by = "sampleID")
   fit = list(mcov = means, cov_mat = cv_mat, nobs = nobs)
-  hd = list(data = dat,fit = fit)
+  hd = list(data = as.data.frame(dat),fit = fit)
 
   class(hd) = append(class(hd),'hd')
   return(hd)

@@ -942,10 +942,8 @@ test = rbind(test_fem$data, test_male$data) %>%
                 kdm_advance0 = kdm_advance,
                 kdm_residual0 = kdm_residual)
 
-NHANES3 <- left_join(NHANES3,
-                                train[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
-NHANES4 <- left_join(NHANES4,
-                             test[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
 
 # Calculate Phenoage ------------------------------------------------------
 train = NHANES3 %>%

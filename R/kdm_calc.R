@@ -10,20 +10,20 @@
 #' @examples
 #' #Train KDM kdm parameters
 #' train = kdm_calc(NHANES3,
-#'                     biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
+#'                     biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 #'
 #' #Use training data to calculate KDM Biological Age
 #' kdm = kdm_calc(NHANES4,
-#'                      biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
-#'                      fit=train$fit,
-#'                      s_ba2=train$fit$s_ba2)
+#'                      biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
+#'                      fit = train$fit,
+#'                      s_ba2 = train$fit$s_ba2)
 #'
 #' #Extract kdm dataset
 #' data = kdm$data
 #'
 #'
 #' @export
-
+#' @import dplyr
 
 kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
@@ -99,7 +99,7 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   fit = list(lm_age = lm_age, s_r = s_r, s_ba2 = s_ba2, s2 = s2, nobs = nobs)
 
-  kdm = list(data = dat, fit = fit)
+  kdm = list(data = as.data.frame(dat), fit = fit)
   class(kdm) = append(class(kdm), "kdm")
   return(kdm)
 
