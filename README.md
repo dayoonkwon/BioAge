@@ -68,9 +68,11 @@ data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
 
 In the figure below, the graphs titled “KDM Biological Age” and “Levine
 Phenotypic Age” show measures based on the original biomarker sets
-published in Levine 2013 J Geron A and Levine et al. 2018 AGING. The
-remaining graphs shows the new measures computed with the biomarker set
-specified within this code.
+published in [Levine 2013 J Geron
+A](https://doi.org/10.1093/gerona/gls233) and [Levine et al. 2018
+AGING](https://doi.org/10.18632/aging.101414). The remaining graphs
+shows the new measures computed with the biomarker set specified within
+this code.
 
 ``` r
 #select biological age variables
@@ -136,7 +138,7 @@ plot_baa(data,agevar,label,axis_type)
 table_surv(data, agevar, label)
 ```
 
-<img src="vignettes/table1.png" width="100%" />
+<img src="vignettes/table1.png"/>
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
@@ -151,14 +153,14 @@ table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scal
 table2$table
 ```
 
-<img src="vignettes/table2.png" width="100%" />
+<img src="vignettes/table2.png"/>
 
 ``` r
-#pull number of observations
+#pull sample sizes
 table2$n
 ```
 
-<img src="vignettes/table2.1.png" width="100%" />
+<img src="vignettes/table2.1.png"/>
 
 ### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
@@ -169,14 +171,14 @@ table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio
 table3$table
 ```
 
-<img src="vignettes/table3.png" width="100%" />
+<img src="vignettes/table3.png"/>
 
 ``` r
-#pull number of observations
+#pull sample sizes
 table3$n
 ```
 
-<img src="vignettes/table3.1.png" width="100%" />
+<img src="vignettes/table3.1.png"/>
 
 ## Step 3: Project biological aging measures onto new data
 
@@ -225,7 +227,9 @@ statistic, which is theoretically the distance between observations and
 a hypothetically healthy, young cohort. In this example, I train
 separately for men and women who are between the ages of 20 and 30 and
 not pregnant, and have observe biomarker data within clinically
-accpetable distributions.
+accpetable distributions. For clinical guidelines, I relied upon the
+ranges reported by the [Mayo Clinic
+website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8340).
 
 ``` r
 #projecting HD into the HRS using NHANES III (seperate training for gender)

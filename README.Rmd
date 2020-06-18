@@ -9,7 +9,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",
   warning = FALSE,
   message = FALSE
 )
@@ -79,7 +78,7 @@ data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
 
 ### Figure1. Association of biological aging measures with chronological age in NAHNES IV dataset 
 
-In the figure below, the graphs titled "KDM Biological Age" and "Levine Phenotypic Age" show measures based on the original biomarker sets published in Levine 2013 J Geron A and Levine et al. 2018 AGING. The remaining graphs shows the new measures computed with the biomarker set specified within this code.
+In the figure below, the graphs titled "KDM Biological Age" and "Levine Phenotypic Age" show measures based on the original biomarker sets published in [Levine 2013 J Geron A](https://doi.org/10.1093/gerona/gls233) and [Levine et al. 2018 AGING](https://doi.org/10.18632/aging.101414). The remaining graphs shows the new measures computed with the biomarker set specified within this code.
 
 ``` r
 #select biological age variables
@@ -138,7 +137,7 @@ plot_baa(data,agevar,label,axis_type)
 ``` r
 table_surv(data, agevar, label)
 ```
-<img src="vignettes/table1.png" width="100%" />
+<img src="vignettes/table1.png"/>
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
@@ -152,13 +151,13 @@ table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scal
 #pull table
 table2$table
 ```
-<img src="vignettes/table2.png" width="100%" />
+<img src="vignettes/table2.png"/>
 
 ``` r
-#pull number of observations
+#pull sample sizes
 table2$n
 ```
-<img src="vignettes/table2.1.png" width="100%" />
+<img src="vignettes/table2.1.png"/>
 
 ### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
@@ -168,13 +167,13 @@ table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio
 #pull table
 table3$table
 ```
-<img src="vignettes/table3.png" width="100%" />
+<img src="vignettes/table3.png"/>
 
 ``` r
-#pull number of observations
+#pull sample sizes
 table3$n
 ```
-<img src="vignettes/table3.1.png" width="100%" />
+<img src="vignettes/table3.1.png"/>
 
 ## Step 3: Project biological aging measures onto new data
 In this example, the projection dataset is the 2016 Venous Blood Study dataset from the US Health and Retirement Study (data are not included in the package but are available from the HRS). For this analysis, HRS data were previously cleaned and units of measure and variable names were harmonized to match the NHANES data included with the package. All algorithms were trained using the NHANES III data and projected into the HRS using the `hd_calc`, `kdm_calc`, and `phenoage_calc` functions of the `BioAge` package.
@@ -216,6 +215,7 @@ newdata = HRS %>%
 ### Projecting HD into the HRS using NHANES III 
 For HD, the constructed varialbe is based on a malhanobis distance statistic, which is theoretically the distance between observations and a hypothetically healthy, young cohort.
 In this example, I train separately for men and women who are between the ages of 20 and 30 and not pregnant, and have observe biomarker data within clinically accpetable distributions.
+For clinical guidelines, I relied upon the ranges reported by the [Mayo Clinic website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8340).
 
 ```{r}
 #projecting HD into the HRS using NHANES III (seperate training for gender)
