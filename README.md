@@ -174,7 +174,7 @@ package.
 
 ``` r
 #The HRS dataset is loaded from my local drive that has previously been downloaded and cleaned
-#The original data is not available.
+#The original data is not available
 newdata = HRS %>%
   select(hhidpn, sex, age, raracem, adls, grip, srh, lnwalk,
          albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw, 
@@ -208,6 +208,8 @@ newdata = HRS %>%
          glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol))
 ```
 
+### Projecting HD into the HRS using NHANES 3
+
 For HD, the constructed varialbe is based on a malhanobis distance
 statistic, which is theoretically the distance between observations and
 a hypothetically healthy, young cohort. In this example, I train
@@ -216,7 +218,7 @@ not pregnant, and have observe biomarker data within clinically
 accpetable distributions.
 
 ``` r
-#projecting HD  into the HRS using NHANES 3 (seperate training for gender)
+#projecting HD into the HRS using NHANES 3 (seperate training for gender)
 hd_fem = hd_calc(data = newdata %>%
                    filter(gender == 2),
                  reference = NHANES3 %>%
@@ -255,6 +257,8 @@ hd_male = hd_calc(data = newdata %>%
 hd_data = rbind(hd_fem$data, hd_male$data)
 ```
 
+### Projecting KDM bioage into the HRS using NHANES 3
+
 Having estimated biological aging models using NHANES 3 in “Step 1”, I
 can project KDM bioage and phenoage into the HRS data by running
 `kdm_calc` and `phenoage_calc` and supplying a `fit` argument.
@@ -275,8 +279,11 @@ kdm_male = kdm_calc(data = newdata %>%
 
 #pull the KDM dataset
 kdm_data = rbind(kdm_fem$data, kdm_male$data)
+```
 
-#projecting phenoage into the HRS using NHANES 3
+### Projecting phenoage into the HRS using NHANES 3
+
+``` r
 phenoage_hrs = phenoage_calc(data = newdata %>%
                            mutate(albumin = albumin_gL,
                                   lncreat = lncreat_umol),
@@ -290,7 +297,11 @@ phenoage_data = phenoage_hrs$data
 newdata = left_join(newdata, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
   left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance", "kdm_residual")], by = "sampleID") %>%
   left_join(., phenoage_data[, c("sampleID","phenoage","phenoage_advance", "phenoage_residual")], by = "sampleID") 
+```
 
+### Summary statistics of calculated biological aging measures for the HRS
+
+``` r
 summary(newdata %>% select(hd, hd_log, kdm, phenoage))
 #>        hd            hd_log           kdm            phenoage     
 #>  Min.   : 2.68   Min.   :10.59   Min.   : 22.19   Min.   : 13.54  
