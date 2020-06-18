@@ -934,16 +934,14 @@ test_male = BioAge::kdm_calc(data = NHANES4 %>%
 
 train = rbind(train_fem$data, train_male$data) %>%
   dplyr::rename(kdm0 = kdm,
-                kdm_advance0 = kdm_advance,
-                kdm_residual0 = kdm_residual)
+                kdm_advance0 = kdm_advance)
 
 test = rbind(test_fem$data, test_male$data) %>%
   dplyr::rename(kdm0 = kdm,
-                kdm_advance0 = kdm_advance,
-                kdm_residual0 = kdm_residual)
+                kdm_advance0 = kdm_advance)
 
-NHANES3 <- left_join(NHANES3,train[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
-NHANES4 <- left_join(NHANES4,test[,c("sampleID","kdm0","kdm_advance0","kdm_residual0")],by="sampleID")
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","kdm0","kdm_advance0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","kdm0","kdm_advance0")],by="sampleID")
 
 # Calculate Phenoage ------------------------------------------------------
 train = NHANES3 %>%
@@ -964,11 +962,10 @@ xb = -19.90667+(-0.03359355*test$albumin_gL)+(0.009506491*test$creat_umol)+(0.19
 m = 1-(exp((-1.51714*exp(xb))/0.007692696))
 test$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
 test$phenoage_advance0 <- test$phenoage0-test$age
-test$phenoage_residual0 <- residuals(lm(phenoage0 ~ age, data=test, na.action = "na.exclude"))
 
-NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0","phenoage_residual0")],by="sampleID")
-NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0","phenoage_residual0")],by="sampleID")
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 
 
-usethis::use_data(NHANES3)
-usethis::use_data(NHANES4)
+usethis::use_data(NHANES3, overwrite = TRUE)
+usethis::use_data(NHANES4, overwrite = TRUE)
