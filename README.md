@@ -56,7 +56,7 @@ phenoage = phenoage_nhanes(biomarkers)
 ## Step 2: compare original KDM bioage and phenoage algorithms with algorithms composed with new biomarker set
 
 The projected data and estimated models are saved as part of the list
-structure. The data set be drawn by typing `data`. The model can be
+structure. The dataset can be drawn by typing `data`. The model can be
 drawn by typing `fit`.
 
 ``` r

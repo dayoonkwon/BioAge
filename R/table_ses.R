@@ -79,7 +79,7 @@ ses_n = function (dat, agevar, exposure, covar, label) {
 #' @import dplyr
 #' @importFrom tidyr pivot_longer
 #' @importFrom tidyr spread
-#' @importForm broom tidy
+#' @importFrom broom tidy
 #' @importFrom htmlTable htmlTable
 
 table_ses = function (data, agevar, exposure, label) {
