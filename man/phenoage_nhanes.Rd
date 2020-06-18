@@ -7,19 +7,19 @@
 phenoage_nhanes(biomarkers)
 }
 \arguments{
-\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
+\item{biomarkers}{A character vector indicating the names of the biomarkers included in the Phenotypic Age algorithm.}
 }
 \value{
-An object of class "phenoage". This object is a list with two elements (data and fit)
+An object of class "phenoage". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 }
 \description{
-Calculate Levine's Phenotypic Age using NHANES dataset
+Train Phenotypic Age algorithm in NHANES III and project into NHANES IV.
 }
 \details{
-Calculate Levine's Phenotypic Age using NHANES dataset
+Training Phenotypic Age algorithm using the NHANES III and projecting into NHANES IV dataset.
 }
 \examples{
-#Calculate phenoage
+#Phenoage using NHANES
 phenoage = phenoage_nhanes(biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
                            "rdw","creat_umol","lncrp","alp","wbc"))
 

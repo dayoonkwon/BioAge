@@ -7,30 +7,30 @@
 phenoage_calc(data, biomarkers, fit = NULL, orig = FALSE)
 }
 \arguments{
-\item{data}{The dataset for calculating phenoage}
+\item{data}{A projection dataset.}
 
-\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
+\item{biomarkers}{A character vector indicating the names of the biomarkers included in the Phenotypic Age algorithm.}
 
-\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training phenoage are calculated}
+\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training Phenotypic Age are calculated.}
 
-\item{orig}{TRUE to compute the origianl Levine's Phenotypic Age}
+\item{orig}{TRUE to compute the origianl Phenotypic Age.}
 }
 \value{
-An object of class "phenoage". This object is a list with two elements (data and fit)
+An object of class "phenoage". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 }
 \description{
-Calculate Levine's Phenotypic Age
+Project Phenotypic Age algorithm onto new data.
 }
 \details{
-Calculate Phenotypic Age
+Projecting Phenotypic Age algorithm onto new data.
 }
 \examples{
-#Train phenoage parameters
+#Train using the NHANES III
 train = phenoage_calc(NHANES3,
                       biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
                       "rdw","creat_umol","lncrp","alp","wbc"))
 
-#Use training data to calculate phenoage
+#Project into the NHANES IV
 phenoage = phenoage_calc(NHANES4,
                          biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
                          "rdw","creat_umol","lncrp","alp","wbc"),

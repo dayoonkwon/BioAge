@@ -7,32 +7,32 @@
 table_surv(data, agevar, label)
 }
 \arguments{
-\item{data}{The dataset for mortality table}
+\item{data}{A dataset with projected biological aging measures for analysis.}
 
-\item{agevar}{A character vector indicating the names of the interested biological aging measures}
+\item{agevar}{A character vector indicating the names of the biological aging measures.}
 
-\item{label}{A character vector indicating the labels of the biological aging measures}
+\item{label}{A character vector indicating the labels of the biological aging measures.}
 }
 \description{
-Mortality validation for biological aging measures
+Associations of biological aging measures with mortality.
 }
 \details{
-Mortality validation for biological age measures, adjusting for chronological age and gender and stratified by gender, race, and age
+BioAge coefficients in the table are hazard ratios estimated from Cox proportional hazard regressions. KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA). These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample so that effect-sizes are  denominated in terms of a sex-specific 1 SD unit increase in biological age advancement. Models included covariates for chronological age and sex.
 }
 \note{
-Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race"
+Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race".
 }
 \examples{
 table1 = table_surv(data,
                     agevar = c("kdm_advance0","phenoage_advance0",
                                "kdm_advance","phenoage_advance",
                                "hd","hd_log"),
-                    label = c("KDM\nBiological\nAge",
-                              "Levine\nPhenotypic\nAge",
-                              "Modified-KDM\nBiological\nAge",
-                              "Modified-Levine\nPhenotypic\nAge",
-                              "Mahalanobis\nDistance",
-                              "Log\nMahalanobis\nDistance"))
+                    label = c("KDM\nBiological Age\nAdvancement",
+                    "Levine\nPhenotypic Age\nAdvancement",
+                    "Modified-KDM\nBiological Age\nAdvancement",
+                    "Modified-Levine\nPhenotypic Age\nAdvancement",
+                    "Homeostatic\nDysregulation",
+                    "Log\nHomeostatic\nDysregulation"))
 
 table1
 

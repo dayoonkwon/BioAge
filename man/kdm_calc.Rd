@@ -7,35 +7,37 @@
 kdm_calc(data, biomarkers, fit = NULL, s_ba2 = NULL)
 }
 \arguments{
-\item{data}{The dataset for calculating KDM Biological Age}
+\item{data}{A projection dataset.}
 
-\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating KDM Biological Age}
+\item{biomarkers}{A character vector indicating the names of the biomarkers included in the KDM Biological Age algorithm.}
 
-\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM Biological Age are calculated}
+\item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM Biological Age are calculated.}
 
-\item{s_ba2}{A particular fit parameter. Advanced users can modify this parameter to control the variance of kdm}
+\item{s_ba2}{A particular fit parameter. Advanced users can modify this parameter to control the variance of KDM Biological Age. If left NULL, defaults are used.}
 }
 \value{
-An object of class "kdm". This object is a list with two elements (data and fit)
+An object of class "kdm". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 }
 \description{
-Calculate Klemera-Doubal Method (KDM) Biological Age
+Project KDM algorithm onto new data.
 }
 \details{
-Calculate KDM Biological Age
+Projecting KDM algorithm onto new data.
 }
 \examples{
-#Train KDM kdm parameters
+#Train using the NHANES III
 train = kdm_calc(NHANES3,
-                    biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
+                 biomarkers = c("fev","sbp","totchol","hba1c","albumin",
+                 "creat","lncrp","alp","bun"))
 
-#Use training data to calculate KDM Biological Age
+#Project into the NHANES IV
 kdm = kdm_calc(NHANES4,
-                     biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
-                     fit = train$fit,
-                     s_ba2 = train$fit$s_ba2)
+               biomarkers = c("fev","sbp","totchol","hba1c","albumin",
+               "creat","lncrp","alp","bun"),
+               fit = train$fit,
+               s_ba2 = train$fit$s_ba2)
 
-#Extract kdm dataset
+#Extract KDM dataset
 data = kdm$data
 
 

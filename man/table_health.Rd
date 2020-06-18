@@ -7,22 +7,25 @@
 table_health(data, agevar, outcome, label)
 }
 \arguments{
-\item{data}{The dataset for linear regression table}
+\item{data}{A dataset with projected biological aging measures for analysis.}
 
-\item{agevar}{A character vector indicating the names of the interested biological aging measures}
+\item{agevar}{A character vector indicating the names of the biological aging measures.}
 
-\item{outcome}{A character vector indicating the name of the interested current health status outcomes}
+\item{outcome}{A character vector indicating the name of the healthspan-related characteristics.}
 
-\item{label}{A character vector indicating the labels of the biological aging measures}
+\item{label}{A character vector indicating the labels of the biological aging measures.}
+}
+\value{
+The result is a list with two elements (table and  n). The regression table can be drawn by typing 'table'. The sample size table can be drawn by typing 'n'.
 }
 \description{
-Association with current health status outcomes
+Associations of biological aging measures with healthspan-related characteristics.
 }
 \details{
-Association with current health status outcomes, adjusting for chronological age and gender and stratified by gender, race, and age
+Coefficients are from linear regressions of healthspan-related characteristics on biological aging measures. Outcome variables were standardized to have M=0, SD=1 for analysis. KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA). These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample so that effect-sizes are denominated in terms of a sex-specific 1 SD unit increase in biological age advancement. Models included covariates for chronological age and sex.
 }
 \note{
-Chronological age and gender variables need to be named "age" and "gender"
+Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race".
 }
 \examples{
 table2 = table_health(data,
@@ -30,12 +33,12 @@ table2 = table_health(data,
                                "kdm_advance","phenoage_advance",
                                "hd","hd_log"),
                       outcome = c("health","adl","lnwalk","grip_scaled"),
-                      label = c("KDM\nBiological\nAge",
-                                "Levine\nPhenotypic\nAge",
-                                "Modified-KDM\nBiological\nAge",
-                                "Modified-Levine\nPhenotypic\nAge",
-                                "Mahalanobis\nDistance",
-                                "Log\nMahalanobis\nDistance"))
+                      label = c("KDM\nBiological Age\nAdvancement",
+                                "Levine\nPhenotypic Age\nAdvancement",
+                                "Modified-KDM\nBiological Age\nAdvancement",
+                                "Modified-Levine\nPhenotypic Age\nAdvancement",
+                                "Homeostatic\nDysregulation",
+                                "Log\nHomeostatic\nDysregulation"))
 
 table2$table
 table2$n

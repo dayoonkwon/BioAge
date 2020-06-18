@@ -7,27 +7,27 @@
 plot_ba(data, agevar, label)
 }
 \arguments{
-\item{data}{The dataset for plotting correlations}
+\item{data}{A dataset with projected biological aging measures for analysis.}
 
-\item{agevar}{A character vector indicating the names of the biological aging measures}
+\item{agevar}{A character vector indicating the names of the biological aging measures.}
 
-\item{label}{A character vector indicating the labels of the biological aging measures}
+\item{label}{A character vector indicating the labels of the biological aging measures.}
 }
 \description{
-Plot correlations between biological aging measures and chronological age
+Plot association of biological aging measures with chronological age.
 }
 \details{
-Plot correlations between biological aging measures and chronological age
+Plot association of biological aging measures with chronological age.
 }
 \note{
-Chronological age and gender variables need to be named "age" and "gender"
+Chronological age and gender variables need to be named "age" and "gender".
 }
 \examples{
-#Calculate phenoage
+#Plot age vs bioage
 f1 = plot_ba(data = data, agevar = c("kdm", "phenoage", "hd"),
              label = c("Modified-KDM\nBiological\nAge",
                        "Modified-Levine\nPhenotypic\nAge",
-                       "Mahalanobis\nDistance"))
+                       "Homeostatic\nDysregulation"))
 
 f1
 

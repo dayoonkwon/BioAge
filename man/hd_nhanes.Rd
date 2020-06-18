@@ -7,19 +7,19 @@
 hd_nhanes(biomarkers)
 }
 \arguments{
-\item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating HD}
+\item{biomarkers}{A character vector indicating the names of the biomarkers included in the HD algorithm.}
 }
 \value{
-An object of class "hd". This object is a list with two elements (data and fit)
+An object of class "hd". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 }
 \description{
-Calculate homeostatic dysregulation (HD) using NHANES dataset
+Train HD algorithm in NHANES III and project into NHANES IV.
 }
 \details{
-Calculate HD using NHANES dataset
+Training HD algorithm using the NHANES III (1988 - 1994) and projecting into NHANES IV (1999 - 2018) dataset. For this function, NHANES III included men and women who are between the ages of 20 and 30, and have observe biomarker data within clinically acceptable distributions.
 }
 \examples{
-#Calculate HD
+#HD using NHANES
 hd = hd_nhanes(biomarkers=c("albumin","lymph","mcv","glucose","rdw","creat","lncrp","alp","wbc"))
 
 #Extract HD dataset
