@@ -151,23 +151,26 @@ I train in the NHANES 3 and project biological aging measures into the HRS by us
 #The original data is not available.
 newdata = readstata13::read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/hrs/HRS/HRS_DWB_forBA.dta") %>%
   select(hhidpn, sex, age, raracem, adls, grip, srh, lnwalk,
-         albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw) %>%
+         albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw, 
+         glucose, breathing, sbp, totchol, bun) %>%
   rename(sampleID = hhidpn,
          gender = sex,
          race = raracem,
          adl = adls,
          grip_scaled = grip,
          health = srh,
-         lymph = lymphpct) %>%
+         lymph = lymphpct,
+         fev = breathing) %>%
   mutate(gender = ifelse(gender == "Women", 2,
                          ifelse(gender == "Men", 1, NA)),
          albumin_gL = albumin * 10,
          creat_umol = creat * 88.4017,
          lncreat_umol = log(creat_umol),
          crp = crp / 10,
-         lncrp = log(crp)) %>%
+         lncrp = log(crp),
+         glucose_mmol = glucose*0.0555) %>%
   group_by(gender) %>%
-  mutate_at(vars(albumin:creat,crp,hba1c:rdw),
+  mutate_at(vars(albumin:creat,crp,hba1c:bun),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   ungroup() %>%
@@ -175,7 +178,8 @@ newdata = readstata13::read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/h
          lncrp = ifelse(is.na(crp), NA, lncrp),
          albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
          creat_umol = ifelse(is.na(creat), NA, creat_umol),
-         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol))
+         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
+         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol))
 ```
 
 For HD, the constructed varialbe is based on a malhanobis distance statistic, which is theoretically the distance between observations and a hypothetically healthy, young cohort.
@@ -245,5 +249,18 @@ phenoage_hrs = phenoage_calc(data = newdata %>%
                            mutate(albumin = albumin_gL,
                                   lncreat = lncreat_umol),
                          biomarkers,
-                         fit = phenoage$fit)
+                         fit = phenoage$fit,
+                         orig = TRUE)
+
+phenoage_data = phenoage_hrs$data
+
+#pull the full dataset
+newdata = left_join(newdata, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
+  left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance", "kdm_residual")], by = "sampleID") %>%
+  left_join(., phenoage_data[, c("sampleID","phenoage","phenoage_advance", "phenoage_residual")], by = "sampleID") 
+
+summary(newdata %>% select(hd, hd_log, kdm, phenoage))
 ```
+
+
+
