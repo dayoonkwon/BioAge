@@ -1,17 +1,18 @@
-#' Calculate HD
+#' For HD algorithm., the constructed variable is based on a malhanobis distance statistic, which is theoretically the distance between observations and a hypothetically healthy, young cohort. You need to train separately for men and women who are between the ages of 20 and 30 and not pregnant, and have observe biomarker data within clinically accpetable distributions.
 #'
 #' @title hd_calc
-#' @description Calculate homeostatic dysregulation (HD)
-#' @param data The dataset for calculating HD
-#' @param reference The reference dataset for calculating HD
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating HD
-#' @return An object of class "hd". This object is a list with two elements (data and fit)
+#' @description Project HD algorithm onto new data.
+#' @param data A projection dataset.
+#' @param reference A training dataset.
+#' @param biomarkers A character vector indicating the names of the biomarkers included in the HD algorithm.
+#' @return An object of class "hd". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
-#' #Calculate HD
+#' #HD using NHANES
 #' hd = hd_calc(NHANES4, NHANES3,
-#'              biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"))
+#'              biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+#'              "rdw","creat_umol","lncrp","alp","wbc"))
 #'
-#' #Extract bioage dataset
+#' #Extract HD dataset
 #' data = hd$data
 #'
 #'

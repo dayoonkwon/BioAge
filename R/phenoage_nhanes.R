@@ -1,11 +1,11 @@
-#' Calculate Levine's Phenotypic Age using NHANES dataset
+#' Training Phenotypic Age algorithm using the NHANES III and projecting into NHANES IV dataset.
 #'
 #' @title phenoage_nhanes
-#' @description Calculate Levine's Phenotypic Age using NHANES dataset
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
-#' @return An object of class "phenoage". This object is a list with two elements (data and fit)
+#' @description Train Phenotypic Age algorithm in NHANES III and project into NHANES IV.
+#' @param biomarkers A character vector indicating the names of the biomarkers included in the Phenotypic Age algorithm.
+#' @return An object of class "phenoage". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
-#' #Calculate phenoage
+#' #Phenoage using NHANES
 #' phenoage = phenoage_nhanes(biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
 #'                            "rdw","creat_umol","lncrp","alp","wbc"))
 #'

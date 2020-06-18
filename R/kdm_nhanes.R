@@ -1,14 +1,14 @@
-#' Calculate KDM Biological Age using NHANES dataset
+#' Training KDM Biological Age algorithm using the NHANES III and projecting into NHANES IV dataset.
 #'
 #' @title kdm_nhanes
-#' @description Calculate Klemera-Doubal Method (KDM) Biological Age using NHANES dataset
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating KDM Biological Age
-#' @return An object of class "kdm". This object is a list with two elements (data and fit)
+#' @description Train KDM algorithm in NHANES III and project into NHANES IV.
+#' @param biomarkers A character vector indicating the names of the biomarkers included in the KDM Biological Age algorithm.
+#' @return An object of class "kdm". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
-#' #Calculate KDM Biological Age
+#' #KDM using NHANES
 #' kdm = kdm_nhanes(biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
 #'
-#' #Extract kdm dataset
+#' #Extract KDM dataset
 #' data = kdm$data
 #'
 #'

@@ -1,18 +1,11 @@
-#develop training fit for homeostatic dysregulation (hd)
-#theoretically the distance between observations
-#hypothetically healthy and young cohort
-
-#train seperately for men and women who are between thes of 20 and 30
-#biomarker data within clinically acceptable distributions
-
-#' Calculate HD using NHANES dataset
+#' Training HD algorithm using the NHANES III (1988 - 1994) and projecting into NHANES IV (1999 - 2018) dataset. For this function, NHANES III included men and women who are between the ages of 20 and 30, and have observe biomarker data within clinically acceptable distributions.
 #'
 #' @title hd_nhanes
-#' @description Calculate homeostatic dysregulation (HD) using NHANES dataset
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating HD
-#' @return An object of class "hd". This object is a list with two elements (data and fit)
+#' @description Train HD algorithm in NHANES III and project into NHANES IV.
+#' @param biomarkers A character vector indicating the names of the biomarkers included in the HD algorithm.
+#' @return An object of class "hd". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
-#' #Calculate HD
+#' #HD using NHANES
 #' hd = hd_nhanes(biomarkers=c("albumin","lymph","mcv","glucose","rdw","creat","lncrp","alp","wbc"))
 #'
 #' #Extract HD dataset

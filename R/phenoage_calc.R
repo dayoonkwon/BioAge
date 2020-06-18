@@ -6,22 +6,22 @@ surv_form = function(x){
 }
 
 
-#' Calculate Phenotypic Age
+#' Projecting Phenotypic Age algorithm onto new data.
 #'
 #' @title phenoage_calc
-#' @description Calculate Levine's Phenotypic Age
-#' @param data The dataset for calculating phenoage
-#' @param biomarkers A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
-#' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training phenoage are calculated
-#' @param orig TRUE to compute the origianl Levine's Phenotypic Age
-#' @return An object of class "phenoage". This object is a list with two elements (data and fit)
+#' @description Project Phenotypic Age algorithm onto new data.
+#' @param data A projection dataset.
+#' @param biomarkers A character vector indicating the names of the biomarkers included in the Phenotypic Age algorithm.
+#' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training Phenotypic Age are calculated.
+#' @param orig TRUE to compute the origianl Phenotypic Age.
+#' @return An object of class "phenoage". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
-#' #Train phenoage parameters
+#' #Train using the NHANES III
 #' train = phenoage_calc(NHANES3,
 #'                       biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
 #'                       "rdw","creat_umol","lncrp","alp","wbc"))
 #'
-#' #Use training data to calculate phenoage
+#' #Project into the NHANES IV
 #' phenoage = phenoage_calc(NHANES4,
 #'                          biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
 #'                          "rdw","creat_umol","lncrp","alp","wbc"),
