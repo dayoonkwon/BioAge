@@ -112,13 +112,11 @@ phenoage_calc = function (data, biomarkers, fit = NULL, orig = FALSE) {
 
     dat$phenoage0 = ((log(-.0055305 * (log(1 - m_orig))) / .090165) + 141.50225)
     dat$phenoage_advance0 = dat$phenoage0 - dat$age
-    dat$phenoage_residual0 = residuals(lm(phenoage0 ~ age, data = dat, na.action = "na.exclude"))
 
   }
 
   dat$phenoage = ((log(BA_n * (log(1 - m))) / BA_d) + BA_i); nobs = sum(!is.na(dat$phenoage))
   dat$phenoage_advance = dat$phenoage - dat$age
-  dat$phenoage_residual = residuals(lm(phenoage ~ age, data=dat, na.action = "na.exclude"))
 
   fit = list(coef = coef, m_n = m_n, m_d = m_d, BA_n = BA_n, BA_d = BA_d, BA_i = BA_i, nobs=nobs)
 

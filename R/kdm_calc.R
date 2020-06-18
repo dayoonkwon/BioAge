@@ -95,7 +95,6 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   dat$kdm = ((BAe_n) + (dat$age / (s_ba2))) / ((BAe_d) + (1 / (s_ba2)))
   dat$kdm_advance = dat$kdm - dat$age
-  dat$kdm_residual = residuals(lm(kdm ~ age, data = dat, na.action = "na.exclude"))
 
   fit = list(lm_age = lm_age, s_r = s_r, s_ba2 = s_ba2, s2 = s2, nobs = nobs)
 

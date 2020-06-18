@@ -38,7 +38,7 @@ kdm_nhanes = function (biomarkers) {
   test = rbind(test_fem$data, test_male$data)
 
   #combine data
-  dat = left_join(NHANES4, test[,c("sampleID", "kdm", "kdm_advance", "kdm_residual")], by = "sampleID")
+  dat = left_join(NHANES4, test[,c("sampleID", "kdm", "kdm_advance")], by = "sampleID")
   fit = list(female = train_fem$fit, male = train_male$fit, nobs = test_fem$fit$nobs + test_male$fit$nobs)
 
   kdm = list(data = dat, fit = fit)
