@@ -1,17 +1,17 @@
-#' Plot correlations between biological aging measures and chronological age
+#' Plot association of biological aging measures with chronological age.
 #'
 #' @title plot_ba
-#' @description Plot correlations between biological aging measures and chronological age
-#' @param data The dataset for plotting correlations
-#' @param agevar A character vector indicating the names of the biological aging measures
-#' @param label A character vector indicating the labels of the biological aging measures
-#' @note Chronological age and gender variables need to be named "age" and "gender"
+#' @description Plot association of biological aging measures with chronological age.
+#' @param data A dataset with projected biological aging measures for analysis.
+#' @param agevar A character vector indicating the names of the biological aging measures.
+#' @param label A character vector indicating the labels of the biological aging measures.
+#' @note Chronological age and gender variables need to be named "age" and "gender".
 #' @examples
-#' #Calculate phenoage
+#' #Plot age vs bioage
 #' f1 = plot_ba(data = data, agevar = c("kdm", "phenoage", "hd"),
 #'              label = c("Modified-KDM\nBiological\nAge",
 #'                        "Modified-Levine\nPhenotypic\nAge",
-#'                        "Mahalanobis\nDistance"))
+#'                        "Homeostatic\nDysregulation"))
 #'
 #' f1
 #'

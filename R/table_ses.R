@@ -51,26 +51,28 @@ ses_n = function (dat, agevar, exposure, covar, label) {
 
 
 
-#' Association with socioeconomic variables, adjusting for chronological age and gender and stratified by gender, race, and age
+#' Coefficients are from linear regressions of biological aging measures on measures of socioeconomic circumstances. KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA). These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample. Socioeconomic circumstances measures were standardized to M=0, SD=1 for analysis so that effect-sizes are denominated in terms of a 1 SD unit improvement in socioeconomic circumstances.
 #'
 #' @title table_ses
-#' @description Association with socioeconomic variables
-#' @param data The dataset for linear regression table
-#' @param agevar A character vector indicating the names of the interested biological aging measures
-#' @param exposure A character vector indicating the name of the interested socioeconomic variables
-#' @note Chronological age and gender variables need to be named "age" and "gender"
+#' @description Associations of socioeconomic circumstances measures with measures of biological aging.
+#' @param data A dataset with projected biological aging measures for analysis.
+#' @param agevar A character vector indicating the names of the biological aging measures.
+#' @param exposure A character vector indicating the name of the socioeconomic circumstances.
+#' @param label A character vector indicating the labels of the biological aging measures.
+#' @return The result is a list with two elements (table and  n). The regression table can be drawn by typing 'table'. The sample size table can be drawn by typing 'n'.
+#' @note Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race".
 #' @examples
 #' table3 = table_ses(data,
 #'                    agevar = c("kdm_advance0","phenoage_advance0",
 #'                                "kdm_advance","phenoage_advance",
 #'                                "hd","hd_log"),
 #'                    exposure = c("edu","annual_income","poverty_ratio"),
-#'                    label = c("KDM\nBiological\nAge",
-#'                              "Levine\nPhenotypic\nAge",
-#'                              "Modified-KDM\nBiological\nAge",
-#'                              "Modified-Levine\nPhenotypic\nAge",
-#'                              "Mahalanobis\nDistance",
-#'                              "Log\nMahalanobis\nDistance")))
+#'                    label = c("KDM\nBiological Age\nAdvancement",
+#'                              "Levine\nPhenotypic Age\nAdvancement",
+#'                              "Modified-KDM\nBiological Age\nAdvancement",
+#'                              "Modified-Levine\nPhenotypic Age\nAdvancement",
+#'                              "Homeostatic\nDysregulation",
+#'                              "Log\nHomeostatic\nDysregulation"))
 #'
 #' table3$table
 #' table3$n

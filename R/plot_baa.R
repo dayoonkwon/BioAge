@@ -210,17 +210,17 @@ plot_label = function (lab) {
 
 }
 
-#' Plot correlations between BAA and chronological age
+#' The figure plots associations among the different biological aging measures. Cells below the diagonal show scatter plots of the measures listed above the cell (x-axis) and to the right (y-axis). Cells above the diagonal show the Pearson correlations for the measures listed below the cell and to the left. For this analysis, KDM Biological Age and Levine Phenotypic Age measures are differenced from chronological age (i.e. plotted values = BA-CA).
 #'
 #' @title plot_baa
-#' @description Plot correlations between biological age advancement (BAA) and chronological age
-#' @param data The dataset for plotting corplot
-#' @param agevar A character vector indicating the names of the interested biological aging measures
-#' @param label A character vector indicating the labels of the biological aging measures
-#'               Values should be formatted for displaying along diagonal of the plot
-#'               Names should be used to match variables and order is preserved
-#' @param axis_type A character vector indicating the axis type (int or float)
-#'                  Use variable name to define the axis type
+#' @description Plot correlations among biological aging measures.
+#' @param data A dataset with projected biological aging measures for analysis.
+#' @param agevar A character vector indicating the names of the biological aging measures.
+#' @param label A character vector indicating the labels of the biological aging measures.
+#'              Values should be formatted for displaying along diagonal of the plot.
+#'              Names should be used to match variables and order is preserved.
+#' @param axis_type A character vector indicating the axis type (int or float).
+#'                  Use variable name to define the axis type.
 #' @examples
 #' #Create corplot of BAA with chronologicl age
 #' agevar = c("kdm_advance0",
@@ -230,12 +230,12 @@ plot_label = function (lab) {
 #'            "hd",
 #'            "hd_log")
 #'
-#' label = c("kdm_advance0"="KDM\nBiological\nAge",
-#'            "phenoage_advance0"="Levine\nPhenotypic\nAge",
-#'            "kdm_advance"="Modified-KDM\nBiological\nAge",
-#'            "phenoage_advance"="Modified-Levine\nPhenotypic\nAge",
-#'            "hd" = "Mahalanobis\nDistance",
-#'            "hd_log" = "Log\nMahalanobis\nDistance")
+#' label = c("KDM\nBiological Age",
+#'           "Levine\nPhenotypic Age",
+#'           "Modified-KDM\nBiological Age",
+#'           "Modified-Levine\nPhenotypic Age",
+#'           "Homeostatic\nDysregulation",
+#'           "Log\nHomeostatic\nDysregulation")
 #'
 #' axis_type = c("kdm_advance0"="float",
 #'               "phenoage_advance0"="float",
