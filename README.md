@@ -1,3 +1,6 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # BioAge
 
 This package measures biological aging using data from the National
@@ -118,14 +121,14 @@ plot_baa(data,agevar,label,axis_type)
 ``` r
 table_surv(data, agevar, label)
 ```
+
 <img src="vignettes/table1.png" width="100%" />
 
 ### Table 2: Linear regression models with current health status outcomes
 
 The linear regression models and number of observations in “Table 2” and
 “Table 3” below are saved as part of the list structure. These can be
-drawn by typing `table` and `n`,
-respectively.
+drawn by typing `table` and `n`, respectively.
 
 ``` r
 table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
@@ -133,12 +136,14 @@ table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scal
 #pull table
 table2$table
 ```
+
 <img src="vignettes/table2.png" width="100%" />
 
 ``` r
 #pull number of observations
 table2$n
 ```
+
 <img src="vignettes/table2.1.png" width="100%" />
 
 ### Table 3: Linear regresion models with socioeconomic variables
@@ -149,10 +154,20 @@ table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio
 #pull table
 table3$table
 ```
+
 <img src="vignettes/table3.png" width="100%" />
 
 ``` r
 #pull number of observations
 table3$n
 ```
+
 <img src="vignettes/table3.1.png" width="100%" />
+
+## Step 3: Score new data
+
+The projection dataset is the Health and Retirement Study (HRS), which
+has identical biomarkers, and was previously cleanded. I train in the
+NHANES 3 and project biological aging measures into the HRS by using the
+`hd_calc`, `kdm_calc`, and `phenoage_calc` function of the `BioAge`
+package.
