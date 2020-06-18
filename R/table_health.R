@@ -142,12 +142,18 @@ table_health = function (data, agevar, outcome, label) {
                        css.tspanner = "font-weight: 900; text-align: center; font-size: 0.77em;",
                        css.cell = rbind(rep("width: 600px; font-size: 0.77em;", times=ncol(table)),
                                         matrix("width: 600px; font-size: 0.77em;", ncol=ncol(table), nrow=nrow(table))),
-                       caption = "Table 2: Linear regression models of all biological aging measures with current health status outcomes.
-                       After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
-                       Original KDM Biological Age was computed in the NHANES 2007-2010.
-                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.
-                       Walk speed was measured only for people aged 50 and older in the NHANES 1999-2002.
-                       Grip strength was only measured in the NHANES 2011-2014.")
+                       caption = "Table 2. Associations of biological aging measures with healthspan-related characteristics.
+                       Coefficients are from linear regressions of healthspan-related characteristics on biological aging measures.
+                       Outcome variables were standardized to have M=0, SD=1 for analysis.
+                       Standardization was performed separately for men and women in the case of grip strength.
+                       Walk speed was log transformed prior to standardization to reduce skew.
+                       KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA).
+                       These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample so that effect-sizes are denominated in terms of a sex-specific 1 SD unit increase in biological age advancement.
+                       Models included covariates for chronological age and sex.
+                       The original KDM Biological Age algorithm (left-most column) was projected onto data from NHANES 2007-2010 only because other NHANES IV waves did not include spirometry measurements.
+                       The original Levine Phenotypic Age algorithm (second column from left) was projected onto data from NHANES 1999-2010 and 2015-2018 only because the intervening waves did not include CRP measurements.
+                       Walk speed was measured only in NHANES 1999-2002 and is available only for participants aged 50 and older.
+                       Grip strength was measured only in NHANES 2011-2014.")
 
   n = htmlTable::htmlTable(n[,-1],
                            rnames = n$y,
@@ -163,11 +169,8 @@ table_health = function (data, agevar, outcome, label) {
                            css.tspanner = "font-weight: 900; text-align: center; font-size: 0.8em;",
                            css.cell = rbind(rep("width: 600px; font-size: 0.8em;", times=ncol(n)),
                                             matrix("width: 600px; font-size: 0.8em;", ncol=ncol(n), nrow=nrow(n))),
-                           caption = "Table 2.1: Sample size for linear regression models of all biological aging measures with current health status outcomes.
-                       Original KDM Biological Age was computed in the NHANES 2007-2010.
-                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.
-                       Walk speed was measured only for people aged 50 and older in the NHANES 1999-2002.
-                       Grip strength was only measured in the NHANES 2011-2014.")
+                           caption = "Table 2.1. Sample sizes for regression in Table 2.
+                       Coefficients are from linear regressions of healthspan-related characteristics on biological aging measures.")
 
   result = list(table = table, n = n)
 

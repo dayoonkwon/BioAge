@@ -142,10 +142,13 @@ table_ses = function (data, agevar, exposure, label) {
                                css.tspanner = "font-weight: 900; text-align: center; font-size: 0.69em;",
                                css.cell = rbind(rep("width: 600px; font-size: 0.69em;", times=ncol(table)),
                                                 matrix("width: 600px; font-size: 0.69em;", ncol=ncol(table), nrow=nrow(table))),
-                               caption = "Table 3: Linear regression models of all biological aging measures with socioeconomic variables.
-                       After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
-                       Original KDM Biological Age was computed in the NHANES 2007-2010.
-                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
+                               caption = "Table 3. Associations of socioeconomic circumstances measures with measures of biological aging.
+                               Coefficients are from linear regressions of biological aging measures on measures of socioeconomic circumstances.
+                               KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA).
+                               These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample.
+                               Socioeconomic circumstances measures were standardized to M=0, SD=1 for analysis so that effect-sizes are denominated in terms of a 1 SD unit improvement in socioeconomic circumstances.
+                               Models included covariates for chronological age and sex. The original KDM Biological Age algorithm (left-most column) was projected onto data from NHANES 2007-2010 only because other NHANES IV waves did not include spirometry measurements.
+                               The original Levine Phenotypic Age algorithm (second column from left) was projected onto data from NHANES 1999-2010 and 2015-2018 only because the intervening waves did not include CRP measurements.")
 
   n = htmlTable::htmlTable(n[,-1],
                            rnames = n$x,
@@ -160,9 +163,8 @@ table_ses = function (data, agevar, exposure, label) {
                            css.tspanner = "font-weight: 900; text-align: center; font-size: 0.8em;",
                            css.cell = rbind(rep("width: 600px; font-size: 0.8em;", times=ncol(n)),
                                             matrix("width: 600px; font-size: 0.8em;", ncol=ncol(n), nrow=nrow(n))),
-                           caption = "Table 3.1: Sample size for linear regression models of all biological aging measures with socioeconomic variables.
-                       Original KDM Biological Age was computed in the NHANES 2007-2010.
-                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
+                           caption = "Table 3.1: Sample sizes for regression in Table 3.
+                           Coefficients are from linear regressions of biological aging measures on measures of socioeconomic circumstances.")
 
   result = list(table = table, n = n)
 

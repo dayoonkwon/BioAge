@@ -101,9 +101,11 @@ table_surv = function (data, agevar, label) {
                        css.tspanner = "font-weight: 900; text-align: center; font-size: .83em;",
                        css.cell = rbind(rep("width: 300px; font-size: .83em;", times=ncol(table)),
                                         matrix("width: 300px; font-size: .83em;", ncol=ncol(table), nrow=nrow(table))),
-                       caption = "Table 1: Mortality models with all biological aging measures.
-                       After accounting for chronological age differences, all biological aging measures were standardized to have mean = 0, SD = 1 by gender.
-                       Original KDM Biological Age was computed in the NHANES 2007-2010.
-                       Original Levine's Phenotypic Age was computed in the NHANES 1999-2010 and 2015-2018.")
-
+                       caption = "Table 1. Associations of biological aging measures with mortality.
+                       BioAge coefficients in the table are hazard ratios estimated from Cox proportional hazard regressions.
+                       KDM Biological Age and Levine Phenotypic Age measures were differenced from chronological age for analysis (i.e. values = BA-CA).
+                       These differenced values were then standardized to have M=0, SD=1 separately for men and women within the analysis sample so that effect-sizes are denominated in terms of a sex-specific 1 SD unit increase in biological age advancement.
+                       Models included covariates for chronological age and sex.
+                       The original KDM Biological Age algorithm (left-most column) was projected onto data from NHANES 2007-2010 only because other NHANES IV waves did not include spirometry measurements.
+                       The original Levine Phenotypic Age algorithm (second column from left) was projected onto data from NHANES 1999-2010 and 2015-2018 only because the intervening waves did not include CRP measurements.")
 }
