@@ -4,7 +4,7 @@
 \alias{phenoage_calc}
 \title{phenoage_calc}
 \usage{
-phenoage_calc(data, biomarkers, fit = NULL)
+phenoage_calc(data, biomarkers, fit = NULL, orig = FALSE)
 }
 \arguments{
 \item{data}{The dataset for calculating phenoage}
@@ -12,6 +12,8 @@ phenoage_calc(data, biomarkers, fit = NULL)
 \item{biomarkers}{A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage}
 
 \item{fit}{An S3 object for model fit. If the value is NULL, then the parameters to use for training phenoage are calculated}
+
+\item{orig}{TRUE to compute the origianl Levine's Phenotypic Age}
 }
 \value{
 An object of class "phenoage". This object is a list with two elements (data and fit)
@@ -25,14 +27,14 @@ Calculate Phenotypic Age
 \examples{
 #Train phenoage parameters
 train = phenoage_calc(NHANES3,
-                      biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+                      biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
                       "rdw","creat_umol","lncrp","alp","wbc"))
 
 #Use training data to calculate phenoage
 phenoage = phenoage_calc(NHANES4,
-                         biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+                         biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
                          "rdw","creat_umol","lncrp","alp","wbc"),
-                         fit=train$fit)
+                         fit = train$fit)
 
 #Extract phenoage dataset
 data = phenoage$data
