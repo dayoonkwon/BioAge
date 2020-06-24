@@ -2,9 +2,9 @@ Package: BioAge
 Type: Package
 Title: Biological Age Calculations Using Several Biomarker Algorithms
 Version: 0.1.0
-Author: Dayoon Kwon
+Author: Dayoon Kwon, Daniel Belsky
 Maintainer: Dayoon Kwon <dk1943@nyu.edu>
-Description: This package measures biological aging using data from the National Health and Nutrition Examination Survey (NHANES). The package uses published biomarker algorithms to calculate three biological age measures: Klemera-Doubal Method biological age, phenotypic age, and homeostatic dysregulation.
+Description: This package measures biological aging using data from the National Health and Nutrition Examination Survey (NHANES). The package uses published biomarker algorithms to calculate three biological aging measures: Klemera-Doubal Method biological age, phenotypic age, and homeostatic dysregulation.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
