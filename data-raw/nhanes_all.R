@@ -676,13 +676,17 @@ library(stringr)
 f <- file.path("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/Mortality",
                c("NHANES_1999_2000_Mort2015Public.dta","NHANES_2001_2002_Mort2015Public.dta",
                  "NHANES_2003_2004_Mort2015Public.dta","NHANES_2005_2006_Mort2015Public.dta",
-                 "NHANES_2007_2008_Mort2015Public.dta","NHANES_2009_2010_Mort2015Public.dta"))
+                 "NHANES_2007_2008_Mort2015Public.dta","NHANES_2009_2010_Mort2015Public.dta",
+                 "NHANES_2011_2012_Mort2015Public.dta","NHANES_2013_2014_Mort2015Public.dta"))
 NHANES_MORT <- lapply(f, read.dta13); rm(f)
 NHANES_MORT <- lapply(NHANES_MORT,function(x){
   x$seqn = as.numeric(str_remove(x$seqn,"^0+"))
   return(x)
 })
 NHANES_MORT <- bind_rows(NHANES_MORT)
+
+#include age-related mortality
+NHANES_MORT$mortstat[NHANES_MORT$ucod_leading==4|NHANES_MORT$ucod_leading==8|NHANES_MORT$ucod_leading==10]<-0
 
 # Combine all datasets ----------------------------------------------------
 NHANES4 <- full_join(Demographics_ALL,PFQ_ALL,by="seqn") %>%
