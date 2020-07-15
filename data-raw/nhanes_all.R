@@ -855,6 +855,15 @@ Bio_III$vitaminC <- Bio_III$vitaminC*56.82
 head(Bio_III)
 summary(Bio_III)
 
+
+# cyst c ------------------------------------------------------------------
+library(Hmisc)
+NHANESIII_CYST <- sasxport.get("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/data/sscystat.xpt")
+NHANESIII_CYST <- select(NHANESIII_CYST,seqn,sscystat)
+NHANESIII_CYST <- transmute(NHANESIII_CYST,seqn,cyst=sscystat)
+NHANESIII_CYST$seqn = as.numeric(NHANESIII_CYST$seqn)
+NHANESIII_CYST$cyst = as.numeric(NHANESIII_CYST$cyst)
+
 # Mortality ---------------------------------------------------------------
 NHANESIII_MORT <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/Mortality/NHANES_III_Mort2015Public.dta")
 NHANESIII_MORT$seqn = as.numeric(str_remove(NHANESIII_MORT$seqn,"^0+"))
@@ -867,6 +876,7 @@ NHANESIII_MORT$permth_exm[NHANESIII_MORT$permth_exm>240]<-240
 # Combine all datasets ----------------------------------------------------
 NHANES3 <- full_join(Demo_III,BMI_III,by="seqn") %>%
   full_join(.,Bio_III,by="seqn") %>%
+  full_join(.,NHANESIII_CYST,by="seqn") %>%
   full_join(.,NHANESIII_MORT,by="seqn") %>%
   unique()
 
