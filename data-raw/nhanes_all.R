@@ -418,7 +418,7 @@ summary(CRP_ALL)
 
 # Cystatin C --------------------------------------------------------------
 CYS_1999 <- select(CYS$SSCYST_A,SEQN,SSCYPC)
-CYS_2001 <- select(CYS$SSCYST_A,SEQN,SSCYPC)
+CYS_2001 <- select(CYS$SSCYST_B,SEQN,SSCYPC)
 
 CYS_ALL <- bind_rows(CYS_1999,CYS_2001)
 CYS_ALL <- transmute(CYS_ALL,seqn=SEQN,cyst=SSCYPC)
