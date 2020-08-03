@@ -45,13 +45,10 @@ function of the `BioAge` package.
 ``` {r}
 #specify bioamarkers included in the algorithms 
 biomarkers = c("albumin","alp","lymph","mcv","lncreat","lncrp","hba1c","wbc","rdw")
-
 #HD using NHANES (separate training for men and women)
 hd = hd_nhanes(biomarkers)
-
 #KDM bioage using NHANES (separate training for men and women)
 kdm = kdm_nhanes(biomarkers)
-
 #phenoage uinsg NHANES
 phenoage = phenoage_nhanes(biomarkers)
 ```
@@ -73,7 +70,6 @@ In the figure below, the graphs titled "KDM Biological Age" and "Levine Phenotyp
 ```{r, fig.width = 8, fig.height = 7}
 #select biological age variables
 agevar = c("kdm0","phenoage0","kdm","phenoage","hd","hd_log")
-
 #prepare labels
 label = c("KDM\nBiological Age",
           "Levine\nPhenotypic Age",
@@ -81,7 +77,6 @@ label = c("KDM\nBiological Age",
           "Modified-Levine\nPhenotypic Age",
           "Homeostatic\nDysregulation",
           "Log\nHomeostatic\nDysregulation")
-
 #plot age vs bioage
 plot_ba(data, agevar, label)
 ```
@@ -94,7 +89,6 @@ The figure plots associations among the different biological aging measures. Cel
 ```{r, fig.width = 8, fig.height = 8}
 #select biological age variables
 agevar = c("kdm_advance0","phenoage_advance0","kdm_advance","phenoage_advance","hd","hd_log")
-
 #prepare lables
 #values should be formatted for displaying along diagonal of the plot
 #names should be used to match variables and order is preserved
@@ -105,7 +99,6 @@ label = c(
   "phenoage_advance"="Modified-Levine\nPhenotypic Age\nAdvancement",
   "hd" = "Homeostatic\nDysregulation",
   "hd_log" = "Log\nHomeostatic\nDysregulation")
-
 #use variable name to define the axis type ("int" or "float")
 axis_type = c(
   "kdm_advance0"="float",
@@ -114,7 +107,6 @@ axis_type = c(
   "phenoage_advance"="flot",
   "hd"="flot",
   "hd_log"="float")
-
 #plot BAA corplot
 plot_baa(data,agevar,label,axis_type)
 ```
@@ -133,7 +125,6 @@ Sample size can be drawn by typing `n`.
 
 ```{r}
 table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
-
 #pull table
 table2$table
 #pull sample sizes
@@ -144,7 +135,6 @@ table2$n
 
 ```{r}
 table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
-
 #pull table
 table3$table
 #pull sample sizes
@@ -210,7 +200,6 @@ hd_fem = hd_calc(data = newdata %>%
                           wbc = ifelse(wbc >= 4.5 & wbc <= 11, wbc, NA),
                           rdw = ifelse(rdw >= 11.5 & rdw <= 14.5, rdw, NA)),
                  biomarkers)
-
 hd_male = hd_calc(data = newdata %>%
                    filter(gender == 1),
                  reference = NHANES3 %>%
@@ -227,7 +216,6 @@ hd_male = hd_calc(data = newdata %>%
                           wbc = ifelse(wbc >= 4.5 & wbc <= 11, wbc, NA),
                           rdw = ifelse(rdw >= 11.5 & rdw <= 14.5, rdw, NA)),
                  biomarkers)
-
 #pull the HD dataset
 hd_data = rbind(hd_fem$data, hd_male$data)
 ```
@@ -242,13 +230,11 @@ kdm_fem = kdm_calc(data = newdata %>%
                    biomarkers,
                    fit = kdm$fit$female,
                    s_ba2 = kdm$fit$female$s_b2)
-
 kdm_male = kdm_calc(data = newdata %>%
                      filter (gender ==1),
                    biomarkers,
                    fit = kdm$fit$male,
                    s_ba2 = kdm$fit$male$s_b2)
-
 #pull the KDM dataset
 kdm_data = rbind(kdm_fem$data, kdm_male$data)
 ```
@@ -262,9 +248,7 @@ phenoage_hrs = phenoage_calc(data = newdata %>%
                          biomarkers,
                          fit = phenoage$fit,
                          orig = TRUE) #this calculate original phenoage 
-
 phenoage_data = phenoage_hrs$data
-
 #pull the full dataset
 newdata = left_join(newdata, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
   left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance")], by = "sampleID") %>%
