@@ -412,8 +412,8 @@ CRP_2009 <- select(CRP$CRP_F,SEQN,LBXCRP)
 #CRP in 2015 was measured in mg/L units and needs to be divided by 10 to equal units in other waves. Before this I need to remove values below the lower limit of detection (values less than 0.11).
 CRP_2015 <- select(CRP$HSCRP_I,SEQN,LBXHSCRP)
 CRP_2017 <- select(CRP$HSCRP_J,SEQN,LBXHSCRP)
-CRP_2015 <- mutate(CRP_2015,LBXCRP=LBXHSCRP/10)
-CRP_2017 <- mutate(CRP_2017,LBXCRP=LBXHSCRP/10)
+CRP_2015 <- transmute(CRP_2015,SEQN,LBXCRP=LBXHSCRP/10)
+CRP_2017 <- transmute(CRP_2017,SEQN,LBXCRP=LBXHSCRP/10)
 CRP_ALL <- bind_rows(CRP_1999,CRP_2001,CRP_2003,CRP_2005,CRP_2007,CRP_2009,CRP_2015,CRP_2017)
 CRP_ALL <- transmute(CRP_ALL,seqn=SEQN,crp=LBXCRP,crp_cat=ifelse(crp>=3,1,0),lncrp=log(1+crp))
 
@@ -908,15 +908,12 @@ dim(NHANES_ALL)
 # Final two seperate data -------------------------------------------------
 NHANES3 = subset(NHANES_ALL, wave==0) %>%
   group_by(gender) %>%
-  mutate_at(vars(fev,albumin,alp,bun,creat,glucose,ttbl,uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
+  mutate_at(vars(fev,albumin:alp,bun,creat,creat_umol,glucose:uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                           (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
-         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
-         creat_umol = ifelse(is.na(creat), NA, creat_umol),
          lncreat = ifelse(is.na(creat), NA, lncreat),
-         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
-         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
+         lncreat_umol = ifelse(is.na(creat_umol), NA, lncreat_umol),
          crp_cat = ifelse(is.na(crp), NA, crp_cat),
          lncrp = ifelse(is.na(crp), NA, lncrp),
          lnalp = ifelse(is.na(alp), NA, lnalp),
@@ -927,15 +924,12 @@ NHANES3 = subset(NHANES_ALL, wave==0) %>%
 
 NHANES4 = subset(NHANES_ALL, wave>0) %>%
   group_by(gender) %>%
-  mutate_at(vars(fev,albumin,alp,bun,creat,glucose,ttbl,uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
+  mutate_at(vars(fev,albumin:alp,bun,creat,creat_umol,glucose:uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                            (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
-         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
-         creat_umol = ifelse(is.na(creat), NA, creat_umol),
          lncreat = ifelse(is.na(creat), NA, lncreat),
-         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
-         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
+         lncreat_umol = ifelse(is.na(creat_umol), NA, lncreat_umol),
          crp_cat = ifelse(is.na(crp), NA, crp_cat),
          lncrp = ifelse(is.na(crp), NA, lncrp),
          lnalp = ifelse(is.na(alp), NA, lnalp),
@@ -944,6 +938,8 @@ NHANES4 = subset(NHANES_ALL, wave>0) %>%
          lnhba1c = ifelse(is.na(hba1c), NA, lnhba1c)) %>%
   ungroup()
 
+summary(NHANES3)
+summary(NHANES4)
 # Calculate KDM Bioage ----------------------------------------------------
 biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun")
 
