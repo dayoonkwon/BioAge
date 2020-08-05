@@ -128,8 +128,8 @@ head(Demographics_ALL)
 summary(Demographics_ALL)
 
 #Recoding pregnancy variable to be nonpregnant for all men and for individuals of uncertain pregnancy status
-Demographics_ALL$pregnant[Demographics_ALL$pregnant==3] <- 2
-Demographics_ALL$pregnant[is.na(Demographics_ALL$pregnant)] <- 2
+Demographics_ALL$pregnant[Demographics_ALL$pregnant==3] <- 0
+Demographics_ALL$pregnant[is.na(Demographics_ALL$pregnant)] <- 0
 Demographics_ALL$pregnant[Demographics_ALL$pregnant==2] <- 0
 
 #Recoding missing or nonresponse indicators to NA
@@ -314,7 +314,10 @@ SGL_2015 <- select(SGL$BIOPRO_I,SEQN,LBXSGL,LBXSTB,LBXSAL,LBXSCR,LBXSBU,LBXSUA,L
 SGL_2017 <- select(SGL$BIOPRO_J,SEQN,LBXSGL,LBXSTB,LBXSAL,LBXSCR,LBXSBU,LBXSUA,LBXSAPSI)
 
 SGL_ALL <- bind_rows(SGL_1999,SGL_2001,SGL_2003,SGL_2005,SGL_2007,SGL_2009,SGL_2011,SGL_2013,SGL_2015,SGL_2017)
-SGL_ALL <- transmute(SGL_ALL,seqn=SEQN,albumin=LBXSAL,albumin_gL=albumin*10,alp=LBXSAPSI,bun=LBXSBU,creat=LBXSCR,creat_umol=creat*88.4017,lncreat=log(creat),lncreat_umol=log(creat_umol),glucose=LBXSGL,glucose_mmol=glucose*0.0555,ttbl=LBXSTB,uap=LBXSUA)
+SGL_ALL <- transmute(SGL_ALL,seqn=SEQN,albumin=LBXSAL,albumin_gL=albumin*10,alp=LBXSAPSI,lnalp=log(1+alp),
+                     bun=LBXSBU,lnbun=log(1+bun),creat=LBXSCR,creat_umol=creat*88.4017,lncreat=log(1+creat),
+                     lncreat_umol=log(1+creat_umol),glucose=LBXSGL,glucose_mmol=glucose*0.0555,ttbl=LBXSTB,
+                     uap=LBXSUA,lnuap=log(1+uap))
 
 head(SGL_ALL)
 summary(SGL_ALL)
@@ -375,7 +378,8 @@ WBC_ALL$LBXRDW[WBC_ALL$LBXRDW>=40.00] <- NA
 WBC_ALL$LBXMCVSI[WBC_ALL$LBXMCVSI<=50.00] <- NA
 WBC_ALL$LBXMCVSI[WBC_ALL$LBXMCVSI>=150.00] <- NA
 
-WBC_ALL <- transmute(WBC_ALL,seqn=SEQN,basopa=LBXBAPCT,eosnpa=LBXEOPCT,lymph=LBXLYPCT,mcv=LBXMCVSI,monopa=LBXMOPCT,neut=LBXNEPCT,rbc=LBXRBCSI,rdw=LBXRDW,wbc=LBXWBCSI)
+WBC_ALL <- transmute(WBC_ALL,seqn=SEQN,basopa=LBXBAPCT,eosnpa=LBXEOPCT,lymph=LBXLYPCT,mcv=LBXMCVSI,
+                     monopa=LBXMOPCT,neut=LBXNEPCT,rbc=LBXRBCSI,rdw=LBXRDW,wbc=LBXWBCSI)
 
 head(WBC_ALL)
 summary(WBC_ALL)
@@ -411,7 +415,7 @@ CRP_2017 <- select(CRP$HSCRP_J,SEQN,LBXHSCRP)
 CRP_2015 <- mutate(CRP_2015,LBXCRP=LBXHSCRP/10)
 CRP_2017 <- mutate(CRP_2017,LBXCRP=LBXHSCRP/10)
 CRP_ALL <- bind_rows(CRP_1999,CRP_2001,CRP_2003,CRP_2005,CRP_2007,CRP_2009,CRP_2015,CRP_2017)
-CRP_ALL <- transmute(CRP_ALL,seqn=SEQN,crp=LBXCRP,crp_cat=ifelse(crp>=3,1,0),lncrp=log(crp))
+CRP_ALL <- transmute(CRP_ALL,seqn=SEQN,crp=LBXCRP,crp_cat=ifelse(crp>=3,1,0),lncrp=log(1+crp))
 
 head(CRP_ALL)
 summary(CRP_ALL)
@@ -571,7 +575,7 @@ HBA_2015 <- select(HBA$GHB_I,SEQN,LBXGH)
 HBA_2017 <- select(HBA$GHB_J,SEQN,LBXGH)
 
 HBA_ALL <- bind_rows(HBA_1999,HBA_2001,HBA_2003,HBA_2005,HBA_2007,HBA_2009,HBA_2011,HBA_2013,HBA_2015,HBA_2017)
-HBA_ALL <- transmute(HBA_ALL,seqn=SEQN,hba1c=LBXGH)
+HBA_ALL <- transmute(HBA_ALL,seqn=SEQN,hba1c=LBXGH,lnhba1c=log(hba1c))
 
 head(HBA_ALL)
 summary(HBA_ALL)
@@ -781,9 +785,9 @@ BMI_III <- transmute(BMI_III,seqn=SEQN,pregnant=MAPF12R,bmi=BMPBMI,height=BMPHT,
                      weight=BMPWT,sbp=PEPMNK1R,dbp=PEPMNK5R,fev=SPPFEV1)
 
 #Recoding pregnancy variable to be nonpregnant for all men and for individuals of uncertain pregnancy status
-BMI_III$pregnant[BMI_III$pregnant==8] <- 2
-BMI_III$pregnant[BMI_III$pregnant==9] <- 2
-BMI_III$pregnant[is.na(BMI_III$pregnant)] <- 2
+BMI_III$pregnant[BMI_III$pregnant==8] <- 0
+BMI_III$pregnant[BMI_III$pregnant==9] <- 0
+BMI_III$pregnant[is.na(BMI_III$pregnant)] <- 0
 BMI_III$pregnant[BMI_III$pregnant==2] <- 0
 
 #Recoding missing indicators to NA
@@ -843,14 +847,18 @@ Bio_III$vitaminE[Bio_III$vitaminE==888888] <- NA
 
 #Adjusting serum creatinine according to published equation
 Bio_III$creat <- Bio_III$creat*0.960-0.184
-Bio_III$lncrp <- log(Bio_III$crp)
+Bio_III$lncrp <- log(1+Bio_III$crp)
 Bio_III$crp_cat <- ifelse(Bio_III$crp>=3,1,0)
-Bio_III$lncreat <- log(Bio_III$creat)
+Bio_III$lncreat <- log(1+Bio_III$creat)
 Bio_III$creat_umol <- Bio_III$creat*88.4017
-Bio_III$lncreat_umol <- log(Bio_III$creat_umol)
+Bio_III$lncreat_umol <- log(1+Bio_III$creat_umol)
 Bio_III$glucose_mmol <- Bio_III$glucose*0.0555
 Bio_III$albumin_gL <- Bio_III$albumin*10
 Bio_III$vitaminC <- Bio_III$vitaminC*56.82
+Bio_III$lnhba1c <- log(1+Bio_III$hba1c)
+Bio_III$lnalp = log(1+Bio_III$alp)
+Bio_III$lnbun = log(1+Bio_III$bun)
+Bio_III$lnuap = log(1+Bio_III$uap)
 
 head(Bio_III)
 summary(Bio_III)
@@ -900,7 +908,7 @@ dim(NHANES_ALL)
 # Final two seperate data -------------------------------------------------
 NHANES3 = subset(NHANES_ALL, wave==0) %>%
   group_by(gender) %>%
-  mutate_at(vars(fev,albumin,alp:creat,glucose,ttbl:crp,cyst:insulin,hba1c:vitaminC),
+  mutate_at(vars(fev,albumin,alp,bun,creat,glucose,ttbl,uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
                           (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
@@ -910,14 +918,18 @@ NHANES3 = subset(NHANES_ALL, wave==0) %>%
          lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
          glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
          crp_cat = ifelse(is.na(crp), NA, crp_cat),
-         lncrp = ifelse(is.na(crp), NA, lncrp)) %>%
+         lncrp = ifelse(is.na(crp), NA, lncrp),
+         lnalp = ifelse(is.na(alp), NA, lnalp),
+         lnbun = ifelse(is.na(bun), NA, lnbun),
+         lnuap = ifelse(is.na(uap), NA, lnuap),
+         lnhba1c = ifelse(is.na(hba1c), NA, lnhba1c)) %>%
   ungroup()
 
 NHANES4 = subset(NHANES_ALL, wave>0) %>%
   group_by(gender) %>%
-  mutate_at(vars(fev,albumin,alp:creat,glucose,ttbl:crp,cyst:insulin,hba1c:vitaminC),
+  mutate_at(vars(fev,albumin,alp,bun,creat,glucose,ttbl,uap,bap:crp,cyst:insulin,hba1c,hdl:vitaminC),
             list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
-                          (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+                           (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
   mutate(fev_1000 = ifelse(is.na(fev), NA, fev_1000),
          albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
          creat_umol = ifelse(is.na(creat), NA, creat_umol),
@@ -925,7 +937,11 @@ NHANES4 = subset(NHANES_ALL, wave>0) %>%
          lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
          glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
          crp_cat = ifelse(is.na(crp), NA, crp_cat),
-         lncrp = ifelse(is.na(crp), NA, lncrp)) %>%
+         lncrp = ifelse(is.na(crp), NA, lncrp),
+         lnalp = ifelse(is.na(alp), NA, lnalp),
+         lnbun = ifelse(is.na(bun), NA, lnbun),
+         lnuap = ifelse(is.na(uap), NA, lnuap),
+         lnhba1c = ifelse(is.na(hba1c), NA, lnhba1c)) %>%
   ungroup()
 
 # Calculate KDM Bioage ----------------------------------------------------
@@ -980,6 +996,59 @@ test$phenoage_advance0 <- test$phenoage0-test$age
 NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 
+NHANES3_CLEAN = NHANES3 %>%
+  filter(age >= 20 & age <= 30 & pregnant == 0) %>%
+  mutate(albumin = ifelse(albumin >= 3.5 & albumin <= 5, albumin, NA),
+         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
+         alp = ifelse(gender == 2, ifelse(alp >= 37 & alp <= 98, alp, NA), ifelse(alp >= 45 & alp <= 115, alp, NA)),
+         lnalp = ifelse(is.na(alp), NA, lnalp),
+         bap = ifelse(gender == 2, ifelse(bap <= 14, bap, NA), ifelse(bap <= 20, bap, NA)),
+         bun = ifelse(gender == 2, ifelse(bun >= 6 & bun <= 21, bun, NA), ifelse(bun >= 8 & bun <= 24, bun, NA)),
+         lnbun = ifelse(is.na(bun), NA, lnbun),
+         creat = ifelse(gender == 2, ifelse(creat >= 0.6 & creat <= 1.1, creat, NA), ifelse(creat >= 0.8 & creat <= 1.3, creat, NA)),
+         creat_umol = ifelse(is.na(creat), NA, creat_umol),
+         lncreat = ifelse(is.na(creat), NA, lncreat),
+         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
+         glucose = ifelse(glucose >= 60 & glucose <= 100, glucose, NA),
+         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol),
+         glucose_fasting = ifelse(glucose_fasting >= 65 & glucose_fasting <= 110, glucose_fasting, NA),
+         ttbl = ifelse(ttbl >= 0.1 & ttbl <= 1.4, ttbl, NA),
+         uap = ifelse(gender == 2, ifelse(uap >= 2 & uap <= 7, uap, NA), ifelse(uap >= 2.1 & uap <= 8.5, uap, NA)),
+         lnuap = ifelse(is.na(uap), NA, lnuap),
+         basopa = ifelse(basopa >= 0 & basopa <= 2, basopa, NA),
+         eosnpa = ifelse(eosnpa >=1 & eosnpa <= 7, eosnpa, NA),
+         mcv = ifelse(gender == 2, ifelse(mcv >= 78 & mcv <= 101, mcv, NA), ifelse(mcv >= 82 & mcv <= 102, mcv, NA)),
+         monopa = ifelse(monopa >= 3 & monopa <= 10, monopa, NA),
+         neut = ifelse(neut >= 45 & neut <= 74, neut, NA),
+         rbc = ifelse(gender == 2, ifelse(rbc >= 3.5 & rbc <= 5.5, rbc, NA), ifelse(rbc >= 4.2 & rbc <= 6.9, rbc, NA)),
+         rdw = ifelse(rdw >= 11.5 & rdw <= 14.5, rdw, NA),
+         cadmium = ifelse(cadmium >= 2.7 & cadmium <= 10.7, cadmium, NA),
+         crp = ifelse(crp < 2, crp, NA),
+         crp_cat = ifelse(is.na(crp), NA, crp_cat),
+         lncrp = ifelse(is.na(crp), NA, lncrp),
+         cyst = ifelse(cyst >= 0.51 & cyst <= 0.98, cyst, NA),
+         ggt = ifelse(gender == 2, ifelse(ggt <= 37.79, ggt, NA), ifelse(ggt <= 55.19, ggt, NA)),
+         insulin = ifelse(insulin >= 2.52 & insulin <= 24.1, insulin, NA),
+         hba1c = ifelse(hba1c >= 4 & hba1c <= 5.6, hba1c, NA),
+         lnhba1c = ifelse(is.na(hba1c), NA, lnhba1c),
+         hdl = ifelse(gender == 2, ifelse(hdl >= 40 & hdl <= 86, hdl, NA), ifelse(hdl >= 35 & hdl <= 80, hdl, NA)),
+         ldl = ifelse(ldl >= 80 & ldl <= 130, ldl, NA),
+         trig = ifelse(trig >= 54 & trig <= 110, trig, NA),
+         lymph = ifelse(lymph >= 20 & lymph <= 40, lymph, NA),
+         wbc = ifelse(wbc >= 4.5 & wbc <= 11, wbc, NA),
+         uap = ifelse(gender == 2, ifelse(uap >= 2.7 & uap <= 6.3, uap, NA), ifelse(uap >= 3.7 & uap <= 8, uap, NA)),
+         sbp = ifelse(sbp < 120, sbp, NA),
+         dbp = ifelse(dbp < 80, dbp, NA),
+         meanbp = ifelse(meanbp < 93.33, meanbp, NA),
+         pulse = ifelse(pulse >= 60 & pulse <= 100, pulse, NA),
+         totchol = ifelse(totchol < 200, totchol, NA),
+         fev = ifelse(fev >= mean(fev, na.rm = TRUE) * 0.8, fev, NA),
+         fev_1000 = ifelse(is.na(fev), NA, fev_1000),
+         vitaminA = ifelse(vitaminA >= 1.05 & vitaminA <= 2.27, vitaminA, NA),
+         vitaminE = ifelse(vitaminE <= 28, vitaminE, NA),
+         vitaminB12 = ifelse(vitaminB12 >= 100 & vitaminB12 <= 700, vitaminB12, NA),
+         vitaminC = ifelse(vitaminC >= 23 & vitaminC <= 85, vitaminC, NA))
 
 usethis::use_data(NHANES3, overwrite = TRUE)
 usethis::use_data(NHANES4, overwrite = TRUE)
+usethis::use_data(NHANES3_CLEAN, overwrite = TRUE)
