@@ -20,7 +20,7 @@ hd_nhanes = function(biomarkers) {
 
   #develop training dataset for HD
   train = NHANES3 %>%
-    filter(age >= 20 & age <= 30 & pregnant == 0) %>%
+    filter(age >= 20 & age <= 30 & pregnant == 0 & bmi < 30) %>%
     mutate(albumin = ifelse(albumin >= 3.5 & albumin <= 5, albumin, NA),
            albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
            alp = ifelse(gender == 2, ifelse(alp >= 37 & alp <= 98, alp, NA), ifelse(alp >= 45 & alp <= 115, alp, NA)),
