@@ -993,7 +993,7 @@ NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0"
 NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 
 NHANES3_CLEAN = NHANES3 %>%
-  filter(age >= 20 & age <= 30 & pregnant == 0) %>%
+  filter(age >= 20 & age <= 30 & pregnant == 0 & bmi < 30) %>%
   mutate(albumin = ifelse(albumin >= 3.5 & albumin <= 5, albumin, NA),
          albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
          alp = ifelse(gender == 2, ifelse(alp >= 37 & alp <= 98, alp, NA), ifelse(alp >= 45 & alp <= 115, alp, NA)),
