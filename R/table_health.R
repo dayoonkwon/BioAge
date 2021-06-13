@@ -9,7 +9,7 @@ health_res = function (dat, agevar, outcome, covar, label) {
     mutate(x = factor(x, levels = agevar, labels = label)) %>%
     group_by(y, x) %>%
     na.omit() %>%
-    do(broom::tidy(lm (paste("yvalue~xvalue+", covars), data =.))) %>%
+    do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
     filter(term == "xvalue") %>%
     mutate(estimate = paste(round(estimate, 2), " (", round(estimate - 1.96 * std.error, 2), ", ", round(estimate + 1.96 * std.error, 2), ")", sep = "")) %>%
     select(y, x, estimate) %>%
@@ -130,20 +130,20 @@ table_health = function (data, agevar, outcome, label) {
 
   #make final table
   table = htmlTable::htmlTable(table[,-1],
-                               rnames = table$y,
-                               align = "llllll",
-                               rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
-                               n.rgroup = rep(length(outcome),9),
-                               tspanner = c("b (95% CI)",
-                                            "Stratified by Gender",
-                                            "Stratified by Race",
-                                            "Stratified by Age"),
-                               n.tspanner = c(4,8,12,12),
-                               css.rgroup = "font-weight: 900; text-align: left; font-size: 0.77em;",
-                               css.tspanner = "font-weight: 900; text-align: center; font-size: 0.77em;",
-                               css.cell = rbind(rep("width: 600px; font-size: 0.77em;", times=ncol(table)),
-                                                matrix("width: 600px; font-size: 0.77em;", ncol=ncol(table), nrow=nrow(table))),
-                               caption = "Table 2. Associations of biological aging measures with healthspan-related characteristics.
+                       rnames = table$y,
+                       align = "llllll",
+                       rgroup = c("Full Sample", "Men", "Women", "White", "Black", "Other", "Age 20-40", "Age 40-60", "Age 60-80"),
+                       n.rgroup = rep(length(outcome),9),
+                       tspanner = c("b (95% CI)",
+                                    "Stratified by Gender",
+                                    "Stratified by Race",
+                                    "Stratified by Age"),
+                       n.tspanner = c(4,8,12,12),
+                       css.rgroup = "font-weight: 900; text-align: left; font-size: 0.77em;",
+                       css.tspanner = "font-weight: 900; text-align: center; font-size: 0.77em;",
+                       css.cell = rbind(rep("width: 600px; font-size: 0.77em;", times=ncol(table)),
+                                        matrix("width: 600px; font-size: 0.77em;", ncol=ncol(table), nrow=nrow(table))),
+                       caption = "Table 2. Associations of biological aging measures with healthspan-related characteristics.
                        Coefficients are from linear regressions of healthspan-related characteristics on biological aging measures.
                        Outcome variables were standardized to have M=0, SD=1 for analysis.
                        Standardization was performed separately for men and women in the case of grip strength.
