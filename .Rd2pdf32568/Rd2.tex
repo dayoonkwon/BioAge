@@ -1,0 +1,557 @@
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `BioAge'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\inputencoding{utf8}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{Biological Age Calculations Using Several Biomarker Algorithms}
+\item[Version]\AsIs{0.1.0}
+\item[Author]\AsIs{Dayoon Kwon}
+\item[Maintainer]\AsIs{Dayoon Kwon }\email{dk1943@nyu.edu}\AsIs{}
+\item[Description]\AsIs{This package measures biological aging using data from the National Health and Nutrition Examination Survey (NHANES). The package uses published biomarker algorithms to calculate three biological age measures: Klemera-Doubal Method biological age, phenotypic age, and homeostatic dysregulation.}
+\item[License]\AsIs{GPL-3}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[RoxygenNote]\AsIs{7.1.0}
+\item[Depends]\AsIs{R (>= 2.10)}
+\item[Imports]\AsIs{dplyr,
+ggplot2}
+\item[Suggests]\AsIs{broom,
+flexsurv,
+htmlTable,
+survival,
+testthat,
+tidyr,
+knitr,
+rmarkdown}
+\item[VignetteBuilder]\AsIs{knitr}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{hd\_calc}{hd\_calc}{hd.Rul.calc}
+%
+\begin{Description}\relax
+Calculate homeostatic dysregulation (HD)
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+hd_calc(data, reference, biomarkers)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for calculating HD
+
+\item[\code{reference}] The reference dataset for calculating HD
+
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating HD
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate HD
+\end{Details}
+%
+\begin{Value}
+An object of class "hd". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Calculate HD
+hd = hd_calc(NHANES4, NHANES3,
+             biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol","rdw","creat_umol","lncrp","alp","wbc"))
+
+#Extract bioage dataset
+data = hd$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{hd\_nhanes}{hd\_nhanes}{hd.Rul.nhanes}
+%
+\begin{Description}\relax
+Calculate homeostatic dysregulation (HD) using NHANES dataset
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+hd_nhanes(biomarkers)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating HD
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate HD using NHANES dataset
+\end{Details}
+%
+\begin{Value}
+An object of class "hd". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Calculate HD
+hd = hd_nhanes(biomarkers=c("albumin","lymph","mcv","glucose","rdw","creat","lncrp","alp","wbc"))
+
+#Extract HD dataset
+data = hd$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{kdm\_calc}{kdm\_calc}{kdm.Rul.calc}
+%
+\begin{Description}\relax
+Calculate Klemera-Doubal Method (KDM) Biological Age
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+kdm_calc(data, biomarkers, fit = NULL, s_ba2 = NULL)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for calculating KDM Biological Age
+
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating KDM Biological Age
+
+\item[\code{fit}] An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM Biological Age are calculated
+
+\item[\code{s\_ba2}] A particular fit parameter. Advanced users can modify this parameter to control the variance of kdm
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate KDM Biological Age
+\end{Details}
+%
+\begin{Value}
+An object of class "kdm". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Train KDM kdm parameters
+train = kdm_calc(NHANES3,
+                    biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
+
+#Use training data to calculate KDM Biological Age
+kdm = kdm_calc(NHANES4,
+                     biomarkers = c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"),
+                     fit = train$fit,
+                     s_ba2 = train$fit$s_ba2)
+
+#Extract kdm dataset
+data = kdm$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{kdm\_nhanes}{kdm\_nhanes}{kdm.Rul.nhanes}
+%
+\begin{Description}\relax
+Calculate Klemera-Doubal Method (KDM) Biological Age using NHANES dataset
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+kdm_nhanes(biomarkers)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating KDM Biological Age
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate KDM Biological Age using NHANES dataset
+\end{Details}
+%
+\begin{Value}
+An object of class "kdm". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Calculate KDM Biological Age
+kdm = kdm_nhanes(biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun"))
+
+#Extract kdm dataset
+data = kdm$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{phenoage\_calc}{phenoage\_calc}{phenoage.Rul.calc}
+%
+\begin{Description}\relax
+Calculate Levine's Phenotypic Age
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+phenoage_calc(data, biomarkers, fit = NULL, orig = FALSE)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for calculating phenoage
+
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
+
+\item[\code{fit}] An S3 object for model fit. If the value is NULL, then the parameters to use for training phenoage are calculated
+
+\item[\code{orig}] TRUE to compute the origianl Levine's Phenotypic Age
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate Phenotypic Age
+\end{Details}
+%
+\begin{Value}
+An object of class "phenoage". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Train phenoage parameters
+train = phenoage_calc(NHANES3,
+                      biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
+                      "rdw","creat_umol","lncrp","alp","wbc"))
+
+#Use training data to calculate phenoage
+phenoage = phenoage_calc(NHANES4,
+                         biomarkers = c("albumin_gL","lymph","mcv","glucose_mmol",
+                         "rdw","creat_umol","lncrp","alp","wbc"),
+                         fit = train$fit)
+
+#Extract phenoage dataset
+data = phenoage$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{phenoage\_nhanes}{phenoage\_nhanes}{phenoage.Rul.nhanes}
+%
+\begin{Description}\relax
+Calculate Levine's Phenotypic Age using NHANES dataset
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+phenoage_nhanes(biomarkers)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{biomarkers}] A character vector indicating the names of the variables for the biomarkers to use in calculating phenoage
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Calculate Levine's Phenotypic Age using NHANES dataset
+\end{Details}
+%
+\begin{Value}
+An object of class "phenoage". This object is a list with two elements (data and fit)
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Calculate phenoage
+phenoage = phenoage_nhanes(biomarkers=c("albumin_gL","lymph","mcv","glucose_mmol",
+                           "rdw","creat_umol","lncrp","alp","wbc"))
+
+#Extract phenoage dataset
+data = phenoage$data
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{plot\_ba}{plot\_ba}{plot.Rul.ba}
+%
+\begin{Description}\relax
+Plot correlations between biological aging measures and chronological age
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+plot_ba(data, agevar, label)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for plotting correlations
+
+\item[\code{agevar}] A character vector indicating the names of the biological aging measures
+
+\item[\code{label}] A character vector indicating the labels of the biological aging measures
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Plot correlations between biological aging measures and chronological age
+\end{Details}
+%
+\begin{Note}\relax
+Chronological age and gender variables need to be named "age" and "gender"
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Calculate phenoage
+f1 = plot_ba(data = data, agevar = c("kdm", "phenoage", "hd"),
+             label = c("Modified-KDM\nBiological\nAge",
+                       "Modified-Levine\nPhenotypic\nAge",
+                       "Mahalanobis\nDistance"))
+
+f1
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{plot\_baa}{plot\_baa}{plot.Rul.baa}
+%
+\begin{Description}\relax
+Plot correlations between biological age advancement (BAA) and chronological age
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+plot_baa(data, agevar, label, axis_type)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for plotting corplot
+
+\item[\code{agevar}] A character vector indicating the names of the interested biological aging measures
+
+\item[\code{label}] A character vector indicating the labels of the biological aging measures
+Values should be formatted for displaying along diagonal of the plot
+Names should be used to match variables and order is preserved
+
+\item[\code{axis\_type}] A character vector indicating the axis type (int or float)
+Use variable name to define the axis type
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Plot correlations between BAA and chronological age
+\end{Details}
+%
+\begin{Examples}
+\begin{ExampleCode}
+#Create corplot of BAA with chronologicl age
+agevar = c("kdm_advance0",
+           "phenoage_advance0",
+           "kdm_advance",
+           "phenoage_advance",
+           "hd",
+           "hd_log")
+
+label = c("kdm_advance0"="KDM\nBiological\nAge",
+           "phenoage_advance0"="Levine\nPhenotypic\nAge",
+           "kdm_advance"="Modified-KDM\nBiological\nAge",
+           "phenoage_advance"="Modified-Levine\nPhenotypic\nAge",
+           "hd" = "Mahalanobis\nDistance",
+           "hd_log" = "Log\nMahalanobis\nDistance")
+
+axis_type = c("kdm_advance0"="float",
+              "phenoage_advance0"="float",
+              "kdm_advance"="float",
+              "phenoage_advance"="flot",
+              "hd"="flot",
+              "hd_log"="float")
+
+f2 = plot_baa(data, agevar, labels, axis_type)
+
+f2
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{table\_health}{table\_health}{table.Rul.health}
+%
+\begin{Description}\relax
+Association with current health status outcomes
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+table_health(data, agevar, outcome, label)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for linear regression table
+
+\item[\code{agevar}] A character vector indicating the names of the interested biological aging measures
+
+\item[\code{outcome}] A character vector indicating the name of the interested current health status outcomes
+
+\item[\code{label}] A character vector indicating the labels of the biological aging measures
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Association with current health status outcomes, adjusting for chronological age and gender and stratified by gender, race, and age
+\end{Details}
+%
+\begin{Note}\relax
+Chronological age and gender variables need to be named "age" and "gender"
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+table2 = table_health(data,
+                      agevar = c("kdm_advance0","phenoage_advance0",
+                               "kdm_advance","phenoage_advance",
+                               "hd","hd_log"),
+                      outcome = c("health","adl","lnwalk","grip_scaled"),
+                      label = c("KDM\nBiological\nAge",
+                                "Levine\nPhenotypic\nAge",
+                                "Modified-KDM\nBiological\nAge",
+                                "Modified-Levine\nPhenotypic\nAge",
+                                "Mahalanobis\nDistance",
+                                "Log\nMahalanobis\nDistance"))
+
+table2$table
+table2$n
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{table\_ses}{table\_ses}{table.Rul.ses}
+%
+\begin{Description}\relax
+Association with socioeconomic variables
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+table_ses(data, agevar, exposure, label)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for linear regression table
+
+\item[\code{agevar}] A character vector indicating the names of the interested biological aging measures
+
+\item[\code{exposure}] A character vector indicating the name of the interested socioeconomic variables
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Association with socioeconomic variables, adjusting for chronological age and gender and stratified by gender, race, and age
+\end{Details}
+%
+\begin{Note}\relax
+Chronological age and gender variables need to be named "age" and "gender"
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+table3 = table_ses(data,
+                   agevar = c("kdm_advance0","phenoage_advance0",
+                               "kdm_advance","phenoage_advance",
+                               "hd","hd_log"),
+                   exposure = c("edu","annual_income","poverty_ratio"),
+                   label = c("KDM\nBiological\nAge",
+                             "Levine\nPhenotypic\nAge",
+                             "Modified-KDM\nBiological\nAge",
+                             "Modified-Levine\nPhenotypic\nAge",
+                             "Mahalanobis\nDistance",
+                             "Log\nMahalanobis\nDistance")))
+
+table3$table
+table3$n
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{table\_surv}{table\_surv}{table.Rul.surv}
+%
+\begin{Description}\relax
+Mortality validation for biological aging measures
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+table_surv(data, agevar, label)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] The dataset for mortality table
+
+\item[\code{agevar}] A character vector indicating the names of the interested biological aging measures
+
+\item[\code{label}] A character vector indicating the labels of the biological aging measures
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}\relax
+Mortality validation for biological age measures, adjusting for chronological age and gender and stratified by gender, race, and age
+\end{Details}
+%
+\begin{Note}\relax
+Chronological age, gender, and race/ethnicity variables need to be named "age", "gender", and "race"
+\end{Note}
+%
+\begin{Examples}
+\begin{ExampleCode}
+table1 = table_surv(data,
+                    agevar = c("kdm_advance0","phenoage_advance0",
+                               "kdm_advance","phenoage_advance",
+                               "hd","hd_log"),
+                    label = c("KDM\nBiological\nAge",
+                              "Levine\nPhenotypic\nAge",
+                              "Modified-KDM\nBiological\nAge",
+                              "Modified-Levine\nPhenotypic\nAge",
+                              "Mahalanobis\nDistance",
+                              "Log\nMahalanobis\nDistance"))
+
+table1
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}
