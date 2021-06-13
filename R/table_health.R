@@ -9,7 +9,7 @@ health_res = function (dat, agevar, outcome, covar, label) {
     mutate(x = factor(x, levels = agevar, labels = label)) %>%
     group_by(y, x) %>%
     na.omit() %>%
-    do(broom::tidy(lm(paste("yvalue~xvalue+", covars), data =.))) %>%
+    do(broom::tidy(lm (paste("yvalue~xvalue+", covars), data =.))) %>%
     filter(term == "xvalue") %>%
     mutate(estimate = paste(round(estimate, 2), " (", round(estimate - 1.96 * std.error, 2), ", ", round(estimate + 1.96 * std.error, 2), ")", sep = "")) %>%
     select(y, x, estimate) %>%
