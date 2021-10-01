@@ -77,7 +77,7 @@ data = merge(hd$data, kdm$data) %>% merge(., phenoage$data)
 
 In the figure below, the graphs titled "KDM Biological Age" and "Levine Phenotypic Age" show measures based on the original biomarker sets published in [Levine 2013 J Geron A](https://doi.org/10.1093/gerona/gls233) and [Levine et al. 2018 AGING](https://doi.org/10.18632/aging.101414). The remaining graphs shows the new measures computed with the biomarker set specified within this code.
 
-``` {r}
+``` r
 #select biological age variables
 agevar = c("kdm0","phenoage0","kdm","phenoage","hd","hd_log")
 
@@ -92,6 +92,8 @@ label = c("KDM\nBiological Age",
 #plot age vs bioage
 plot_ba(data, agevar, label)
 ```
+
+<img src="vignettes/figure1.png" width="100%" />
 
 ### Figure2. Correlations among biological aging measures
 
@@ -127,9 +129,11 @@ plot_baa(data,agevar,label,axis_type)
 
 ### Table 1. Associations of biological aging measures with mortality
 
-``` {r}
+``` r
 table_surv(data, agevar, label)
 ```
+
+<img src="vignettes/table1.png"/>
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
@@ -137,29 +141,35 @@ The linear regression models and sample sizes in “Table 2” and “Table 3”
 Regression model can be drawn by typing `table`.
 Sample size can be drawn by typing `n`.
 
-``` {r}
+``` r
 table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scaled"), label)
 
 #pull table
 table2$table
 ```
 
-``` {r}
+<img src="vignettes/table2.png"/>
+
+``` r
 #pull sample sizes
 table2$n
 ```
 
+<img src="vignettes/table2.1.png"/>
+
 ### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
-``` {r}
+``` r
 table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio"), label)
 
 #pull table
 table3$table
 ```
+<img src="vignettes/table3.png"/>
 
-``` {r}
+``` r
 #pull sample sizes
 table3$n
 ```
+<img src="vignettes/table3.1.png"/>
 
