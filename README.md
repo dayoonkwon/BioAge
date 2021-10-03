@@ -176,3 +176,100 @@ table3$n
 ```
 
 <img src="vignettes/table3.1.png"/>
+
+## Step 3: Project biological aging measures onto new data
+
+In this example, the projection dataset is from the CALERIE randomized
+controlled trial (data are not included in the package). For this
+analysis, CALERIE data were previously cleaned and units of measure and
+variable names were harmonized to match the NHANES data included with
+the package. All algorithms were trained using the NHANES III data and
+projected into the CALERIE using the `hd_calc`, `kdm_calc`, and
+`phenoage_calc` functions of the `BioAge` package.
+
+### Projecting HD into the CALERIE using NHANES III
+
+For HD, the constructed variable is based on a malhanobis distance
+statistic, which is theoretically the distance between observations and
+a hypothetically healthy, young cohort. In this example, I train
+separately for men and women who are between the ages of 20 and 30 and
+not pregnant, and have observe biomarker data within clinically
+acceptable distributions. For clinical guidelines, I relied upon the
+ranges reported by the [Mayo Clinic
+website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8340).
+
+``` r
+#The CALERIE dataset is loaded from my local drive that has previously been downloaded and cleaned
+#projecting HD into the CALERIE using NHANES III (seperate training for gender)
+hd_fem = hd_calc(data = CALERIE %>%
+                      filter(gender == 2)%>%
+                      mutate(lncrp = log(crp)),
+                    reference = NHANES3_CLEAN %>%
+                      filter(gender == 2)%>%
+                      mutate(lncrp = log(crp)),
+                    biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
+
+hd_male = hd_calc(data = CALERIE %>%
+                       filter(gender == 1)%>%
+                       mutate(lncrp = log(crp)),
+                     reference = NHANES3_CLEAN %>%
+                       filter(gender == 1)%>%
+                       mutate(lncrp = log(crp)),
+                     biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
+
+#pull the HD dataset
+hd_data = rbind(hd_fem$data, hd_male$data)
+```
+
+### Projecting KDM bioage into the CALERIE using NHANES III
+
+Having estimated biological aging models using NHANES III in “Step 1”, I
+can project KDM bioage and phenoage into the CALERIE data by running
+`kdm_calc` and `phenoage_calc` and supplying a `fit` argument.
+
+``` r
+#projecting KDM bioage into the CALERIE using NHANES III (seperate training for gender)
+kdm_fem = kdm_calc(data = CALERIE %>%
+                        filter (gender ==2),
+                      biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                   fit = kdm$fit$female,
+                   s_ba2 = kdm$fit$female$s_b2)
+
+kdm_male = kdm_calc(data = CALERIE %>%
+                         filter (gender ==1),
+                       biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                   fit = kdm$fit$male,
+                   s_ba2 = kdm$fit$male$s_b2)
+
+#pull the KDM dataset
+kdm_data = rbind(kdm_fem$data, kdm_male$data)
+```
+
+### Projecting phenoage into the CALERIE using NHANES III
+
+``` r
+phenoage_CALERIE = phenoage_calc(data = CALERIE,
+                            biomarkers = c("albumin_gL","alp","lncrp","totchol","lncreat_umol","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                            fit = phenoage$fit)
+
+phenoage_data = phenoage_CALERIE$data
+
+#pull the full dataset
+newdata = left_join(CALERIE, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
+  left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance")], by = "sampleID") %>%
+  left_join(., phenoage_data[, c("sampleID","phenoage","phenoage_advance")], by = "sampleID") 
+```
+
+### Summary statistics of calculated biological aging measures for the CALERIE at pre-intervention baseline
+
+``` r
+summary(newdata %>% filter(fu==0) %>% select(kdm, phenoage, hd, hd_log)) 
+#>       kdm           phenoage           hd             hd_log     
+#>  Min.   :22.37   Min.   :11.97   Min.   :0.8641   Min.   :2.097  
+#>  1st Qu.:31.79   1st Qu.:27.41   1st Qu.:2.2555   1st Qu.:4.695  
+#>  Median :38.70   Median :32.99   Median :2.7147   Median :5.229  
+#>  Mean   :37.43   Mean   :32.64   Mean   :2.9256   Mean   :5.324  
+#>  3rd Qu.:42.84   3rd Qu.:38.14   3rd Qu.:3.4509   3rd Qu.:6.023  
+#>  Max.   :50.60   Max.   :50.58   Max.   :7.9852   Max.   :8.797  
+#>  NA's   :13      NA's   :13      NA's   :13       NA's   :13
+```
