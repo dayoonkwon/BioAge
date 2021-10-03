@@ -173,3 +173,121 @@ table3$n
 ```
 <img src="vignettes/table3.1.png"/>
 
+## Step 3: Project biological aging measures onto new data
+In this example, the projection dataset is from the CALERIE randomized controlled trial (data are not included in the package). For this analysis, CALERIE data were previously cleaned and units of measure and variable names were harmonized to match the NHANES data included with the package. All algorithms were trained using the NHANES III data and projected into the CALERIE using the `hd_calc`, `kdm_calc`, and `phenoage_calc` functions of the `BioAge` package.
+
+
+```{r, echo=FALSE}
+CALERIE = read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/calerie/Belsky2017JGBS/CALERIE_BAdataR1a.dta") %>%
+  select(deidnum, gender, race3, lymppa, albumin, alphos, bun, creat, tgls, wbc, totchol, crp, sbp, ua, myage,
+         fu, CR, hba1c, lncrp, lncreat, lnhba1c, lnbun, lnalphos, lnua, mcv, BA, BAgain, HD, HDgain, baseage, CAgain) %>%
+  transmute(sampleID = paste0(deidnum,"_",fu), deidnum, gender, race=race3, lymph=lymppa, albumin, alp=alphos, bun, creat, glucose=tgls,
+            wbc, totchol, crp, sbp, uap=ua, age=myage, fu, CR, hba1c, lncrp, lncreat, lnhba1c, lnbun,
+            lnalp=lnalphos, lnuap=lnua, mcv, BA, BAgain, HD, HDgain, baseage, CAgain) %>%
+  mutate(race = ifelse(race == 1, 2, ifelse(race == 2, 3, ifelse(race == 3, 1, NA))),
+         albumin_gL=albumin*10,
+         creat_umol = creat*88.4017,
+         glucose_mmol = glucose*0.0555,
+         lncreat_umol = log(1+creat_umol))
+```
+
+```{r}
+#The CALERIE dataset is loaded from my local drive that has previously been downloaded and cleaned
+newdata = CALERIE %>%
+  select(hhidpn, sex, age, raracem, albumin, alp, lymphpct, mcv, creat, lncreat, crp, lncrp, hba1c, wbc, rdw, glucose) %>%
+  rename(sampleID = hhidpn,
+         gender = sex,
+         race = raracem,
+         lymph = lymphpct) %>%
+  mutate(gender = ifelse(gender == "Women", 2,
+                         ifelse(gender == "Men", 1, NA)),
+         albumin_gL = albumin * 10,
+         creat_umol = creat * 88.4017,
+         lncreat_umol = log(creat_umol),
+         crp = crp / 10,
+         lncrp = log(crp),
+         glucose_mmol = glucose*0.0555) %>%
+  group_by(gender) %>%
+  mutate_at(vars(albumin:creat,crp,hba1c:glucose),
+            list(~ifelse((. > (mean(., na.rm = TRUE) + 5 * sd(., na.rm = TRUE)))|
+                           (. < (mean(., na.rm = TRUE) - 5 * sd(., na.rm = TRUE))), NA, .))) %>%
+  ungroup() %>%
+  mutate(lncreat = ifelse(is.na(creat), NA, lncreat),
+         lncrp = ifelse(is.na(crp), NA, lncrp),
+         albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
+         creat_umol = ifelse(is.na(creat), NA, creat_umol),
+         lncreat_umol = ifelse(is.na(creat), NA, lncreat_umol),
+         glucose_mmol = ifelse(is.na(glucose), NA, glucose_mmol))
+```
+
+### Projecting HD into the CALERIE using NHANES III
+For HD, the constructed variable is based on a malhanobis distance statistic, which is theoretically the distance between observations and a hypothetically healthy, young cohort.
+In this example, I train separately for men and women who are between the ages of 20 and 30 and not pregnant, and have observe biomarker data within clinically acceptable distributions.
+For clinical guidelines, I relied upon the ranges reported by the [Mayo Clinic website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8340).
+
+```{r}
+#The CALERIE dataset is loaded from my local drive that has previously been downloaded and cleaned
+#projecting HD into the CALERIE using NHANES III (seperate training for gender)
+hd_fem = hd_calc(data = CALERIE %>%
+                      filter(gender == 2)%>%
+                      mutate(lncrp = log(crp)),
+                    reference = NHANES3_CLEAN %>%
+                      filter(gender == 2)%>%
+                      mutate(lncrp = log(crp)),
+                    biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
+
+hd_male = hd_calc(data = CALERIE %>%
+                       filter(gender == 1)%>%
+                       mutate(lncrp = log(crp)),
+                     reference = NHANES3_CLEAN %>%
+                       filter(gender == 1)%>%
+                       mutate(lncrp = log(crp)),
+                     biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
+
+#pull the HD dataset
+hd_data = rbind(hd_fem$data, hd_male$data)
+```
+
+### Projecting KDM bioage into the CALERIE using NHANES III
+Having estimated biological aging models using NHANES III in "Step 1", I can project KDM bioage and phenoage into the CALERIE data by running `kdm_calc` and `phenoage_calc` and supplying a `fit` argument.
+
+```{r}
+#projecting KDM bioage into the CALERIE using NHANES III (seperate training for gender)
+kdm_fem = kdm_calc(data = CALERIE %>%
+                        filter (gender ==2),
+                      biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                      fit = kdm_v3$fit$female,
+                      s_ba2 = kdm_v3$fit$female$s_ba2)
+
+kdm_male = kdm_calc(data = CALERIE %>%
+                         filter (gender ==1),
+                       biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                       fit = kdm_v3$fit$male,
+                       s_ba2 = kdm_v3$fit$male$s_ba2)
+
+#pull the KDM dataset
+kdm_data = rbind(kdm_fem$data, kdm_male$data)
+```
+
+### Projecting phenoage into the CALERIE using NHANES III
+
+```{r}
+phenoage_CALERIE = phenoage_calc(data = CALERIE,
+                            biomarkers = c("albumin_gL","alp","lncrp","totchol","lncreat_umol","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
+                            fit = phenoage_v3$fit,
+                            orig = TRUE) #this calculate original phenoage 
+
+phenoage_data = phenoage_CALERIE$data
+
+#pull the full dataset
+newdata = left_join(newdata, hd_data[, c("sampleID", "hd", "hd_log")], by = "sampleID") %>%
+  left_join(., kdm_data[, c("sampleID", "kdm", "kdm_advance")], by = "sampleID") %>%
+  left_join(., phenoage_data[, c("sampleID","phenoage0","phenoage_advance0",
+                                 "phenoage","phenoage_advance")], by = "sampleID") 
+```
+
+### Summary statistics of calculated biological aging measures for the CALERIE
+
+```{r}
+summary(newdata %>% select(phenoage0, kdm, phenoage, hd, hd_log))
+```
