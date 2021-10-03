@@ -144,10 +144,6 @@ table3$n
 ## Step 3: Project biological aging measures onto new data
 In this example, the projection dataset is the 2016 Venous Blood Study dataset from the US Health and Retirement Study (data are not included in the package but are available from the HRS). For this analysis, HRS data were previously cleaned and units of measure and variable names were harmonized to match the NHANES data included with the package. All algorithms were trained using the NHANES III data and projected into the HRS using the `hd_calc`, `kdm_calc`, and `phenoage_calc` functions of the `BioAge` package.
 
-```{r, echo=FALSE}
-HRS = readstata13::read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/hrs/HRS/HRS_DWB_forBA.dta")
-```
-
 ```{r}
 #The HRS dataset is loaded from my local drive that has previously been downloaded and cleaned
 newdata = HRS %>%
