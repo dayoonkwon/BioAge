@@ -9,7 +9,7 @@ published biomarker algorithms to calculate three biological aging
 measures: Klemera-Doubal Method (KDM) biological age, phenotypic age,
 and homeostatic dysregulation.
 
-### Citing the package
+**Citing the package**
 
 Kwon, D., Belsky, D.W. A toolkit for quantification of biological age from blood chemistry and organ function test data: BioAge. GeroScience 43, 2795–2808 (2021). https://doi.org/10.1007/s11357-021-00480-5
 
