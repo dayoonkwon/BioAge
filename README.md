@@ -9,10 +9,6 @@ published biomarker algorithms to calculate three biological aging
 measures: Klemera-Doubal Method (KDM) biological age, phenotypic age,
 and homeostatic dysregulation.
 
-**Citing the package**
-
-Kwon, D., Belsky, D.W. A toolkit for quantification of biological age from blood chemistry and organ function test data: BioAge. GeroScience 43, 2795–2808 (2021). https://doi.org/10.1007/s11357-021-00480-5
-
 ## Installation (via devtools):
 
 You can install the released version of BioAge from
@@ -208,7 +204,7 @@ website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interp
 hd_fem = hd_calc(data = CALERIE %>%
                       filter(gender == 2)%>%
                       mutate(lncrp = log(crp)),
-                    reference = NHANES3_CLEAN %>%
+                    reference = NHANES3_HDTrain %>%
                       filter(gender == 2)%>%
                       mutate(lncrp = log(crp)),
                     biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
@@ -216,7 +212,7 @@ hd_fem = hd_calc(data = CALERIE %>%
 hd_male = hd_calc(data = CALERIE %>%
                        filter(gender == 1)%>%
                        mutate(lncrp = log(crp)),
-                     reference = NHANES3_CLEAN %>%
+                     reference = NHANES3_HDTrain %>%
                        filter(gender == 1)%>%
                        mutate(lncrp = log(crp)),
                      biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
@@ -269,11 +265,11 @@ newdata = left_join(CALERIE, hd_data[, c("sampleID", "hd", "hd_log")], by = "sam
 ``` r
 summary(newdata %>% filter(fu==0) %>% select(kdm, phenoage, hd, hd_log)) 
 #>       kdm           phenoage           hd             hd_log     
-#>  Min.   :22.37   Min.   :11.97   Min.   :0.8641   Min.   :2.097  
-#>  1st Qu.:31.79   1st Qu.:27.41   1st Qu.:2.2555   1st Qu.:4.695  
-#>  Median :38.70   Median :32.99   Median :2.7147   Median :5.229  
-#>  Mean   :37.43   Mean   :32.64   Mean   :2.9256   Mean   :5.324  
-#>  3rd Qu.:42.84   3rd Qu.:38.14   3rd Qu.:3.4509   3rd Qu.:6.023  
-#>  Max.   :50.60   Max.   :50.58   Max.   :7.9852   Max.   :8.797  
-#>  NA's   :13      NA's   :13      NA's   :13       NA's   :13
+#>  Min.   :22.42   Min.   :11.97   Min.   :0.8641   Min.   :2.097  
+#>  1st Qu.:31.83   1st Qu.:27.41   1st Qu.:2.2555   1st Qu.:4.695  
+#>  Median :38.77   Median :32.99   Median :2.7147   Median :5.229  
+#>  Mean   :37.53   Mean   :32.64   Mean   :2.9256   Mean   :5.324  
+#>  3rd Qu.:43.14   3rd Qu.:38.14   3rd Qu.:3.4509   3rd Qu.:6.023  
+#>  Max.   :50.68   Max.   :50.58   Max.   :7.9852   Max.   :8.797  
+#>  NA's   :1       NA's   :13      NA's   :13       NA's   :13
 ```
