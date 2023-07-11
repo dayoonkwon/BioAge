@@ -53,13 +53,14 @@ get_effs = function(mod){
 #' @export
 #' @import dplyr
 #' @importFrom survey svyglm
+#' @importFrom survey svydesign
 
 kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   dat = data
   bm = biomarkers; rm(biomarkers)
 
-  design=svydesign(id=~1,weights=~1,data=dat)
+  design=survey::svydesign(id=~1,weights=~1,data=dat)
 
   if (is.null(fit)) {
 

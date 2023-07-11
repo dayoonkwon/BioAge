@@ -20,8 +20,9 @@ Suggests:
     htmlTable,
     survey,
     survival,
-    testthat,
+    testthat (>= 3.0.0),
     tidyr,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Config/testthat/edition: 3
