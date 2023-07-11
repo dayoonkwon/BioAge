@@ -34,7 +34,7 @@ kdm_nhanes = function (biomarkers) {
                          filter(gender == 1),
                        biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2)
 
-  #comebine calculated kdm
+  #combine calculated kdm
   test = rbind(test_fem$data, test_male$data)
 
   #combine data

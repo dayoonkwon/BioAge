@@ -1,9 +1,9 @@
-#builds a fomula
+#build a formula
 form = function(y,x){
   return(as.formula(paste0(y,'~',x)))
 }
 
-#helper function to get effects from linear models on biomarkers
+#get effects from linear models on biomarkers
 get_effs = function(mod){
   #input model object
   #output is list of
@@ -57,7 +57,7 @@ get_effs = function(mod){
 
 kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
-  dat = data
+  dat = data; rm(data)
   bm = biomarkers; rm(biomarkers)
 
   design=survey::svydesign(id=~1,weights=~1,data=dat)
@@ -89,7 +89,6 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
     s_r = fit$s_r
 
   }
-  #end dat conditional
 
   n1 = dat[,bm]
 
@@ -99,14 +98,14 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
     n1[,m]=(obs)
     }
 
-  ba_nmiss = apply(n1,1,function(x) sum(is.na(x)))
-  ba_obs = length(bm) - ba_nmiss
+  BA_nmiss = apply(n1,1,function(x) sum(is.na(x)))
+  BA_obs = length(bm) - BA_nmiss
   BAe_n = rowSums(n1,na.rm=TRUE)
   BAe_d = sum(agev$n2,na.rm=TRUE)
 
   dat = dat %>%
     mutate(BA_eo = BAe_n/BAe_d,
-           BA_e = (BA_eo/(ba_obs))*length(bm))
+           BA_e = (BA_eo/(BA_obs))*length(bm))
 
   dat$BA_CA = unlist(dat$BA_e - dat$age)
   t1 = (dat$BA_CA - mean(dat$BA_CA,na.rm=TRUE))^2
@@ -127,7 +126,7 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
   }
 
   dat$kdm = unlist((BAe_n + (dat$age/c(s_ba2)))/(BAe_d+(1/c(s_ba2))))
-  dat$kdm = ifelse(ba_nmiss>2,NA,dat$kdm)
+  dat$kdm = ifelse(BA_nmiss>2,NA,dat$kdm)
   dat$kdm_advance = dat$kdm - dat$age
   dat$BA_eo = NULL
   dat$BA_e = NULL
