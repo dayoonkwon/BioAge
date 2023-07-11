@@ -18,6 +18,7 @@ Suggests:
     broom,
     flexsurv,
     htmlTable,
+    survey,
     survival,
     testthat,
     tidyr,

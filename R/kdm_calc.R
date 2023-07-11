@@ -52,7 +52,7 @@ get_effs = function(mod){
 #'
 #' @export
 #' @import dplyr
-#' @importFrom survey svydesign
+#' @importFrom survey svyglm
 
 kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
