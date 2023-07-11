@@ -992,7 +992,7 @@ test$phenoage_advance0 <- test$phenoage0-test$age
 NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
 
-NHANES3_CLEAN = NHANES3 %>%
+NHANES3_HDTrain = NHANES3 %>%
   filter(age >= 20 & age <= 30 & pregnant == 0 & bmi < 30) %>%
   mutate(albumin = ifelse(albumin >= 3.5 & albumin <= 5, albumin, NA),
          albumin_gL = ifelse(is.na(albumin), NA, albumin_gL),
@@ -1047,4 +1047,5 @@ NHANES3_CLEAN = NHANES3 %>%
 
 usethis::use_data(NHANES3, overwrite = TRUE)
 usethis::use_data(NHANES4, overwrite = TRUE)
-usethis::use_data(NHANES3_CLEAN, overwrite = TRUE)
+usethis::use_data(NHANES3_HDTrain, overwrite = TRUE)
+
