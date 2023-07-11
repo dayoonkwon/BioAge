@@ -52,6 +52,7 @@ get_effs = function(mod){
 #'
 #' @export
 #' @import dplyr
+#' @importFrom survey svydesign
 
 kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
@@ -63,7 +64,7 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
   if (is.null(fit)) {
 
     lm_age = lapply(bm,function(marker){
-      svyglm(form(marker,"age"),
+      survey::svyglm(form(marker,"age"),
              design=design,
              family=gaussian())
     })
