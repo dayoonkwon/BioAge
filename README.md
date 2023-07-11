@@ -27,8 +27,8 @@ devtools::install_github("dayoonkwon/BioAge")
 
 ## Example
 
-This serves as an example of training biologial aging measures using the
-NHANES III (1988 - 1994) and projecting into NHANES IV (1999 - 2018)
+This serves as an example of training biological aging measures using
+the NHANES III (1988 - 1994) and projecting into NHANES IV (1999 - 2018)
 dataset. It also provides documentation for fit parameters contained in
 the `BioAge` package. The cleaned NHANES dataset is loaded as the
 dataset `NHANES3` and `NHANES4`. The original KDM bioage and phenoage
@@ -52,7 +52,7 @@ hd = hd_nhanes(biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c",
 #KDM bioage using NHANES (separate training for men and women)
 kdm = kdm_nhanes(biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 
-#phenoage uinsg NHANES
+#phenoage using NHANES
 phenoage = phenoage_nhanes(biomarkers=c("albumin_gL","alp","lncrp","totchol","lncreat_umol","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 ```
 
@@ -109,7 +109,7 @@ Levine Phenotypic Age measures are differenced from chronological age
 #select biological age variables
 agevar = c("kdm_advance0","phenoage_advance0","kdm_advance","phenoage_advance","hd","hd_log")
 
-#prepare lables
+#prepare labels
 #values should be formatted for displaying along diagonal of the plot
 #names should be used to match variables and order is preserved
 label = c(
@@ -133,7 +133,7 @@ axis_type = c(
 plot_baa(data,agevar,label,axis_type)
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
+<img src="vignettes/figure2.png" width="100%" />
 
 ### Table 1. Associations of biological aging measures with mortality
 
@@ -206,7 +206,7 @@ website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interp
 
 ``` r
 #The CALERIE dataset is loaded from my local drive that has previously been downloaded and cleaned
-#projecting HD into the CALERIE using NHANES III (seperate training for gender)
+#projecting HD into the CALERIE using NHANES III (separate training for gender)
 hd_fem = hd_calc(data = CALERIE %>%
                       filter(gender == 2)%>%
                       mutate(lncrp = log(crp)),
@@ -234,7 +234,7 @@ can project KDM bioage and phenoage into the CALERIE data by running
 `kdm_calc` and `phenoage_calc` and supplying a `fit` argument.
 
 ``` r
-#projecting KDM bioage into the CALERIE using NHANES III (seperate training for gender)
+#projecting KDM bioage into the CALERIE using NHANES III (separate training for gender)
 kdm_fem = kdm_calc(data = CALERIE %>%
                         filter (gender ==2),
                       biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
