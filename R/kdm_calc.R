@@ -5,10 +5,6 @@ form = function(y,x){
 
 #get effects from linear models on biomarkers
 get_effs = function(mod){
-  #input model object
-  #output is list of
-  #intercept, rmse, rsqaure
-
   m = summary(mod)
   res = data.frame(q=coef(mod)['(Intercept)'],k=coef(mod)[2],s=NA,r=NA)
   if('glm' %in% attr(mod,'class')){
@@ -79,7 +75,7 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
     age_range = range(dat$age, na.rm = TRUE)
     rchar = sum(agev$r1)/sum(agev$r2)
-    s_r = ((1-(rchar^2))/(rchar^2))*var(dat$age, na.rm = TRUE)
+    s_r = ((1-(rchar^2))/(rchar^2))*(((age_range[2]-age_range[1])^2)/(12*nrow(agev)))
 
   }
 
