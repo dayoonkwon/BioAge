@@ -1,26 +1,31 @@
-Package: BioAge
 Type: Package
+Package: BioAge
 Title: Biological Age Calculations Using Several Biomarker Algorithms
 Version: 0.1.0
 Author: Dayoon Kwon, Daniel Belsky
 Maintainer: Dayoon Kwon <dayoonk@ucla.edu>
-Description: This package measures biological aging using data from the National Health and Nutrition Examination Survey (NHANES). The package uses published biomarker algorithms to calculate three biological aging measures: Klemera-Doubal Method biological age, phenotypic age, and homeostatic dysregulation.
+Description: This package measures biological aging using data from the
+    National Health and Nutrition Examination Survey (NHANES). The package
+    uses published biomarker algorithms to calculate three biological
+    aging measures: Klemera-Doubal Method biological age, phenotypic age,
+    and homeostatic dysregulation.
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 Imports:
-    dplyr,
-    ggplot2
-Suggests: 
     broom,
+    dplyr,
     flexsurv,
+    ggplot2,
     htmlTable,
     survey,
     survival,
-    tidyr,
+    tidyr
+Suggests: 
     knitr,
     rmarkdown
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3

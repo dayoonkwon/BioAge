@@ -49,9 +49,9 @@ surv_res = function (dat, agevar, covar) {
 #'
 #' @export
 #' @import dplyr
-#' @importFrom survival Surv
-#' @importFrom survival coxph
-#' @importFrom htmlTable htmlTable
+#' @import survival
+#' @import htmlTable
+
 
 table_surv = function (data, agevar, label) {
 

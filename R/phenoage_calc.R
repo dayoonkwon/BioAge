@@ -32,7 +32,7 @@ surv_form = function(x){
 #'
 #'
 #' @export
-#' @importFrom flexsurv flexsurvreg
+#' @import flexsurv
 
 
 phenoage_calc = function (data, biomarkers, fit = NULL, orig = FALSE) {

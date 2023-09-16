@@ -18,8 +18,7 @@
 #' @export
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom tidyr pivot_longer
-
+#' @import tidyr
 
 plot_ba = function(data, agevar, label) {
 
