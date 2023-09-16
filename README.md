@@ -93,7 +93,7 @@ label = c("KDM\nBiological Age",
 plot_ba(data, agevar, label)
 ```
 
-<img src="vignettes/figure1.png" width="100%" />
+<img src="vignettes/figure1.jpeg" width="100%" />
 
 ### Figure2. Correlations among biological aging measures
 
@@ -133,7 +133,7 @@ axis_type = c(
 plot_baa(data,agevar,label,axis_type)
 ```
 
-<img src="vignettes/figure2.png" width="100%" />
+<img src="vignettes/figure2.jpeg" width="100%" />
 
 ### Table 1. Associations of biological aging measures with mortality
 
@@ -141,7 +141,7 @@ plot_baa(data,agevar,label,axis_type)
 table_surv(data, agevar, label)
 ```
 
-<img src="vignettes/table1.png"/>
+<img src="vignettes/table1.jpg" width="100%" />
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
@@ -156,14 +156,14 @@ table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scal
 table2$table
 ```
 
-<img src="vignettes/table2.png"/>
+<img src="vignettes/table2.jpg"/>
 
 ``` r
 #pull sample sizes
 table2$n
 ```
 
-<img src="vignettes/table2.1.png"/>
+<img src="vignettes/table2.1.jpg"/>
 
 ### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
@@ -174,14 +174,14 @@ table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio
 table3$table
 ```
 
-<img src="vignettes/table3.png"/>
+<img src="vignettes/table3.jpg"/>
 
 ``` r
 #pull sample sizes
 table3$n
 ```
 
-<img src="vignettes/table3.1.png"/>
+<img src="vignettes/table3.1.jpg"/>
 
 ## Step 3: Project biological aging measures onto new data
 
