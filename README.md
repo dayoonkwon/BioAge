@@ -93,7 +93,7 @@ label = c("KDM\nBiological Age",
 plot_ba(data, agevar, label)
 ```
 
-<img src="vignettes/figure1.jpeg" width="100%" />
+<img src="vignettes/figure1.jpeg"/>
 
 ### Figure2. Correlations among biological aging measures
 
@@ -133,7 +133,7 @@ axis_type = c(
 plot_baa(data,agevar,label,axis_type)
 ```
 
-<img src="vignettes/figure2.jpeg" width="100%" />
+<img src="vignettes/figure2.jpeg"/>
 
 ### Table 1. Associations of biological aging measures with mortality
 
@@ -141,7 +141,7 @@ plot_baa(data,agevar,label,axis_type)
 table_surv(data, agevar, label)
 ```
 
-<img src="vignettes/table1.jpg" width="100%" />
+<img src="vignettes/table1.jpg"/>
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
