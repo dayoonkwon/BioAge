@@ -677,7 +677,7 @@ summary(VITAC_ALL)
 library(readstata13)
 library(stringr)
 
-f <- file.path("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/Mortality",
+f <- file.path("./belskylab/project/nhanes/NHANES/NHANESFiles/Mortality",
                c("NHANES_1999_2000_Mort2015Public.dta","NHANES_2001_2002_Mort2015Public.dta",
                  "NHANES_2003_2004_Mort2015Public.dta","NHANES_2005_2006_Mort2015Public.dta",
                  "NHANES_2007_2008_Mort2015Public.dta","NHANES_2009_2010_Mort2015Public.dta",
@@ -726,15 +726,15 @@ head(NHANES4)
 summary(NHANES4)
 
 # NHANESIII ---------------------------------------------------------------
-adult <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/adult.dta")
+adult <- read.dta13("./belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/adult.dta")
 colnames(adult) <-toupper(colnames(adult))
 
-exam1 <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/exam1.dta")
-exam2 <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/exam2.dta")
+exam1 <- read.dta13("./belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/exam1.dta")
+exam2 <- read.dta13("./belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/exam2.dta")
 exam <- merge(exam1,exam2,by="seqn")
 colnames(exam) <-toupper(colnames(exam))
 
-lab <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/lab.dta")
+lab <- read.dta13("./belskylab/project/nhanes/NHANES/NHANESFiles/NHANESIII/lab.dta")
 colnames(lab) <-toupper(colnames(lab))
 
 # Demographic -------------------------------------------------------------
@@ -866,14 +866,14 @@ summary(Bio_III)
 
 # cyst c ------------------------------------------------------------------
 library(Hmisc)
-NHANESIII_CYST <- sasxport.get("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/data/sscystat.xpt")
+NHANESIII_CYST <- sasxport.get("./belskylab/project/nhanes/data/sscystat.xpt")
 NHANESIII_CYST <- select(NHANESIII_CYST,seqn,sscystat)
 NHANESIII_CYST <- transmute(NHANESIII_CYST,seqn,cyst=sscystat)
 NHANESIII_CYST$seqn = as.numeric(NHANESIII_CYST$seqn)
 NHANESIII_CYST$cyst = as.numeric(NHANESIII_CYST$cyst)
 
 # Mortality ---------------------------------------------------------------
-NHANESIII_MORT <- read.dta13("/Users/dayoonkwon/Dropbox/belskylab/project/nhanes/NHANES/NHANESFiles/Mortality/NHANES_III_Mort2015Public.dta")
+NHANESIII_MORT <- read.dta13("./belskylab/project/nhanes/NHANES/NHANESFiles/Mortality/NHANES_III_Mort2015Public.dta")
 NHANESIII_MORT$seqn = as.numeric(str_remove(NHANESIII_MORT$seqn,"^0+"))
 
 #include age-related mortality

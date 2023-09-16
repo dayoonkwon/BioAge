@@ -121,7 +121,7 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
 
   }
 
-  dat$kdm = unlist((BAe_n + (dat$age/c(s_ba2)))/(BAe_d+(1/c(s_ba2))))
+  dat$kdm = unlist((BAe_n + (dat$age/s_ba2))/(BAe_d+(1/s_ba2)))
   dat$kdm = ifelse(BA_nmiss>2,NA,dat$kdm)
   dat$kdm_advance = dat$kdm - dat$age
   dat$BA_eo = NULL
