@@ -10,7 +10,7 @@ Description: This package measures biological aging using data from the
     aging measures: Klemera-Doubal Method biological age, phenotypic age,
     and homeostatic dysregulation.
 License: GPL-3
-Depends: 
+Depends:
     R (>= 2.10)
 Imports:
     broom,
@@ -21,10 +21,10 @@ Imports:
     survey,
     survival,
     tidyr
-Suggests: 
+Suggests:
     knitr,
     rmarkdown
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true

@@ -110,7 +110,7 @@ phenoage_calc = function (data, biomarkers, fit = NULL, orig = FALSE) {
 
     m_orig = 1 - (exp((-1.51714 * exp(xb_orig)) / 0.007692696))
 
-    dat$phenoage0 = ((log(-.0055305 * (log(1 - m_orig))) / .090165) + 141.50225)
+    dat$phenoage0 = ((log(-.0055305 * (log(1 - m_orig))) / .09165) + 141.50225)
     dat$phenoage_advance0 = dat$phenoage0 - dat$age
 
   }

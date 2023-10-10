@@ -977,7 +977,7 @@ xb = -19.90667+(-0.03359355*train$albumin_gL)+(0.009506491*train$creat_umol)+(0.
   (0.09536762*train$lncrp)+(-0.01199984*train$lymph)+(0.02676401*train$mcv)+(0.3306156*train$rdw)+
   (0.001868778*train$alp)+(0.05542406*train$wbc)+(0.08035356*train$age)
 m = 1-(exp((-1.51714*exp(xb))/0.007692696))
-train$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+train$phenoage0 = ((log(-.0055305*(log(1-m)))/.09165)+141.50225)
 train$phenoage_advance0 <- train$phenoage0-train$age
 train$phenoage_residual0 <- residuals(lm(phenoage0 ~ age, data=train, na.action = "na.exclude"))
 
@@ -986,7 +986,7 @@ xb = -19.90667+(-0.03359355*test$albumin_gL)+(0.009506491*test$creat_umol)+(0.19
   (0.09536762*test$lncrp)+(-0.01199984*test$lymph)+(0.02676401*test$mcv)+(0.3306156*test$rdw)+
   (0.001868778*test$alp)+(0.05542406*test$wbc)+(0.08035356*test$age)
 m = 1-(exp((-1.51714*exp(xb))/0.007692696))
-test$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+test$phenoage0 = ((log(-.0055305*(log(1-m)))/.09165)+141.50225)
 test$phenoage_advance0 <- test$phenoage0-test$age
 
 NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
