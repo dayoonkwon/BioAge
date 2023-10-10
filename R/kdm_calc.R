@@ -47,7 +47,7 @@ get_effs = function(mod){
 #'
 #'
 #' @export
-#' @import dplyr survey
+#' @import dplyr
 #' @import survey
 
 
