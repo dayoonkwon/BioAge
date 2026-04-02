@@ -1,2 +1,3 @@
 load("/Users/dayoonkwon/Documents/GitHub/BioAge/data/NHANES3_HDTrain.rda")
 load("/Users/dayoonkwon/Documents/GitHub/BioAge/data/NHANES3.rda")
+load("/Users/dayoonkwon/Documents/GitHub/BioAge/data/NHANES3.rda")
