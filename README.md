@@ -239,13 +239,13 @@ kdm_fem = kdm_calc(data = CALERIE %>%
                         filter (gender ==2),
                       biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
                    fit = kdm$fit$female,
-                   s_ba2 = kdm$fit$female$s_b2)
+                   s_ba2 = kdm$fit$female$s_ba2)
 
 kdm_male = kdm_calc(data = CALERIE %>%
                          filter (gender ==1),
                        biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
                    fit = kdm$fit$male,
-                   s_ba2 = kdm$fit$male$s_b2)
+                   s_ba2 = kdm$fit$male$s_ba2)
 
 #pull the KDM dataset
 kdm_data = rbind(kdm_fem$data, kdm_male$data)
