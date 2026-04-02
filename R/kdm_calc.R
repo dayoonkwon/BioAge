@@ -28,6 +28,8 @@ get_effs = function(mod){
 #' @param biomarkers A character vector indicating the names of the biomarkers included in the KDM Biological Age algorithm.
 #' @param fit An S3 object for model fit. If the value is NULL, then the parameters to use for training KDM Biological Age are calculated.
 #' @param s_ba2 A particular fit parameter. Advanced users can modify this parameter to control the variance of KDM Biological Age. If left NULL, defaults are used.
+#' @param n_allowed_missing_biomarkers Number of biomarkers per subject that are allowed missing before subject is excluded. Residual bioage variance is rescaled to number of missing values if greater than 0. Note that this can inflate noise and assumes missing biomarker residual variance to be high if other biomarkers have high residual variance.
+#' @param verbose A boolean to instruct whether to send messages about incomplete included and/or excluded data. Uses the substitute function to read name of dataframe.
 #' @return An object of class "kdm". This object is a list with two elements (data and fit). The dataset can be drawn by typing 'data'. The model can be drawn by typing 'fit'.
 #' @examples
 #' #Train using the NHANES III
@@ -51,10 +53,65 @@ get_effs = function(mod){
 #' @import survey
 
 
-kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
+kdm_calc = function(data, biomarkers, fit = NULL, s_ba2 = NULL, n_allowed_missing_biomarkers = 0, verbose = TRUE) {
 
-  dat = data; rm(data)
-  bm = biomarkers; rm(biomarkers)
+  dat = data
+  bm = biomarkers
+  n_dat_all <- nrow(dat)
+
+  dat <- dat %>%
+    mutate(
+      n_missing_biomarkers = rowSums(
+        is.na(across(all_of(biomarkers)))
+      )
+    )
+  dat <- dat %>% filter(
+    !(n_missing_biomarkers > n_allowed_missing_biomarkers)
+  )
+
+  n_dat_filtered <- nrow(dat)
+  n_dat_missing_allowed <- nrow(
+    sum()
+  )
+
+  if (isTRUE(verbose)) {
+    if (is.null(getOption("kdm_calc_tip_printed"))) {
+      message("Note that a separate message may be printed per gender subset. Set verbose = FALSE to silence these messages.")
+      options(kdm_calc_tip_printed = TRUE)
+    }
+
+    data_name <- substitute(unlist(data)) %>%
+      {
+        expr <- .
+        while (is.call(expr)) expr <- expr[[2]]
+        expr
+      } %>%
+      deparse()
+
+    message(
+      paste(
+        paste0(n_dat_all - n_dat_filtered, "/", n_dat_all),
+        "subjects in",
+        data_name,
+        "dataset ignored for KDM calculation due to",
+        if (n_allowed_missing_biomarkers > 0) "too many missing biomarkers." else "missing biomarkers.",
+        collapse = " "
+      )
+    )
+
+    if (n_allowed_missing_biomarkers > 0) {
+      message(
+        paste0(
+          sum(dat$n_missing_biomarkers > 0),
+          "/",
+          n_dat_filtered,
+          " subjects in ",
+          data_name,
+          " dataset with missing biomarkers included in KDM calculation."
+        )
+      )
+    }
+  }
 
   design=survey::svydesign(id=~1,weights=~1,data=dat)
 
@@ -122,7 +179,6 @@ kdm_calc = function (data, biomarkers, fit = NULL, s_ba2 = NULL) {
   }
 
   dat$kdm = unlist((BAe_n + (dat$age/s_ba2))/(BAe_d+(1/s_ba2)))
-  dat$kdm = ifelse(BA_nmiss>2,NA,dat$kdm)
   dat$kdm_advance = dat$kdm - dat$age
   dat$BA_eo = NULL
   dat$BA_e = NULL
