@@ -93,7 +93,7 @@ label = c("KDM\nBiological Age",
 plot_ba(data, agevar, label)
 ```
 
-<img src="vignettes/figure1.jpeg"/>
+![](man/figures/README-unnamed-chunk-5-1.png)<!-- -->
 
 ### Figure2. Correlations among biological aging measures
 
@@ -133,7 +133,7 @@ axis_type = c(
 plot_baa(data,agevar,label,axis_type)
 ```
 
-<img src="vignettes/figure2.jpeg"/>
+![](man/figures/README-unnamed-chunk-6-1.png)<!-- -->
 
 ### Table 1. Associations of biological aging measures with mortality
 
@@ -141,7 +141,723 @@ plot_baa(data,agevar,label,axis_type)
 table_surv(data, agevar, label)
 ```
 
-<img src="vignettes/table1.jpg"/>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<td colspan="7" style="text-align: left;">
+
+Table 1. Associations of biological aging measures with mortality.
+BioAge coefficients in the table are hazard ratios estimated from Cox
+proportional hazard regressions. KDM Biological Age and Levine
+Phenotypic Age measures were differenced from chronological age for
+analysis (i.e. values = BA-CA). These differenced values were then
+standardized to have M=0, SD=1 separately for men and women within the
+analysis sample so that effect-sizes are denominated in terms of a
+sex-specific 1 SD unit increase in biological age advancement. Models
+included covariates for chronological age and sex. The original KDM
+Biological Age algorithm (left-most column) was projected onto data from
+NHANES 2007-2010 only because other NHANES IV waves did not include
+spirometry measurements. The original Levine Phenotypic Age algorithm
+(second column from left) was projected onto data from NHANES 1999-2010
+and 2015-2018 only because the intervening waves did not include CRP
+measurements.
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Homeostatic Dysregulation
+</th>
+
+<th style="font-weight: 900; width: 300px; font-size: .83em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Log Homeostatic Dysregulation
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: center;">
+
+Hazard Ratio (95% CI)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Full Sample
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+8234
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+27837
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+38770
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+26580
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+26580
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+26580
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.36 (1.2, 1.55)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.46 (1.42, 1.51)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.26 (1.22, 1.3)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.43 (1.37, 1.49)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.35 (1.3, 1.4)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.44 (1.38, 1.51)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Gender
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Men
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+4114
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13421
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+18721
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+12879
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+12879
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+12879
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.44 (1.23, 1.69)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.43 (1.37, 1.49)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.27 (1.22, 1.33)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.41 (1.34, 1.49)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.32 (1.26, 1.38)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.4 (1.32, 1.49)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Women
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+4120
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+14416
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+20049
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13701
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13701
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13701
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.23 (0.98, 1.54)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.52 (1.45, 1.6)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.23 (1.17, 1.3)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.46 (1.37, 1.55)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.39 (1.32, 1.48)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.53 (1.41, 1.66)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Race
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+White
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+3937
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13958
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+18375
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13447
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13447
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+13447
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.44 (1.21, 1.72)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.53 (1.47, 1.6)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.27 (1.22, 1.33)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.49 (1.42, 1.58)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.42 (1.35, 1.49)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.52 (1.43, 1.63)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Black
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1467
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+5176
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+7673
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+4851
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+4851
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+4851
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.51 (1.15, 1.99)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.37 (1.28, 1.46)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.23 (1.16, 1.32)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.36 (1.26, 1.48)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.33 (1.23, 1.43)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.47 (1.31, 1.64)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Other
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+2830
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+8703
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+12722
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+8282
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+8282
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+8282
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.21 (0.89, 1.65)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.37 (1.28, 1.47)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.21 (1.13, 1.29)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.3 (1.19, 1.42)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.23 (1.14, 1.33)
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+1.27 (1.15, 1.4)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+People Aged 65 and Younger
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 300px; font-size: .83em; font-weight: 900; text-align: left;">
+
+Aged 65 and Younger
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+  n
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+6915
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+21252
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+29873
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+20344
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+20344
+</td>
+
+<td style="width: 300px; font-size: .83em; text-align: left;">
+
+20344
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+  BioAge
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.27 (1.06, 1.53)
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.6 (1.52, 1.69)
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.39 (1.3, 1.47)
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.51 (1.41, 1.61)
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.45 (1.36, 1.54)
+</td>
+
+<td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
+
+1.54 (1.42, 1.67)
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ### Table 2. Associations of biological aging measures with healthspan-related characteristics
 
@@ -156,14 +872,3192 @@ table2 = table_health(data,agevar,outcome = c("health","adl","lnwalk","grip_scal
 table2$table
 ```
 
-<img src="vignettes/table2.jpg"/>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<td colspan="7" style="text-align: left;">
+
+Table 2. Associations of biological aging measures with
+healthspan-related characteristics. Coefficients are from linear
+regressions of healthspan-related characteristics on biological aging
+measures. Outcome variables were standardized to have M=0, SD=1 for
+analysis. Standardization was performed separately for men and women in
+the case of grip strength. Walk speed was log transformed prior to
+standardization to reduce skew. KDM Biological Age and Levine Phenotypic
+Age measures were differenced from chronological age for analysis
+(i.e. values = BA-CA). These differenced values were then standardized
+to have M=0, SD=1 separately for men and women within the analysis
+sample so that effect-sizes are denominated in terms of a sex-specific 1
+SD unit increase in biological age advancement. Models included
+covariates for chronological age and sex. The original KDM Biological
+Age algorithm (left-most column) was projected onto data from NHANES
+2007-2010 only because other NHANES IV waves did not include spirometry
+measurements. The original Levine Phenotypic Age algorithm (second
+column from left) was projected onto data from NHANES 1999-2010 and
+2015-2018 only because the intervening waves did not include CRP
+measurements. Walk speed was measured only in NHANES 1999-2002 and is
+available only for participants aged 50 and older. Grip strength was
+measured only in NHANES 2011-2014.
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Homeostatic Dysregulation
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.77em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Log Homeostatic Dysregulation
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: center;">
+
+b (95% CI)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Full Sample
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.25 (0.23, 0.27)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.2, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.14, 0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.17, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.23 (0.21, 0.24)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.23 (0.22, 0.24)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.1, 0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.15, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.07, 0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.13, 0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.1, 0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.11, 0.14)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.18, 0.24)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.05, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.12, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.12, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.14, 0.2)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.02 (0.01, 0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Gender
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Men
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.23 (0.2, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.2, 0.23)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.15, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.17, 0.2)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.2, 0.23)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.2, 0.24)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.08, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.13, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.09 (0.07, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.1, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.09 (0.07, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.1 (0.08, 0.13)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.12, 0.2)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.04, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.07, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.08, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.1, 0.18)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0 (-0.02, 0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Women
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.28 (0.25, 0.31)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.2, 0.23)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.12, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.15, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.24 (0.22, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.24 (0.23, 0.26)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.09, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.19 (0.17, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.07 (0.05, 0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.14, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.12, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.13, 0.19)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.27 (0.22, 0.31)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.04, 0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.19 (0.14, 0.23)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.13, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.16, 0.26)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.04 (0.01, 0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Race
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+White
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.3 (0.27, 0.33)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.27 (0.25, 0.28)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.14, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.25 (0.23, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.24 (0.23, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.24 (0.23, 0.26)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.11, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.2 (0.18, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.06, 0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.15, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.11, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.11, 0.16)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.24 (0.21, 0.28)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.1 (0.07, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.15, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.11, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.12, 0.2)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+-0.03 (-0.06, 0)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Black
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.13, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.14, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.13, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.14, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.2 (0.17, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.18, 0.24)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0, 0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.1, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.07 (0.04, 0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.08, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.07, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.07, 0.17)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.07, 0.2)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.01 (-0.06, 0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.1 (0.03, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.01, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.02, 0.2)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.01 (-0.03, 0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Other
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.11, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.13, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.1, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.11, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.15, 0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.15, 0.19)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.09, 0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.12, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.09 (0.06, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.09, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.1 (0.07, 0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.08, 0.15)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.09, 0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.02 (-0.04, 0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.03, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.06 (0.01, 0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.07 (0.01, 0.14)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.02 (-0.01, 0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Age
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Age 20-40
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.17, 0.25)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.19 (0.16, 0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.13, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.1, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.19 (0.16, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.13, 0.18)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.02 (-0.08, 0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.06, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.03 (-0.02, 0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.07 (0.02, 0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.06 (0, 0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.06 (0, 0.12)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.2 (0.16, 0.24)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Age 40-60
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.28 (0.25, 0.32)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.26 (0.24, 0.28)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.19 (0.17, 0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.2, 0.24)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.28 (0.26, 0.3)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.28 (0.26, 0.3)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.18 (0.09, 0.27)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.12, 0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.04, 0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.08, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.1, 0.2)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.12, 0.22)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.17, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.08, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.17 (0.13, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.17, 0.26)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.17, 0.26)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.01 (-0.03, 0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.77em; font-weight: 900; text-align: left;">
+
+Age 60-80
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.26 (0.22, 0.3)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.19, 0.23)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.13 (0.11, 0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.2 (0.18, 0.22)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.22 (0.2, 0.24)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.26 (0.24, 0.28)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.08, 0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.15 (0.14, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.07, 0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.12, 0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.11 (0.1, 0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.12 (0.1, 0.15)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.21 (0.17, 0.25)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.08 (0.05, 0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.1, 0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.14 (0.1, 0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; text-align: left;">
+
+0.16 (0.12, 0.2)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.02 (-0.05, 0.01)
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.77em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ``` r
 #pull sample sizes
 table2$n
 ```
 
-<img src="vignettes/table2.1.jpg"/>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<td colspan="7" style="text-align: left;">
+
+Table 2.1. Sample sizes for regression in Table 2. Coefficients are from
+linear regressions of healthspan-related characteristics on biological
+aging measures.
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Homeostatic Dysregulation
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Log Homeostatic Dysregulation
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center;">
+
+n
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Full Sample
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7886
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+31077
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+41211
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+30235
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+30235
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+30235
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2812
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14005
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18022
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13512
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13512
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13512
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3607
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3732
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3531
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3531
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3531
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9198
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Gender
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Men
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3974
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15213
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+20226
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14849
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14849
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14849
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1407
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6921
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+8906
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6715
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6715
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6715
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1795
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1870
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1768
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1768
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1768
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+4544
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Women
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3912
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15864
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+20985
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15386
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15386
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15386
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1405
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7084
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9116
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6797
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6797
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6797
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1812
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1862
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1763
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1763
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1763
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+4654
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Race
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+White
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3802
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14634
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18809
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14305
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14305
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14305
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1537
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7464
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9319
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7256
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7256
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7256
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2122
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2173
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2098
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2098
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2098
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3844
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Black
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1397
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+5938
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+8263
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+5732
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+5732
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+5732
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+501
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2486
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3396
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2356
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2356
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2356
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+547
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+583
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+525
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+525
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+525
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2069
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Other
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2687
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10505
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14139
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10198
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10198
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10198
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+774
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+4055
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+5307
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3900
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3900
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3900
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+938
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+976
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+908
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+908
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+908
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3285
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Age
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 20-40
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2864
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10445
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13791
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10161
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10161
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10161
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+298
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1337
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1750
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1286
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1286
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1286
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3284
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 40-60
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2830
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9866
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13196
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9630
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9630
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9630
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+497
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2180
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2897
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1017
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1040
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+991
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+991
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+991
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3103
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 60-80
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  health
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2192
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9916
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13346
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9661
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9661
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9661
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  adl
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2017
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9622
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12480
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9321
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9321
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9321
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  lnwalk
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2133
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2217
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2092
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+  grip_scaled
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+2811
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+\-
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ### Table 3. Associations of socioeconomic circumstances measures with measures of biological aging
 
@@ -174,14 +4068,2485 @@ table3 = table_ses(data,agevar,exposure = c("edu","annual_income","poverty_ratio
 table3$table
 ```
 
-<img src="vignettes/table3.jpg"/>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<td colspan="7" style="text-align: left;">
+
+Table 3. Associations of socioeconomic circumstances measures with
+measures of biological aging. Coefficients are from linear regressions
+of biological aging measures on measures of socioeconomic circumstances.
+KDM Biological Age and Levine Phenotypic Age measures were differenced
+from chronological age for analysis (i.e. values = BA-CA). These
+differenced values were then standardized to have M=0, SD=1 separately
+for men and women within the analysis sample. Socioeconomic
+circumstances measures were standardized to M=0, SD=1 for analysis so
+that effect-sizes are denominated in terms of a 1 SD unit improvement in
+socioeconomic circumstances. Models included covariates for
+chronological age and sex. The original KDM Biological Age algorithm
+(left-most column) was projected onto data from NHANES 2007-2010 only
+because other NHANES IV waves did not include spirometry measurements.
+The original Levine Phenotypic Age algorithm (second column from left)
+was projected onto data from NHANES 1999-2010 and 2015-2018 only because
+the intervening waves did not include CRP measurements.
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Homeostatic Dysregulation
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.69em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Log Homeostatic Dysregulation
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: center;">
+
+b (95% CI)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Full Sample
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.19 (-0.22, -0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.07, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.19, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.08, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.18 (-0.21, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.15, -0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.07, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Gender
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Men
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.21 (-0.24, -0.18)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.11, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.11, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.11, -0.09)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.16 (-0.19, -0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.11, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.08, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.12, -0.09)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.18 (-0.21, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.08, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.12, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Women
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.18 (-0.21, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.07, -0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.18 (-0.21, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.15, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.14, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.14, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.19 (-0.22, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.15 (-0.17, -0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.07, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.14, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Race
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+White
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.24 (-0.27, -0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.15, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.1, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.19, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.18 (-0.21, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.18, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.14, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.13, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.19 (-0.21, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.19, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.18, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Black
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.17, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.04 (-0.06, -0.01)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.07, -0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.11, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.11, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.08, -0.04)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.18, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.12, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.14, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.12, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.06)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.17, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.14, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.13, -0.09)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.11, -0.07)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Other
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.13, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.02 (-0.03, 0)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.07, -0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.07, -0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.13, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.03 (-0.05, -0.02)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.04 (-0.06, -0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.06)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.11 (-0.15, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.08, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.04 (-0.05, -0.02)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.06)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Age
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Age 20-40
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.18, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.09, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.02 (-0.04, -0.01)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.08, -0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.07, -0.04)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.06)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.12, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.06 (-0.08, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.01 (-0.02, 0)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.07, -0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.03 (-0.05, -0.02)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.06, -0.03)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.16, -0.1)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.11, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.01 (-0.02, 0)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.04 (-0.05, -0.02)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.04 (-0.05, -0.03)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.05 (-0.07, -0.04)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Age 40-60
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.2 (-0.24, -0.17)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.06)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.11, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.14, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.14, -0.11)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.19 (-0.23, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.15 (-0.17, -0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.08 (-0.1, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.16 (-0.18, -0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.13)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.15 (-0.17, -0.13)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.2 (-0.23, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.17 (-0.18, -0.15)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.08, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.15, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.13)
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.69em; font-weight: 900; text-align: left;">
+
+Age 60-80
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.24 (-0.28, -0.2)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.07 (-0.09, -0.05)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.11, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.09 (-0.11, -0.07)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.12 (-0.14, -0.1)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.24 (-0.29, -0.19)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.12, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.1 (-0.12, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.13 (-0.15, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.16 (-0.18, -0.14)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; text-align: left;">
+
+-0.14 (-0.16, -0.12)
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.25 (-0.3, -0.21)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.14 (-0.17, -0.12)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.1 (-0.12, -0.08)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.14 (-0.16, -0.11)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.18 (-0.2, -0.16)
+</td>
+
+<td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
+
+-0.16 (-0.18, -0.14)
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ``` r
 #pull sample sizes
 table3$n
 ```
 
-<img src="vignettes/table3.1.jpg"/>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+
+<thead>
+
+<tr>
+
+<td colspan="7" style="text-align: left;">
+
+Table 3.1: Sample sizes for regression in Table 3. Coefficients are from
+linear regressions of biological aging measures on measures of
+socioeconomic circumstances.
+</td>
+
+</tr>
+
+<tr>
+
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-KDM Biological Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Modified-Levine Phenotypic Age Advancement
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Homeostatic Dysregulation
+</th>
+
+<th style="font-weight: 900; width: 600px; font-size: 0.8em; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+
+Log Homeostatic Dysregulation
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center;">
+
+n
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Full Sample
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+8234
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+37526
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+48779
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+35910
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+35910
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+35910
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7553
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+34245
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+44598
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7553
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+34245
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+44598
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+32818
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Gender
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Men
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+4116
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18072
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+23536
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17384
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17384
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17384
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3785
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16563
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+21573
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3785
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16563
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+21573
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15948
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Women
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+4118
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+19454
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+25243
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18526
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18526
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+18526
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3768
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17682
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+23025
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3768
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17682
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+23025
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16870
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Race
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+White
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3937
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17297
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+21793
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16682
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16682
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16682
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3728
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16194
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+20452
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3728
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16194
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+20452
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15642
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Black
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1468
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+7218
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+9807
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6820
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6820
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6820
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1336
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6525
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+8886
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+1336
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6525
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+8886
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+6167
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Other
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2829
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13011
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+17179
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12408
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12408
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12408
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2489
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11526
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15260
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2489
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11526
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15260
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11009
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: center; border-top: 1px solid #BEBEBE;">
+
+Stratified by Age
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 20-40
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+3014
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12944
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+16712
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12350
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12350
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+12350
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2791
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11947
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15458
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2791
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11947
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15458
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11426
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 40-60
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2961
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11798
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15580
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11323
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11323
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11323
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2714
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10827
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14298
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2714
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10827
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+14298
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10402
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="7" style="width: 600px; font-size: 0.8em; font-weight: 900; text-align: left;">
+
+Age 60-80
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  edu
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2259
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11641
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+15302
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11193
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11193
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+11193
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+  annual_income
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+2048
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10447
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+13778
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10049
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10049
+</td>
+
+<td style="width: 600px; font-size: 0.8em; text-align: left;">
+
+10049
+</td>
+
+</tr>
+
+<tr>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+  poverty_ratio
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+2048
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+10447
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+13778
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+10049
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+10049
+</td>
+
+<td style="width: 600px; font-size: 0.8em; border-bottom: 2px solid grey; text-align: left;">
+
+10049
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 ## Step 3: Project biological aging measures onto new data
 
@@ -209,18 +6574,18 @@ website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interp
 #projecting HD into the CALERIE using NHANES III (separate training for gender)
 hd_fem = hd_calc(data = CALERIE %>%
                       filter(gender == 2)%>%
-                      mutate(lncrp = log(crp + 1)),
+                      mutate(lncrp = log(1+crp)),
                     reference = NHANES3_HDTrain %>%
                       filter(gender == 2)%>%
-                      mutate(lncrp = log(crp + 1)),
+                      mutate(lncrp = log(1+crp)),
                     biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 
 hd_male = hd_calc(data = CALERIE %>%
                        filter(gender == 1)%>%
-                       mutate(lncrp = log(crp + 1)),
+                       mutate(lncrp = log(1+crp)),
                      reference = NHANES3_HDTrain %>%
                        filter(gender == 1)%>%
-                       mutate(lncrp = log(crp + 1)),
+                       mutate(lncrp = log(1+crp)),
                      biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 
 #pull the HD dataset
@@ -236,13 +6601,13 @@ can project KDM bioage and phenoage into the CALERIE data by running
 ``` r
 #projecting KDM bioage into the CALERIE using NHANES III (separate training for gender)
 kdm_fem = kdm_calc(data = CALERIE %>%
-                        filter (gender ==2),
+                        filter (gender == 2),
                       biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
                    fit = kdm$fit$female,
                    s_ba2 = kdm$fit$female$s_ba2)
 
 kdm_male = kdm_calc(data = CALERIE %>%
-                         filter (gender ==1),
+                         filter (gender == 1),
                        biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"),
                    fit = kdm$fit$male,
                    s_ba2 = kdm$fit$male$s_ba2)
@@ -270,12 +6635,12 @@ newdata = left_join(CALERIE, hd_data[, c("sampleID", "hd", "hd_log")], by = "sam
 
 ``` r
 summary(newdata %>% filter(fu==0) %>% select(kdm, phenoage, hd, hd_log)) 
-#>       kdm           phenoage           hd             hd_log     
-#>  Min.   :22.42   Min.   :11.97   Min.   :0.8641   Min.   :2.097  
-#>  1st Qu.:31.83   1st Qu.:27.41   1st Qu.:2.2555   1st Qu.:4.695  
-#>  Median :38.77   Median :32.99   Median :2.7147   Median :5.229  
-#>  Mean   :37.53   Mean   :32.64   Mean   :2.9256   Mean   :5.324  
-#>  3rd Qu.:43.14   3rd Qu.:38.14   3rd Qu.:3.4509   3rd Qu.:6.023  
-#>  Max.   :50.68   Max.   :50.58   Max.   :7.9852   Max.   :8.797  
-#>  NA's   :1       NA's   :13      NA's   :13       NA's   :13
+#>       kdm            phenoage           hd             hd_log     
+#>  Min.   : 9.531   Min.   :11.97   Min.   :0.5029   Min.   :1.541  
+#>  1st Qu.:22.884   1st Qu.:27.41   1st Qu.:1.2687   1st Qu.:3.491  
+#>  Median :28.219   Median :32.99   Median :1.5369   Median :3.948  
+#>  Mean   :29.945   Mean   :32.64   Mean   :1.8475   Mean   :4.102  
+#>  3rd Qu.:35.768   3rd Qu.:38.14   3rd Qu.:2.0968   3rd Qu.:4.608  
+#>  Max.   :59.143   Max.   :50.58   Max.   :8.0333   Max.   :7.892  
+#>  NA's   :1        NA's   :13      NA's   :13       NA's   :13
 ```
