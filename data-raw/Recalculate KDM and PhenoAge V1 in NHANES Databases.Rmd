@@ -1,0 +1,96 @@
+# Import
+
+```{r}
+library(dplyr)
+library(here)
+library(BioAge)
+```
+
+# Load data
+
+```{r}
+load(here("data", "NHANES3.rda"))
+load(here("data", "NHANES4.rda"))
+```
+
+# Remove old bioage calculations
+
+```{r}
+NHANES3 <- NHANES3 %>%
+  select(
+    -kdm0,
+    -kdm_advance0,
+    -phenoage0,
+    -phenoage_advance0
+  )
+NHANES4 <- NHANES4 %>%
+  select(
+    -kdm0,
+    -kdm_advance0,
+    -phenoage0,
+    -phenoage_advance0
+  )
+```
+
+# Recalculate Bioage Values
+
+```{r}
+# Calculate KDM Bioage ----------------------------------------------------
+biomarkers=c("fev","sbp","totchol","hba1c","albumin","creat","lncrp","alp","bun")
+
+train_fem = kdm_calc(data = NHANES3 %>%
+                               filter(gender==2 & age>=30 & age<=75 & pregnant==0),
+                             biomarkers, fit = NULL, s_ba2 = NULL, n_allowed_missing_biomarkers = 0)
+train_male = kdm_calc(data = NHANES3 %>%
+                                filter(gender==1 & age>=30 & age<=75 & pregnant==0),
+                              biomarkers, fit = NULL, s_ba2 = NULL, n_allowed_missing_biomarkers = 0)
+
+test_fem = kdm_calc(data = NHANES4 %>%
+                              filter(gender==2),
+                            biomarkers, fit = train_fem$fit, s_ba2 = train_fem$fit$s_ba2, n_allowed_missing_biomarkers = 0)
+
+test_male = kdm_calc(data = NHANES4 %>%
+                               filter(gender==1),
+                             biomarkers, fit = train_male$fit, s_ba2 = train_male$fit$s_ba2, n_allowed_missing_biomarkers = 0)
+
+train = rbind(train_fem$data, train_male$data) %>%
+  rename(kdm0 = kdm,
+                kdm_advance0 = kdm_advance)
+
+test = rbind(test_fem$data, test_male$data) %>%
+  rename(kdm0 = kdm,
+                kdm_advance0 = kdm_advance)
+
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","kdm0","kdm_advance0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","kdm0","kdm_advance0")],by="sampleID")
+
+# Calculate Phenoage ------------------------------------------------------
+train = NHANES3 %>%
+  filter(age>=20 & age<=84 & phpfast>=8)
+
+xb = -19.90667+(-0.03359355*train$albumin_gL)+(0.009506491*train$creat_umol)+(0.1953192*train$glucose_mmol)+
+  (0.09536762*train$lncrp)+(-0.01199984*train$lymph)+(0.02676401*train$mcv)+(0.3306156*train$rdw)+
+  (0.001868778*train$alp)+(0.05542406*train$wbc)+(0.08035356*train$age)
+m = 1-(exp((-1.51714*exp(xb))/0.007692696))
+train$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+train$phenoage_advance0 <- train$phenoage0-train$age
+train$phenoage_residual0 <- residuals(lm(phenoage0 ~ age, data=train, na.action = "na.exclude"))
+
+test = NHANES4
+xb = -19.90667+(-0.03359355*test$albumin_gL)+(0.009506491*test$creat_umol)+(0.1953192*test$glucose_mmol)+
+  (0.09536762*test$lncrp)+(-0.01199984*test$lymph)+(0.02676401*test$mcv)+(0.3306156*test$rdw)+
+  (0.001868778*test$alp)+(0.05542406*test$wbc)+(0.08035356*test$age)
+m = 1-(exp((-1.51714*exp(xb))/0.007692696))
+test$phenoage0 = ((log(-.0055305*(log(1-m)))/.090165)+141.50225)
+test$phenoage_advance0 <- test$phenoage0-test$age
+
+NHANES3 <- left_join(NHANES3,train[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
+NHANES4 <- left_join(NHANES4,test[,c("sampleID","phenoage0","phenoage_advance0")],by="sampleID")
+```
+
+## Store updated datasets
+
+```{r}
+save(NHANES4, file = here("data", "NHANES4.rda"))
+save(NHANES3, file = here("data", "NHANES3.rda"))
+```
