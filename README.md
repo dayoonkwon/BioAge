@@ -209,18 +209,18 @@ website](http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interp
 #projecting HD into the CALERIE using NHANES III (separate training for gender)
 hd_fem = hd_calc(data = CALERIE %>%
                       filter(gender == 2)%>%
-                      mutate(lncrp = log(crp)),
+                      mutate(lncrp = log(crp + 1)),
                     reference = NHANES3_HDTrain %>%
                       filter(gender == 2)%>%
-                      mutate(lncrp = log(crp)),
+                      mutate(lncrp = log(crp + 1)),
                     biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 
 hd_male = hd_calc(data = CALERIE %>%
                        filter(gender == 1)%>%
-                       mutate(lncrp = log(crp)),
+                       mutate(lncrp = log(crp + 1)),
                      reference = NHANES3_HDTrain %>%
                        filter(gender == 1)%>%
-                       mutate(lncrp = log(crp)),
+                       mutate(lncrp = log(crp + 1)),
                      biomarkers=c("albumin","alp","lncrp","totchol","lncreat","hba1c","sbp","bun","uap","lymph","mcv","wbc"))
 
 #pull the HD dataset
