@@ -281,7 +281,7 @@ Full Sample
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
 
-1.46 (1.42, 1.51)
+1.47 (1.42, 1.51)
 </td>
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
@@ -377,7 +377,7 @@ Men
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
 
-1.43 (1.37, 1.49)
+1.44 (1.38, 1.5)
 </td>
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
@@ -560,7 +560,7 @@ White
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
 
-1.53 (1.47, 1.6)
+1.54 (1.47, 1.6)
 </td>
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
@@ -647,7 +647,7 @@ Black
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
 
-1.37 (1.28, 1.46)
+1.37 (1.28, 1.47)
 </td>
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
@@ -734,7 +734,7 @@ Other
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
 
-1.37 (1.28, 1.47)
+1.37 (1.28, 1.48)
 </td>
 
 <td style="width: 300px; font-size: .83em; text-align: left;">
@@ -830,7 +830,7 @@ Aged 65 and Younger
 
 <td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
 
-1.6 (1.52, 1.69)
+1.61 (1.52, 1.7)
 </td>
 
 <td style="width: 300px; font-size: .83em; border-bottom: 2px solid grey; text-align: left;">
@@ -1018,7 +1018,7 @@ Full Sample
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.17 (0.15, 0.18)
+0.17 (0.15, 0.19)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -1570,7 +1570,7 @@ White
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.24 (0.21, 0.28)
+0.25 (0.21, 0.28)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -1735,7 +1735,7 @@ Black
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.14 (0.07, 0.2)
+0.14 (0.07, 0.21)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -1996,7 +1996,7 @@ Age 20-40
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.19 (0.16, 0.21)
+0.19 (0.17, 0.21)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -2239,7 +2239,7 @@ Age 40-60
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.22 (0.17, 0.26)
+0.22 (0.17, 0.27)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -2365,7 +2365,7 @@ Age 60-80
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
 
-0.15 (0.14, 0.17)
+0.16 (0.14, 0.17)
 </td>
 
 <td style="width: 600px; font-size: 0.77em; text-align: left;">
@@ -4170,7 +4170,7 @@ Full Sample
 
 <td style="width: 600px; font-size: 0.69em; text-align: left;">
 
--0.08 (-0.09, -0.06)
+-0.07 (-0.08, -0.06)
 </td>
 
 <td style="width: 600px; font-size: 0.69em; text-align: left;">
@@ -4953,7 +4953,7 @@ Age 20-40
 
 <td style="width: 600px; font-size: 0.69em; text-align: left;">
 
--0.08 (-0.09, -0.07)
+-0.08 (-0.09, -0.06)
 </td>
 
 <td style="width: 600px; font-size: 0.69em; text-align: left;">
@@ -5283,7 +5283,7 @@ Age 60-80
 
 <td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
 
--0.14 (-0.17, -0.12)
+-0.14 (-0.16, -0.12)
 </td>
 
 <td style="width: 600px; font-size: 0.69em; border-bottom: 2px solid grey; text-align: left;">
@@ -6636,11 +6636,11 @@ newdata = left_join(CALERIE, hd_data[, c("sampleID", "hd", "hd_log")], by = "sam
 ``` r
 summary(newdata %>% filter(fu==0) %>% select(kdm, phenoage, hd, hd_log)) 
 #>       kdm            phenoage           hd             hd_log     
-#>  Min.   : 9.531   Min.   :11.97   Min.   :0.5029   Min.   :1.541  
-#>  1st Qu.:22.884   1st Qu.:27.41   1st Qu.:1.2687   1st Qu.:3.491  
-#>  Median :28.219   Median :32.99   Median :1.5369   Median :3.948  
-#>  Mean   :29.945   Mean   :32.64   Mean   :1.8475   Mean   :4.102  
-#>  3rd Qu.:35.768   3rd Qu.:38.14   3rd Qu.:2.0968   3rd Qu.:4.608  
-#>  Max.   :59.143   Max.   :50.58   Max.   :8.0333   Max.   :7.892  
+#>  Min.   : 9.531   Min.   :11.97   Min.   :0.4985   Min.   :1.544  
+#>  1st Qu.:22.884   1st Qu.:27.41   1st Qu.:1.2383   1st Qu.:3.428  
+#>  Median :28.219   Median :32.99   Median :1.5068   Median :3.862  
+#>  Mean   :29.945   Mean   :32.64   Mean   :1.8153   Mean   :4.040  
+#>  3rd Qu.:35.768   3rd Qu.:38.14   3rd Qu.:2.0561   3rd Qu.:4.555  
+#>  Max.   :59.143   Max.   :50.58   Max.   :7.9876   Max.   :7.797  
 #>  NA's   :1        NA's   :13      NA's   :13       NA's   :13
 ```
